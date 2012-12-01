@@ -19,7 +19,7 @@ p.tagline {
 #main {
   background: rgba(0, 0, 0, 0.7);
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(200, 255, 100, 0.5);
+  box-shadow: 0 0 20px rgba(153, 204, 50, 0.8);
   height: 220px;
   left: 50%;
   margin-left: -365px;
@@ -31,7 +31,14 @@ p.tagline {
   width: 650px;
 }
 #keyword {
-  font: 200 30px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0px;
+  border: 2px solid rgba(153, 204, 50, 0.30000000000000004);
+  box-shadow: inset 0 5px 2px black;
+  color: white;
+  font: 100 200% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 2px;
   padding: 10px 50px;
+  text-align: center;
   width: 70%;
 }
