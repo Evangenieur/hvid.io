@@ -1,8 +1,47 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@win-width: 650px;
+@win-height: 220px;
+@win-padding: 20px;
+
+* {
+    margin: 0;
+    padding: 0;
 }
 
-a {
-  color: #00B7FF;
+body {
+    background-size: cover;
+    background: black url(/images/background.jpg);
+    color: white;
+    font: 100%/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
 }
+
+h1 {
+    font: italic 100 80px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+p.tagline {
+    font: italic 16px Georgia, Times, serif;
+    margin-bottom: 20px;
+}
+
+#main {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(200, 255, 100, 0.5);
+    height: @win-height;
+    left: 50%;
+    margin-left: -((@win-width/2) + (@win-padding * 2));
+    margin-top: -((@win-height/2) + (@win-padding * 2));
+    overflow: hidden;
+    padding: @win-padding;
+    position: fixed;
+    top: 50%;
+    width: @win-width;
+}
+
+#keyword {
+    font: 200 30px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 10px 50px;
+    width: 70%;
+}
+

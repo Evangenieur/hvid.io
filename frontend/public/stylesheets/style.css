@@ -1,7 +1,37 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
 }
-a {
-  color: #00B7FF;
+body {
+  background-size: cover;
+  background: #000000 url(/images/background.jpg);
+  color: white;
+  font: 100%/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+h1 {
+  font: italic 100 80px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+p.tagline {
+  font: italic 16px Georgia, Times, serif;
+  margin-bottom: 20px;
+}
+#main {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(200, 255, 100, 0.5);
+  height: 220px;
+  left: 50%;
+  margin-left: -365px;
+  margin-top: -150px;
+  overflow: hidden;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  width: 650px;
+}
+#keyword {
+  font: 200 30px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 10px 50px;
+  width: 70%;
 }
