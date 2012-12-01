@@ -1,3 +1,6 @@
+videos_mockup = require "./videos_mockup.json"
+
+
 require('zappajs') ->
   @get "/": -> 
     @render "index"
@@ -8,7 +11,7 @@ require('zappajs') ->
       body ->
         div "#output", ""
       coffeescript ->
-        
+
         socket = io.connect()
         console.log socket
         socket.on "connect", ->
@@ -17,30 +20,35 @@ require('zappajs') ->
         socket.on "search_result", (res) ->
           console.log "RESULT for search #{res.search_term}", res.videos
 
+        class Search
+          instances = {}
+          constructor: (search_term) ->
+            if @constructor.name is "Search"
+              console.log "instance"
+              @search_term = search_term
+            else
+              console.log "instanciation"
+              instances[@search_term] or= new Search(search_term)
+            instances[@search_term] = @
+
+        console.log Search("coucou")
+        console.log new Search("test")
+
+
 
   @on "search": ->
-    mockup = [
-      {
-        id: "232313/2312312"
-        title: "Test title"
-        thumbnail: "http://www.youtube.com/watch?v=MZSN-MkehOQ&feature=g-logo"
-        provider: "youtube"
-        msgs: [
-          { 
-            text: "Tweet / Fb message"
-            post_date: "Thu Oct 21 16:02:46 +0000 2010"
-            username: "gnip"
-            avatar_url: "http:\/\/a3.twimg.com\/profile_images\/62803643\/icon_normal.png"
-          }
-        ]
-      }
-    ]
     console.log "search #{@data}"
-    setTimeout =>
+    count = 0
+    do chieur = => setTimeout =>
+      idx = Math.floor((Math.random()*videos_mockup.length ))
+      console.log "#{idx} / #{videos_mockup.length}"
+
       @emit search_result: 
         search_term: @data
         videos: [
-          mockup[0]
+          videos_mockup[idx]
         ]
+      if ++count <= 40
+        chieur()
     , Math.floor((Math.random()*10)+1) * 100
 
