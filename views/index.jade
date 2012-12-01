@@ -1,0 +1,53 @@
+extends layout
+
+block content
+    section#main
+        h1 
+            span #
+            | vid
+            span .io
+        p.tagline watch the work live
+
+        ul#hashtags
+            li
+                a(href='#') #angelhack
+            li
+                a(href='#') #sandy
+            li
+                a(href='#') #syria
+            li
+                a(href='#') #ump
+
+        form#form(onsubmit="return false")
+            input#keyword(name='keyword', placeholder='type any #hastag or keyword...', autocomplete='off')
+
+        div#results
+
+        div#loading
+
+    script#videosTemplate(type='text/template')
+        |  <ul id="video-list">
+        |  <% console.log(videos); _.each(videos, function(video) { console.log(videos); %>
+        |  <% include videoTemplate %>
+        |  <% }) %>
+        |  </ul>
+
+    script#videoTemplate(type='text/template')
+        |  <li class="video">
+        |      <div class="video-cell">
+        |          <div class="video-wrapper">
+        |              <img title="<%= video.title %>" src="<%= video.thumbnail %>">
+        |              <span class="overlay"></span>
+        |          </div>
+        |          <div class="video-meta">
+        |              <h5 title="<%= video.title %>"><%= video.title %></h5>
+        |              <ul>
+        |                  <li class="date">
+        |                       <time datetime="<%= video.date %>"><%= video.msgs[0].post_date %></time>
+        |                       <br> 
+        |                       from <a class="from" href="<%= video.url %>"><%= video.provider %></a>
+        |                   </li>
+        |              </li>
+        |          </div>
+        |      </div>
+        |  </li>
