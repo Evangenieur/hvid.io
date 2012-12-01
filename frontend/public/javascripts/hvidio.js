@@ -19,32 +19,45 @@ var hvidio;
             loader.setSpeed(1);
 
             $hashtags.on('click', 'a', function(e) {
-                e.preventDefault();
-
-                var keyword = $(this).text();
+                var keyword = $keyword.val();
 
                 $keyword.val(keyword);
                 $form.submit();
+                
+                e.preventDefault();
             });
 
             $('body').on('click', function(e) {
-                e.stopPropagation();
                 $main.fadeIn('fast');
+                
+                e.stopPropagation();
             });
 
             $main.on('click', function(e) {
-                e.stopPropagation();
-
                 $main.fadeOut('fast');
+
+                e.stopPropagation();
             });
 
             $form.on('submit', function(e) {
+                var keyword = $keyword.val();
+
+                hvidio.loading(true);
+                hvidio.getVideos(keyword, function(data) {
+                    console.log(data);
+                    hvidio.loading(false);
+                });
+
                 e.preventDefault();
             });
 
             $keyword.on('click', function(e) {
                 e.stopPropagation();
             });
+        },
+
+        getVideos: function(keyword, callback) {
+            $.getJSON('/fixtures.js?v=' + Math.random()*99999999, callback);
         },
 
         loading: function(bool) {
