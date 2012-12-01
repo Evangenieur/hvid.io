@@ -24,3 +24,24 @@ block content
         div#results
 
         div#loading
+
+    script#videosTemplate(type='text/html')
+        |  <ul id="video-list">
+        |  <% _.each(videos, function(video) { %>
+        |  <li class="video">
+        |      <div class="video-cell">
+        |          <div class="video-wrapper">
+        |              <img title="<%= video.name %>" src="<%= video.path %>">
+        |              <span class="overlay"></span>
+        |          </div>
+        |          <div class="video-meta">
+        |              <h5 title="<%= video.name %>"><%= video.name %></h5>
+        |              <ul>
+        |                  <li class="by">by <a href="#">Somebody</a></li>
+        |                  <li class="date"><time datetime="<%= video.date %>"><%= video.date %></time> from <a class="from" href="<%= video.url %>"><%= video.from %></a></li>
+        |              </li>
+        |          </div>
+        |      </div>
+        |  </li>
+        |  <% }) %>
+        |  </ul>

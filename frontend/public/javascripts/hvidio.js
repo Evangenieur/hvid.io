@@ -42,11 +42,16 @@ var hvidio;
             $form.on('submit', function(e) {
                 var keyword = $keyword.val();
 
-                hvidio.loading(true);
-                hvidio.getVideos(keyword, function(data) {
-                    console.log(data);
-                    hvidio.loading(false);
-                });
+                if (keyword) {
+                    hvidio.loading(true);
+                    hvidio.search(keyword, function(data) {
+
+                        $main.addClass('large');
+                        hvidio.templatize('#videosTemplate', { videos: data }, '#results');
+
+                        hvidio.loading(false);
+                    });
+                }
 
                 e.preventDefault();
             });
@@ -56,8 +61,25 @@ var hvidio;
             });
         },
 
-        getVideos: function(keyword, callback) {
-            $.getJSON('/fixtures.js?v=' + Math.random()*99999999, callback);
+        search: function(keyword, callback) {
+            $.getJSON('/fixtures.js?v=2' + Math.random()*99999999, callback);
+        },
+
+        templatize: function(template, data, output) {
+            var tmpl  = $(template).html(),
+                html = _.template(tmpl, data );
+
+            $(output).html(html);
+
+            return html;
+        },
+
+        templatizeFile: function(template, data, output) {
+            $.get('/templates/'+template, function(tmpl) {
+                html = _.template(tmpl, data );
+
+                $(output).html(html);
+            });
         },
 
         loading: function(bool) {

@@ -28,6 +28,7 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: @color-main;
 }
+
 a:hover {
     color: lighten(@color-main, 20);
 }
@@ -44,6 +45,48 @@ p.tagline {
     font: italic 16px Georgia, Times, serif;
     margin-bottom: 20px;
     color: #DDD;
+}
+
+#main {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 20px fadeout(@color-main, 20);
+    height: @win-height;
+    left: 50%;
+    margin-left: -((@win-width/2) + (@win-padding * 2));
+    margin-top: -((@win-height/2) + (@win-padding * 2));
+    overflow: hidden;
+    padding: @win-padding;
+    position: fixed;
+    top: 50%;
+    width: @win-width;
+
+    &.large {
+        left: 5%;
+        width: 85%;
+        margin: 0;
+        padding: 2.5%;
+        top: 5%;
+        height: 82%;
+    }
+}
+
+#keyword {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0px;
+    border: 2px solid fadeout(@color-main, 70);
+    box-shadow: inset 0 5px 2px black;
+    color: white;
+    font: 100 200% "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 2px;
+    padding: 10px 50px;
+    text-align: center;
+    width: 70%;
+
+    &:focus {
+        outline: none;
+        border: 2px solid fadeout(@color-main, 40);
+    }
 }
 
 #hashtags {
@@ -69,48 +112,15 @@ p.tagline {
     }
 }
 
+#results {
+    margin-top: 20px;
+}
+
 #loading {
     position: absolute;
     top: 20px;
     left: 20px;
     width: 32px;
     height: 32px;
-}
-
-#results {
-    margin-top: 20px;
-}
-
-#main {
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 20px;
-    box-shadow: 0 0 20px fadeout(@color-main, 20);
-    height: @win-height;
-    left: 50%;
-    margin-left: -((@win-width/2) + (@win-padding * 2));
-    margin-top: -((@win-height/2) + (@win-padding * 2));
-    overflow: hidden;
-    padding: @win-padding;
-    position: fixed;
-    top: 50%;
-    width: @win-width;
-}
-
-#keyword {
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 0px;
-    border: 2px solid fadeout(@color-main, 70);
-    box-shadow: inset 0 5px 2px black;
-    color: white;
-    font: 100 200% "Helvetica Neue", Helvetica, Arial, sans-serif;
-    letter-spacing: 2px;
-    padding: 10px 50px;
-    text-align: center;
-    width: 70%;
-
-    &:focus {
-        outline: none;
-        border: 2px solid fadeout(@color-main, 40);
-    }
 }
 
