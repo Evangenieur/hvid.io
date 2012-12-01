@@ -1,5 +1,5 @@
 _ = require "underscore"
-#child_launcher = require "child_launcher"
+child_launcher = require "./lib/child_launcher"
 
 videos_mockup = require "./backend/videos_mockup.json"
 for i in [0..8]
@@ -36,16 +36,25 @@ require('zappajs') ->
             .on("video.update", -> console.log "updated video ", @)
   ###
   @on "search": ->
-    ###
+
     console.log "search #{@data}"
-    child_launcher "twitter_search_worker.coffee", (video) =>
-      @emit search_result: 
-        search_term: @data
-        videos: [
-          video
-        ]
-     return
-     ###
+    child_launcher "./workers/twitter_search_worker.coffee", 
+      search: @data
+      (video) =>
+        @emit search_result: 
+          search_term: @data
+          videos: [
+            video
+          ]
+    child_launcher "./workers/facebook_search_worker.coffee", 
+      search: @data
+      (video) =>
+        @emit search_result: 
+          search_term: @data
+          videos: [
+            video
+          ]
+    return
 
     count = 0
     do chieur = => setTimeout =>
