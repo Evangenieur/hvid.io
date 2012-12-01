@@ -2,14 +2,13 @@ process.send = (msg) ->
   process.stdout.write JSON.stringify(msg) + "\n"
 
 request = require "request"
-global._ = require "underscore"
-global.Q = require "q"
 argv = require("optimist").argv
+_ = require "underscore"
 video_platforms = require "../lib/video_platforms"
 
 video_search = (search, opts = {}) ->
   _(opts).defaults
-    locale: "en_US"
+    locale: "fr_FR" #"en_US"
 
   opts_str = ""
   for k, v of opts

@@ -91,22 +91,22 @@
 
         fetch: function(keyword, callback) {
             Search(keyword).when(20, function() {
-                callback(this.videos_by_posts())
+                /*callback(this.videos_by_posts())*/
                     callback(
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
                             video.id = video.id.replace('/', '-', video.id);
     
                             return video;
-                        });
-                    )
+                        })
+                    );
             }).on("video.new", function() {
                 var html = hvidio.templatize('#videoTemplate', { video: this });
                 $list.prepend($(html).hide().fadeIn());
 
-                return console.log("new video", this);
+                console.log("new video", this);
             }).on("video.update", function() {
-                return console.log("updated video ", this);
+                console.log("updated video ", this);
             });
         },
 

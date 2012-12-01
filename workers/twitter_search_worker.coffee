@@ -2,10 +2,11 @@ process.send = (msg) ->
   process.stdout.write JSON.stringify(msg) + "\n"
 
 ntwitter = require 'ntwitter'
-global._ = require "underscore"
-global.Q = require "q"
 argv = require("optimist").argv
 video_platforms = require "../lib/video_platforms"
+_ = require "underscore"
+
+
 
 tc = new ntwitter
 

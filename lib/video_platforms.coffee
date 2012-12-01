@@ -1,5 +1,7 @@
 URI = require "../public/vendors/URI.pattern-templating"
 http = require "http"
+Q = require "q"
+_ = require "underscore"
 cheerio = require "cheerio"
 request = require "request"
 
