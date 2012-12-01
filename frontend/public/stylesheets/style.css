@@ -12,6 +12,9 @@ body {
 h1 {
   font: italic 100 80px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+h1 span {
+  color: #99cc32;
+}
 p.tagline {
   font: italic 16px Georgia, Times, serif;
   margin-bottom: 20px;
