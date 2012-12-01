@@ -8,8 +8,8 @@ body {
   height: 100%;
 }
 body {
-  background-size: cover;
   background: #000000 url(/images/background.jpg);
+  background-size: cover;
   color: white;
   font: 100%/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
@@ -69,6 +69,10 @@ p.tagline {
   text-align: center;
   width: 70%;
 }
+#main.large #keyword {
+  font: 100 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 400px;
+}
 #keyword:focus {
   outline: none;
   border: 2px solid rgba(153, 204, 50, 0.6);
@@ -110,7 +114,7 @@ p.tagline {
   width: 98%;
 }
 #results .video {
-  float: left;
+  display: inline-block;
   margin: 10px 1%;
   min-height: 200px;
 }
@@ -124,7 +128,7 @@ p.tagline {
   width: 100%;
   height: 100%;
   opacity: 0.8;
-  background: transparent url(../img/play-tiny.png) no-repeat center center;
+  background: transparent url(/images/play-tiny.png) no-repeat center center;
 }
 #results .video.nowPlaying .overlay {
   background-image: none;
@@ -147,7 +151,6 @@ p.tagline {
   color: #FFF;
   text-shadow: 0px 1px 1px black;
   margin-top: 10px;
-  border: 1px solid transparent;
 }
 #results .video .video-cell .video-meta h5 {
   font-weight: bold;
@@ -173,6 +176,5 @@ p.tagline {
   width: 150px;
   height: 100px;
   border: 1px solid white;
-  width: auto;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
 }

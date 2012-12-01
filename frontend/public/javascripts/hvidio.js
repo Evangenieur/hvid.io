@@ -62,7 +62,7 @@ var hvidio;
         },
 
         search: function(keyword, callback) {
-            $.getJSON('/fixtures.js?v=2' + Math.random()*99999999, callback);
+            $.getJSON('/fixtures.js?' + new Date().getTime(), callback);
         },
 
         templatize: function(template, data, output) {
@@ -71,15 +71,9 @@ var hvidio;
 
             $(output).html(html);
 
+            hvidio.fadeImg();
+
             return html;
-        },
-
-        templatizeFile: function(template, data, output) {
-            $.get('/templates/'+template, function(tmpl) {
-                html = _.template(tmpl, data );
-
-                $(output).html(html);
-            });
         },
 
         loading: function(bool) {
@@ -88,6 +82,14 @@ var hvidio;
             } else {
                 loader.hide();
             }
+        },
+
+        fadeImg: function(html) {
+            $('#results img').each(function() {
+                $(this).on('load', function () { 
+                    $(this).css('visibility','visible').hide().fadeIn('slow'); 
+                });
+            });
         }
     }
 })();
