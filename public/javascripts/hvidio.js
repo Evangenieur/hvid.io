@@ -57,25 +57,7 @@
             $form.on('submit', function(e) {
                 var keyword = $keyword.val();
 
-                if (keyword) {
-                    hvidio.loading(true);
-
-                    hvidio.search(keyword, function(data) {
-                        $main.addClass('large');
-
-                        hvidio.templatize('#videosTemplate', { videos: data }, '#results');
-                        
-                        hvidio.loading(false);
-                        
-                        if (scroll) {
-                            scroll.refresh();
-                        } else {
-                            scroll = new iScroll('results', {
-                                scrollbarClass: 'myScrollbar',
-                            });
-                        }
-                    });
-                }
+                hvidio.search(keyword);
 
                 e.preventDefault();
                 return false;
@@ -84,7 +66,29 @@
             return this;
         },
 
-        search: function(keyword, callback) {
+        search: function(keyword) {
+            if (keyword) {
+                hvidio.loading(true);
+
+                hvidio.fetch(keyword, function(data) {
+                    $main.addClass('large');
+
+                    hvidio.templatize('#videosTemplate', { videos: data }, '#results');
+                    
+                    hvidio.loading(false);
+                    
+                    if (scroll) {
+                        scroll.refresh();
+                    } else {
+                        scroll = new iScroll('results', {
+                            scrollbarClass: 'myScrollbar',
+                        });
+                    }
+                });
+            }
+        },
+
+        fetch: function(keyword, callback) {
             Search(keyword).when(20, function() {
                 callback(this.videos_by_posts())
                     // callback(
