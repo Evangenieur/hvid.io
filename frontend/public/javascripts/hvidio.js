@@ -1,5 +1,3 @@
-var hvidio;
-
 (function() {
     var loader,
         $main = $('#main'),
@@ -8,7 +6,7 @@ var hvidio;
         $results = $('#results'),
         $hashtags = $('#hashtags');
 
-    hvidio = {
+    window.hvidio = {
 
         init: function() {
             loader = new CanvasLoader('loading');
@@ -59,22 +57,42 @@ var hvidio;
             $keyword.on('click', function(e) {
                 e.stopPropagation();
             });
+
+            return this;
         },
 
         search: function(keyword, callback) {
+
             var socket = io.connect("http://localhost:3002");
 
              socket.on("connect", function() {
                 Search.com_init(socket);
 
                 Search(keyword).when(20, function() {
-                    return console.log(this.videos_by_posts());
+                    var results = this.videos_by_posts();
+
+                    if (results.length) {
+                        $main.addClass('large');
+                        
+                        hvidio
+                        .loading(false)
+                        .templatize(
+                            '#videosTemplate', 
+                            { videos: results }, 
+                            '#results'
+                        );
+                    } else {
+                        alert('No result');
+                    }
+
                 }).on("video.new", function() {
-                    return console.log("new video ", this);
+                    //console.log("new video ", this);
                 }).on("video.update", function() {
-                    return console.log("updated video ", this);
+                    //console.log("updated video ", this);
                 });
              });
+
+            return this;
         },
 
         templatize: function(template, data, output) {
@@ -94,6 +112,8 @@ var hvidio;
             } else {
                 loader.hide();
             }
+
+            return this;
         },
 
         fadeImg: function(html) {
@@ -104,8 +124,24 @@ var hvidio;
                     $(this).css('visibility','visible').hide().fadeIn('slow'); 
                 });
             });
+
+            return this;
         }
     }
+
+   var _underscore_template = _.template;
+    _.template = function(str, data) {
+        return _underscore_template(
+            str.replace(
+                /<%\s*include\s*(.*?)\s*%>/g,
+                function(match, templateId) {
+                    var el = $('#' + templateId);
+                    return el ? el.html() : '';
+                }
+            ),
+            data
+        );
+    };
 })();
 
 $(function() {
