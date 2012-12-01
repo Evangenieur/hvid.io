@@ -61,8 +61,6 @@ p.tagline {
   width: 85%;
   margin: 0;
   padding: 1.5%;
-  top: 5%;
-  height: 82%;
 }
 #keyword {
   background: rgba(0, 0, 0, 0.5);
@@ -184,4 +182,28 @@ p.tagline {
   height: 100px;
   border: 1px solid white;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+}
+@media only screen and (min-height: 600px) {
+  #main.large {
+    margin-top: -215px;
+    height: 370px;
+  }
+}
+@media only screen and (min-height: 800px) {
+  #main.large {
+    margin-top: -325px;
+    height: 590px;
+  }
+}
+@media only screen and (min-height: 1000px) {
+  #main.large {
+    margin-top: -435px;
+    height: 810px;
+  }
+}
+@media only screen and (min-height: 1200px) {
+  #main.large {
+    margin-top: -545px;
+    height: 1030px;
+  }
 }

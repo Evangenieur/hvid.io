@@ -7,6 +7,8 @@
 
 @color-main: #99CC32;
 
+@cell-height: 200px;
+
 * {
     margin: 0;
     padding: 0;
@@ -76,8 +78,6 @@ p.tagline {
         width: 85%;
         margin: 0;
         padding: 1.5%;
-        top: 5%;
-        height: 82%;
     }
 }
 
@@ -148,7 +148,7 @@ p.tagline {
     .video {
         display: inline-block;
         margin: 10px 1%;
-        min-height: 200px;
+        min-height: @cell-height;
 
         .video-wrapper {
             position: relative;
@@ -224,6 +224,34 @@ p.tagline {
                 box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
             }
         }
+    }
+}
+
+@media only screen and (min-height : 600px) {
+    #main.large {
+        margin-top: -(370px/2) - 30px;
+        height: 370px;
+    }
+}
+
+@media only screen and (min-height : 800px) {
+    #main.large {
+        margin-top: -(590px/2) - 30px;
+        height: 590px;
+    }
+}
+
+@media only screen and (min-height : 1000px) {
+    #main.large {
+        margin-top: -(810px/2) - 30px;
+        height: 810px;
+    }
+}
+
+@media only screen and (min-height : 1200px) {
+    #main.large {
+        margin-top: -(1030px/2) - 30px;
+        height: 1030px;
     }
 }
 
