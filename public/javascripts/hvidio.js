@@ -62,7 +62,19 @@ var hvidio;
         },
 
         search: function(keyword, callback) {
-            $.getJSON('/fixtures.js?' + new Date().getTime(), callback);
+            Search("test").when(20, function() {
+              callback(
+                _(this.videos_by_posts()).map(function(video) {
+                    video.msg = video.msgs[0]
+                    return video;
+                })
+              );
+            }).on("video.new", function() {
+              return console.log("new video ", this);
+            }).on("video.update", function() {
+              return console.log("updated video ", this);
+             });
+            /*$.getJSON('/fixtures.js?' + new Date().getTime(), callback);*/
         },
 
         templatize: function(template, data, output) {
@@ -95,5 +107,12 @@ var hvidio;
 })();
 
 $(function() {
+  var socket = io.connect();
+  socket.on("connect", function() {
+    console.log("CONNECTION");
+    Search.com_init(socket);
+  });
+
     hvidio.init(); 
+
 })

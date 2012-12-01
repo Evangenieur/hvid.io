@@ -27,18 +27,18 @@ block content
 
     script#videosTemplate(type='text/html')
         |  <ul id="video-list">
-        |  <% _.each(videos, function(video) { %>
+        |  <% _.each(videos, function(video) { console.log(video); %>
         |  <li class="video">
         |      <div class="video-cell">
         |          <div class="video-wrapper">
-        |              <img title="<%= video.name %>" src="<%= video.path %>">
+        |              <img title="<%= video.title %>" src="<%= video.thumbnail %>">
         |              <span class="overlay"></span>
         |          </div>
         |          <div class="video-meta">
-        |              <h5 title="<%= video.name %>"><%= video.name %></h5>
+        |              <h5 title="<%= video.title %>"><%= video.title %></h5>
         |              <ul>
         |                  <li class="by">by <a href="#">Somebody</a></li>
-        |                  <li class="date"><time datetime="<%= video.date %>"><%= video.date %></time> from <a class="from" href="<%= video.url %>"><%= video.from %></a></li>
+        |                  <li class="date"><time datetime="<%= video.msg.post_date %>"><%= video.msg.post_date %></time> from <a class="from" href="<%= video.url %>"><%= video.msg.username %></a></li>
         |              </li>
         |          </div>
         |      </div>

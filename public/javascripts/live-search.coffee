@@ -4,7 +4,7 @@ window.Search = class Search
     if @constructor.name is "Search"
       console.log "instance"
       @search_term = search_term
-      socket.emit "search", @search_term
+      Search.socket.emit "search", @search_term
       @videos = {}
       @events or= []
       instances[@search_term] = @
@@ -54,10 +54,12 @@ window.Search = class Search
       @events.push event
     @
 
-  @com_init: ->
+  @com_init: (socket) ->
     console.log "handling init"
     socket.on "search_result", (res) =>
       @get(res.search_term)?.video_reduce video for video in res.videos
+
+    Search.socket = socket
 
   @get: (search_term) -> instances[search_term]
 
