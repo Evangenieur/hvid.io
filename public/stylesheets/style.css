@@ -30,10 +30,17 @@ h1 {
 h1 span {
   color: #99cc32;
 }
+.large h1 {
+  font-size: 50px;
+  font-weight: 200;
+}
 p.tagline {
   font: italic 16px Georgia, Times, serif;
   margin-bottom: 20px;
   color: #DDD;
+}
+.large p.tagline {
+  font-size: 13px;
 }
 #main {
   background: rgba(0, 0, 0, 0.7);
@@ -53,9 +60,7 @@ p.tagline {
   left: 5%;
   width: 85%;
   margin: 0;
-  padding: 2.5%;
-  top: 5%;
-  height: 82%;
+  padding: 1.5%;
 }
 #keyword {
   background: rgba(0, 0, 0, 0.5);
@@ -69,7 +74,7 @@ p.tagline {
   text-align: center;
   width: 70%;
 }
-#main.large #keyword {
+.large #keyword {
   font: 100 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 400px;
 }
@@ -100,7 +105,7 @@ p.tagline {
 #loading {
   position: absolute;
   top: 20px;
-  left: 20px;
+  right: 20px;
   width: 32px;
   height: 32px;
 }
@@ -109,7 +114,6 @@ p.tagline {
   overflow: hidden;
 }
 #results #video-list {
-  overflow: hidden;
   margin: 0 1%;
   width: 98%;
 }
@@ -177,4 +181,28 @@ p.tagline {
   height: 100px;
   border: 1px solid white;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+}
+@media only screen and (min-height: 600px) {
+  #main.large {
+    margin-top: -310px;
+    height: 580px;
+  }
+}
+@media only screen and (min-height: 800px) {
+  #main.large {
+    margin-top: -420px;
+    height: 800px;
+  }
+}
+@media only screen and (min-height: 1000px) {
+  #main.large {
+    margin-top: -530px;
+    height: 1020px;
+  }
+}
+@media only screen and (min-height: 1200px) {
+  #main.large {
+    margin-top: -640px;
+    height: 1240px;
+  }
 }

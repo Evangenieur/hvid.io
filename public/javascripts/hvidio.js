@@ -1,5 +1,3 @@
-var hvidio;
-
 (function() {
     var loader,
         $main = $('#main'),
@@ -8,7 +6,7 @@ var hvidio;
         $results = $('#results'),
         $hashtags = $('#hashtags');
 
-    hvidio = {
+    window.hvidio = {
 
         init: function() {
             loader = new CanvasLoader('loading');
@@ -47,6 +45,7 @@ var hvidio;
                     hvidio.search(keyword, function(data) {
 
                         $main.addClass('large');
+
                         hvidio.templatize('#videosTemplate', { videos: data }, '#results');
 
                         hvidio.loading(false);
@@ -54,15 +53,18 @@ var hvidio;
                 }
 
                 e.preventDefault();
+                return false;
             });
 
             $keyword.on('click', function(e) {
                 e.stopPropagation();
             });
+
+            return this;
         },
 
         search: function(keyword, callback) {
-            Search("test").when(20, function() {
+            Search(keyword).when(20, function() {
               callback(
                 _(this.videos_by_posts()).map(function(video) {
                     video.msg = video.msgs[0]
@@ -102,6 +104,8 @@ var hvidio;
                     $(this).css('visibility','visible').hide().fadeIn('slow'); 
                 });
             });
+
+            return this;
         }
     }
 })();

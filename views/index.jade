@@ -18,16 +18,21 @@ block content
             li
                 a(href='#') #ump
 
-        form#form
+        form#form(onsubmit="return false")
             input#keyword(name='keyword', placeholder='type any #hastag or keyword...', autocomplete='off')
 
         div#results
 
         div#loading
 
-    script#videosTemplate(type='text/html')
+    script#videosTemplate(type='text/template')
         |  <ul id="video-list">
-        |  <% _.each(videos, function(video) { console.log(video); %>
+        |  <% console.log(videos); _.each(videos, function(video) { console.log(videos); %>
+        |  <% include videoTemplate %>
+        |  <% }) %>
+        |  </ul>
+
+    script#videoTemplate(type='text/template')
         |  <li class="video">
         |      <div class="video-cell">
         |          <div class="video-wrapper">
@@ -35,13 +40,14 @@ block content
         |              <span class="overlay"></span>
         |          </div>
         |          <div class="video-meta">
-        |              <h5 title="<%= video.title %>"><%= video.title %></h5>
+        |              <h5 title="<%= video.title %>"></h5>
         |              <ul>
-        |                  <li class="by">by <a href="#">Somebody</a></li>
-        |                  <li class="date"><time datetime="<%= video.msg.post_date %>"><%= video.msg.post_date %></time> from <a class="from" href="<%= video.url %>"><%= video.msg.username %></a></li>
+        |                  <li class="date">
+        |                       <time datetime="<%= video.msgs[0].post_date %>"><%= video.msgs[0].post_date %></time>
+        |                       from 
+        |                       <a class="from" href="<%= video.url %>"><%= video.provider %></a>
+        |                   </li>
         |              </li>
         |          </div>
         |      </div>
         |  </li>
-        |  <% }) %>
-        |  </ul>
