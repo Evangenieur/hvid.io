@@ -18,6 +18,7 @@ h1 span {
 p.tagline {
   font: italic 16px Georgia, Times, serif;
   margin-bottom: 20px;
+  color: #DDD;
 }
 #main {
   background: rgba(0, 0, 0, 0.7);
