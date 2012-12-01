@@ -107,21 +107,5 @@
 
   })();
 
-  socket = io.connect();
-
-  console.log(socket);
-
-  socket.on("connect", function() {
-    console.log("CONNECTION");
-    return Search.com_init();
-  });
-
-  Search("coucou").when(20, function() {
-    return console.log(this.videos_by_posts());
-  }).on("video.new", function() {
-    return console.log("new video ", this);
-  }).on("video.update", function() {
-    return console.log("updated video ", this);
-  });
 
 }).call(this);

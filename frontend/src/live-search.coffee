@@ -61,14 +61,3 @@ window.Search = class Search
 
   @get: (search_term) -> instances[search_term]
 
-socket = io.connect()
-console.log socket
-socket.on "connect", ->
-  console.log "CONNECTION"
-  Search.com_init()
-
-
-Search("coucou")
-  .when(20, -> console.log @videos_by_posts())
-  .on("video.new", -> console.log "new video ", @)
-  .on("video.update", -> console.log "updated video ", @)

@@ -1,39 +1,36 @@
-videos_mockup = require "./videos_mockup.json"
+_ = require "underscore"
 
+videos_mockup = require "./videos_mockup.json"
+for i in [0..8]
+  for video in videos_mockup[0..3]
+    new_video = _(video).clone()
+    new_video.id += i
+    videos_mockup.push new_video
 
 require('zappajs') ->
+  @use "static"
+
   @get "/": -> 
     @render "index"
 
   @view "index": ->
     html ->
       script src: "/socket.io/socket.io.js"
+      script src: "/vendors/underscore.min.js"
       body ->
         div "#output", ""
       coffeescript ->
-
         socket = io.connect()
         console.log socket
         socket.on "connect", ->
           console.log "CONNECTION"
-          socket.emit "search", "metallica"
-        socket.on "search_result", (res) ->
-          console.log "RESULT for search #{res.search_term}", res.videos
+          Search.com_init()
 
-        class Search
-          instances = {}
-          constructor: (search_term) ->
-            if @constructor.name is "Search"
-              console.log "instance"
-              @search_term = search_term
-            else
-              console.log "instanciation"
-              instances[@search_term] or= new Search(search_term)
-            instances[@search_term] = @
 
-        console.log Search("coucou")
-        console.log new Search("test")
-
+        Search("coucou")
+          .when(20, -> console.log @videos_by_posts())
+          .on("video.new", -> console.log "new video ", @)
+          .on("video.update", -> console.log "updated video ", @)
 
 
   @on "search": ->
@@ -50,5 +47,5 @@ require('zappajs') ->
         ]
       if ++count <= 40
         chieur()
-    , Math.floor((Math.random()*10)+1) * 100
+    , Math.floor((Math.random()*10)+1) * 10
 
