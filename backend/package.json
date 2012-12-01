@@ -1,7 +1,7 @@
 {
   "name": "hvid.io",
   "version": "0.0.0-4",
-  "description": "RealTime Video Search Twitter / Facebook / GooglePlus",
+  "description": "Wtach the world live - RealTime Video Search Twitter / Facebook / Google+",
   "main": "video_seach_server.coffee",
   "scripts": {
     "start": "coffee video_search_server.coffee"
