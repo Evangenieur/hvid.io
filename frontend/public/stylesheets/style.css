@@ -114,7 +114,6 @@ p.tagline {
   overflow: hidden;
 }
 #results #video-list {
-  overflow: hidden;
   margin: 0 1%;
   width: 98%;
 }
@@ -185,25 +184,25 @@ p.tagline {
 }
 @media only screen and (min-height: 600px) {
   #main.large {
-    margin-top: -215px;
-    height: 370px;
+    margin-top: -310px;
+    height: 580px;
   }
 }
 @media only screen and (min-height: 800px) {
   #main.large {
-    margin-top: -325px;
-    height: 590px;
+    margin-top: -420px;
+    height: 800px;
   }
 }
 @media only screen and (min-height: 1000px) {
   #main.large {
-    margin-top: -435px;
-    height: 810px;
+    margin-top: -530px;
+    height: 1020px;
   }
 }
 @media only screen and (min-height: 1200px) {
   #main.large {
-    margin-top: -545px;
-    height: 1030px;
+    margin-top: -640px;
+    height: 1240px;
   }
 }
