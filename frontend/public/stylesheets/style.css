@@ -30,10 +30,17 @@ h1 {
 h1 span {
   color: #99cc32;
 }
+.large h1 {
+  font-size: 50px;
+  font-weight: 200;
+}
 p.tagline {
   font: italic 16px Georgia, Times, serif;
   margin-bottom: 20px;
   color: #DDD;
+}
+.large p.tagline {
+  font-size: 13px;
 }
 #main {
   background: rgba(0, 0, 0, 0.7);
@@ -53,7 +60,7 @@ p.tagline {
   left: 5%;
   width: 85%;
   margin: 0;
-  padding: 2.5%;
+  padding: 1.5%;
   top: 5%;
   height: 82%;
 }
@@ -69,7 +76,7 @@ p.tagline {
   text-align: center;
   width: 70%;
 }
-#main.large #keyword {
+.large #keyword {
   font: 100 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 400px;
 }
