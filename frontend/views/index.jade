@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    section#main
+        h1 hvid.io
+        p.tagline watch the work live
+
+        form#form
+            input#keyword(name="keyword", placeholder="type any hastag or keyword...")
