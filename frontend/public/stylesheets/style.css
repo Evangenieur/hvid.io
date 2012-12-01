@@ -20,6 +20,16 @@ p.tagline {
   margin-bottom: 20px;
   color: #DDD;
 }
+#loading {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 32px;
+  height: 32px;
+}
+#results {
+  margin-top: 20px;
+}
 #main {
   background: rgba(0, 0, 0, 0.7);
   border-radius: 20px;
