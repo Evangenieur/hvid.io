@@ -2,6 +2,7 @@
     var loader, socket, scroll
         $main = $('#main'),
         $form = $('#form'),
+        $list = $('#video-list'),
         $keyword = $('#keyword'),
         $results = $('#results'),
         $hashtags = $('#hashtags');
@@ -91,14 +92,19 @@
         fetch: function(keyword, callback) {
             Search(keyword).when(20, function() {
                 callback(this.videos_by_posts())
-                    // callback(
-                    // _(this.videos_by_posts()).map(function(video) {
-                    //     video.msg = video.msgs[0]
-                    //     return video;
-                    // });
-                    // )
+                    callback(
+                        _(this.videos_by_posts()).map(function(video) {
+                            video.msg = video.msgs[0];
+                            video.id = video.id.replace('/', '-', video.id);
+    
+                            return video;
+                        });
+                    )
             }).on("video.new", function() {
-                return console.log("new video ", this);
+                var html = hvidio.templatize('#videoTemplate', { video: this });
+                $list.prepend($(html).hide().fadeIn());
+
+                return console.log("new video", this);
             }).on("video.update", function() {
                 return console.log("updated video ", this);
             });
@@ -108,7 +114,9 @@
             var tmpl  = $(template).html(),
                 html = _.template(tmpl, data );
 
-            $(output).html(html);
+            if (output) {
+                $(output).html(html);
+            }
 
             hvidio.fadeImg();
 
