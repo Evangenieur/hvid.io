@@ -1,8 +1,216 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import "elements.less";
+@import "mixins.less";
+
+@win-width: 650px;
+@win-height: 220px;
+@win-padding: 20px;
+
+@color-main: #99CC32;
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-a {
-  color: #00B7FF;
+html, body {
+    height: 100%;
 }
+
+body {
+    background-size: cover;
+    background: black url(/images/background.jpg);
+    color: white;
+    font: 100%/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: @color-main;
+}
+
+a:hover {
+    color: lighten(@color-main, 20);
+}
+
+h1 {
+    font: italic 100 80px "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    span {
+        color: @color-main;
+    }
+}
+
+p.tagline {
+    font: italic 16px Georgia, Times, serif;
+    margin-bottom: 20px;
+    color: #DDD;
+}
+
+#main {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 20px fadeout(@color-main, 20);
+    height: @win-height;
+    left: 50%;
+    margin-left: -((@win-width/2) + (@win-padding * 2));
+    margin-top: -((@win-height/2) + (@win-padding * 2));
+    overflow: hidden;
+    padding: @win-padding;
+    position: fixed;
+    top: 50%;
+    width: @win-width;
+
+    &.large {
+        left: 5%;
+        width: 85%;
+        margin: 0;
+        padding: 2.5%;
+        top: 5%;
+        height: 82%;
+    }
+}
+
+#keyword {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0px;
+    border: 2px solid fadeout(@color-main, 70);
+    box-shadow: inset 0 5px 2px black;
+    color: white;
+    font: 100 200% "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 2px;
+    padding: 10px 50px;
+    text-align: center;
+    width: 70%;
+
+    &:focus {
+        outline: none;
+        border: 2px solid fadeout(@color-main, 40);
+    }
+}
+
+#hashtags {
+    overflow: hidden;
+    width: 90%;
+    margin: 10px 5%;
+    display: none;
+    
+    li {
+        float: left;
+        width: 23%;
+        margin: 0 1%;
+    }
+
+    a {
+        font-style: italic;
+        display: block;
+        padding: 4px 2%;
+        border-radius: 50px;
+        font-size: 12px;
+        border: 2px solid fadeout(@color-main, 70); 
+        background: rgba(0,0,0,0.5);
+    }
+}
+
+#loading {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 32px;
+    height: 32px;
+}
+
+#results {
+    margin-top: 20px;
+    overflow: hidden;
+
+    #video-list {
+        overflow: hidden;
+        margin: 0 1%;
+        width: 98%;
+    }
+
+    .video {
+        float: left;
+        margin: 10px 1%;
+        min-height: 200px;
+
+        .video-wrapper {
+            position: relative;
+        }
+
+       .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            background: transparent url(../img/play-tiny.png) no-repeat center center;
+        }
+        &.nowPlaying {
+            .overlay {
+                background-image: none;
+            }
+            
+            img {
+                border: 1px solid @color-main !important;
+                box-shadow: 0px 0px 20px rgba(255,255,255,0.8) !important;
+            }
+        }
+
+        .video-cell {
+            text-align: center;
+
+            .video-wrapper {
+                display: inline-block;
+
+                &:hover .remove-button {
+                    display: block;
+                }
+            }
+
+            .video-meta {
+                font: bold 11px/0.6 Arial;
+                color: #FFF;
+                text-shadow: 0px 1px 1px black;
+                margin-top: 10px;
+                border: 1px solid transparent;
+
+                h5 {
+                    font-weight: bold;
+                    font-size: 13px;
+                    margin: 5px 0;
+                    line-height: 1.2;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                ul {
+                    list-style: none;
+                    overflow: hidden;
+
+                    li {
+                        text-align: center;
+                        padding: 5px;
+                    }
+                }
+
+                .date {
+                    font-size: 10px;
+                }
+            }
+
+            img {
+                width: 150px;
+                height: 100px;
+                border: 1px solid white;
+                width:auto;
+                box-shadow: 0px 0px 30px rgba(0,0,0,0.8);
+            }
+        }
+    }
+}
+
