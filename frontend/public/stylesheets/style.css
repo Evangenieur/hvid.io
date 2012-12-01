@@ -11,7 +11,7 @@ body {
   background: #000000 url(/images/background.jpg);
   background-size: cover;
   color: white;
-  font: 100%/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 100% "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
 }
 a:link,
@@ -31,8 +31,8 @@ h1 span {
   color: #99cc32;
 }
 .large h1 {
-  font-size: 50px;
-  font-weight: 200;
+  font-size: 60px;
+  font-weight: 100;
 }
 p.tagline {
   font: italic 16px Georgia, Times, serif;
@@ -57,10 +57,12 @@ p.tagline {
   width: 650px;
 }
 #main.large {
-  left: 5%;
-  width: 85%;
-  margin: 0;
-  padding: 1.5%;
+  left: 2%;
+  top: 2%;
+  width: 94%;
+  height: 94%;
+  margin: 0 0 0 0;
+  padding: 1%;
 }
 #keyword {
   background: rgba(0, 0, 0, 0.5);
@@ -121,6 +123,7 @@ p.tagline {
   display: inline-block;
   margin: 10px 1%;
   min-height: 200px;
+  width: 230px;
 }
 #results .video .video-wrapper {
   position: relative;
@@ -151,16 +154,15 @@ p.tagline {
   display: block;
 }
 #results .video .video-cell .video-meta {
-  font: bold 11px/0.6 Arial;
+  font: bold 11px/1.8 Arial;
   color: #FFF;
   text-shadow: 0px 1px 1px black;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 #results .video .video-cell .video-meta h5 {
-  font-weight: bold;
-  font-size: 13px;
-  margin: 5px 0;
-  line-height: 1.2;
+  font-weight: normal;
+  font-size: 12px;
+  margin: 2px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -177,32 +179,9 @@ p.tagline {
   font-size: 10px;
 }
 #results .video .video-cell img {
-  width: 150px;
-  height: 100px;
+  min-width: 150px;
+  min-height: 100px;
+  max-height: 120px;
   border: 1px solid white;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
-}
-@media only screen and (min-height: 600px) {
-  #main.large {
-    margin-top: -310px;
-    height: 580px;
-  }
-}
-@media only screen and (min-height: 800px) {
-  #main.large {
-    margin-top: -420px;
-    height: 800px;
-  }
-}
-@media only screen and (min-height: 1000px) {
-  #main.large {
-    margin-top: -530px;
-    height: 1020px;
-  }
-}
-@media only screen and (min-height: 1200px) {
-  #main.large {
-    margin-top: -640px;
-    height: 1240px;
-  }
 }
