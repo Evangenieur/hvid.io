@@ -1,0 +1,244 @@
+
+<html>
+<head>
+
+
+<style type="text/css">
+.button {
+	-moz-box-shadow:inset 0px 1px 1px 0px #fab3ad;
+	-webkit-box-shadow:inset 0px 1px 1px 0px #fab3ad;
+	box-shadow:inset 0px 1px 1px 0px #fab3ad;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fa665a), color-stop(1, #d34639) );
+	background:-moz-linear-gradient( center top, #fa665a 5%, #d34639 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fa665a', endColorstr='#d34639');
+	background-color:#fa665a;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #d83526;
+	display:inline-block;
+	color:#ffffff;
+	font-family:'Droid Sans',arial,sans-serif;
+	font-size:60px;
+	font-weight:normal;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #98231a;
+}.button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d34639), color-stop(1, #fa665a) );
+	background:-moz-linear-gradient( center top, #d34639 5%, #fa665a 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d34639', endColorstr='#fa665a');
+	background-color:#d34639;
+}.button:active {
+	position:relative;
+	top:1px;
+}
+#osd {
+	padding		: 5px;
+	background	: #000;
+	font-family:'Droid Sans',arial,sans-serif;
+	opacity:0.75;
+	filter:alpha(opacity=100);
+	color		: #FFF;
+	border-radius	: 5px;
+	font-size	: 3em;
+	position: absolute;
+	width : 60%;
+	left	: 20%;
+	top: 30%;
+	text-align: center;
+}
+
+</style>
+</head>
+
+
+<html>
+<body style="margin: 0px">
+<div id="osd" style="display:none">Your order has been received! The deliveryman is on his way</div>
+<div id="overplayer" style="position: fixed; bottom: 10px; left: 35%">
+	<button id="order" class="button" style="display:none">Order now !</button>
+</div>
+<div id="player"></div>
+</body>
+<script>
+var __slice = Array.prototype.slice;
+var __hasProp = Object.prototype.hasOwnProperty;
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __extends = function(child, parent) {  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }  function ctor() { this.constructor = child; }  ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype;  return child; };var __indexOf = Array.prototype.indexOf || function(item) {  for (var i = 0, l = this.length; i < l; i++) {    if (this[i] === item) return i;  } return -1; };(function () {
+var VMPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
+            _ref = ["seconds", "second"];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              word = _ref[_i];
+              Number.prototype.__defineGetter__(word, function() {
+                return this * 1000;
+              });
+            }
+            _ref1 = ["minutes", "minute"];
+            for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+              word = _ref1[_j];
+              Number.prototype.__defineGetter__(word, function() {
+                return this.seconds * 60;
+              });
+            }
+            _ref2 = ["hours", "hour"];
+            for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+              word = _ref2[_k];
+              Number.prototype.__defineGetter__(word, function() {
+                return this.minutes * 60;
+              });
+            }
+            _ref3 = ["days", "day"];
+            for (_l = 0, _len3 = _ref3.length; _l < _len3; _l++) {
+              word = _ref3[_l];
+              Number.prototype.__defineGetter__(word, function() {
+                return this.hours * 24;
+              });
+            }
+            VMPlayer = (function() {
+
+              function VMPlayer(opts) {
+                var k, v, _ref4, _ref5;
+                if (opts == null) {
+                  opts = {};
+                }
+                this.iframe = document.createElement("iframe");
+                if (typeof opts === "string") {
+                  opts = {
+                    video_id: video_id
+                  };
+                }
+                _ref4 = opts.iframe_params;
+                for (k in _ref4) {
+                  v = _ref4[k];
+                  if (this.iframe[k] != null) {
+                    this.iframe[k] = v;
+                  }
+                }
+                this.iframe.src = "http://player.vimeo.com/video/" + opts.video_id + "?api=1";
+                switch (typeof opts.src_params) {
+                  case "object":
+                    _ref5 = opts.src_params;
+                    for (k in _ref5) {
+                      v = _ref5[k];
+                      if (v === true) {
+                        v = 1;
+                      }
+                      this.iframe.src += "&" + k + "=" + v;
+                    }
+                    break;
+                  case "string":
+                    this.iframe.src += "&" + params;
+                }
+                if (opts.timeline) {
+                  this.timeline = opts.timeline;
+                }
+              }
+
+              VMPlayer.prototype.appendTo = function(container) {
+                this.container = container;
+                this.container.appendChild(this.iframe);
+                return this.init();
+              };
+
+              VMPlayer.prototype.init = function() {
+                var check, onMessageReceived,
+                  _this = this;
+                check = {
+                  DocRdy: null,
+                  PlayerRdy: null
+                };
+                onMessageReceived = function(e) {
+                  var data;
+                  clearInterval(check.PlayerRdy);
+                  data = JSON.parse(e.data);
+                  switch (data.event) {
+					case "ready": 
+					  return _this.iframe.contentWindow.postMessage(JSON.stringify({
+                        method: "play"
+                      }), _this.iframe.src.split('?')[0]);
+					case "finish": 
+					  return console.log("finished");
+                    case "playProgress":
+                      data.data.seconds;
+					  _this.iframe.contentWindow.postMessage(JSON.stringify({
+                        method: "addEventListener",
+						value: "finish"
+                      }), _this.iframe.src.split('?')[0]);
+                      return _this.timeline.forEach(function(entry) {
+                        if (!entry.done && ((data.data.seconds * 1..second) > entry.at)) {
+                          entry["do"]();
+                          return entry.done = true;
+                        }
+                      });
+                  }
+                };
+                return check.DocRdy = setInterval(function() {		  
+                  if (document.readyState === "complete") {
+                    clearInterval(check.DocRdy);
+                    if (window.addEventListener) {
+                      window.addEventListener('message', onMessageReceived, false);
+                    } else {
+                      window.attachEvent('onmessage', onMessageReceived, false);
+                    }
+                    return check.PlayerRdy = setInterval(function() {
+                      return _this.iframe.contentWindow.postMessage(JSON.stringify({
+                        method: "addEventListener",
+						value: "playProgress"
+                      }), _this.iframe.src.split('?')[0]);
+                    }, 100);
+                  }
+                }, 100);
+				
+              };
+
+              return VMPlayer;
+			  
+			  
+
+            })();
+            vmp = new VMPlayer({
+              video_id: "27855315",
+              iframe_params: {
+                width: "100%",
+                height: "100%",
+                frameBorder: "0"
+              },
+              src_params: {            
+              },
+              timeline: [
+				{
+                  at: 3..seconds,
+                  "do": function() {
+                    return document.getElementById("order").style.display = "";
+                  }
+                }, {
+                  at: 10..seconds,
+                  "do": function() {
+                    return document.getElementById("order").style.display = "none";
+                  }
+                },
+              ]
+            });
+            return vmp.appendTo(document.getElementById("player"));
+          }).call(this);
+		  
+		  var button = document.getElementById("order");
+			button.addEventListener("click", function() {
+				document.getElementById("osd").style.display = ""; 
+				setTimeout(function(){
+					document.getElementById("osd").style.display = "none";			
+				}, 5000);
+			});
+		  
+		  document.addEventListener("keydown", function(e) { if (e.which == 13) { 
+			document.getElementById("order").style.display = "";
+			setTimeout(function(){
+				document.getElementById("osd").style.display = ""; 
+				setTimeout(function(){
+					document.getElementById("osd").style.display = "none";			
+				}, 5000);				
+			}, 500);
+			
+		} }, false);
+		  </script></html>
