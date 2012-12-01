@@ -1,6 +1,11 @@
 * {
   margin: 0;
   padding: 0;
+  list-style: none;
+}
+html,
+body {
+  height: 100%;
 }
 body {
   background-size: cover;
@@ -8,6 +13,16 @@ body {
   color: white;
   font: 100%/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #99cc32;
+}
+a:hover {
+  color: #c2e183;
 }
 h1 {
   font: italic 100 80px "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -19,6 +34,26 @@ p.tagline {
   font: italic 16px Georgia, Times, serif;
   margin-bottom: 20px;
   color: #DDD;
+}
+#hashtags {
+  overflow: hidden;
+  width: 90%;
+  margin: 10px 5%;
+  display: none;
+}
+#hashtags li {
+  float: left;
+  width: 23%;
+  margin: 0 1%;
+}
+#hashtags a {
+  font-style: italic;
+  display: block;
+  padding: 4px 2%;
+  border-radius: 50px;
+  font-size: 12px;
+  border: 2px solid rgba(153, 204, 50, 0.30000000000000004);
+  background: rgba(0, 0, 0, 0.5);
 }
 #loading {
   position: absolute;
