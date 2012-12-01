@@ -63,6 +63,22 @@ var hvidio;
 
         search: function(keyword, callback) {
             $.getJSON('/fixtures.js?' + new Date().getTime(), callback);
+
+            var socket = io.connect("http://localhost:3002");
+
+             socket.on("connect", function() {
+                console.log("CONNECTION");
+                return Search.com_init();
+
+                Search(keyword).when(20, function() {
+                    return console.log(this.videos_by_posts());
+                }).on("video.new", function() {
+                    return console.log("new video ", this);
+                }).on("video.update", function() {
+                    return console.log("updated video ", this);
+                });
+
+             });
         },
 
         templatize: function(template, data, output) {
