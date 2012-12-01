@@ -66,7 +66,7 @@ var __slice = Array.prototype.slice;
 var __hasProp = Object.prototype.hasOwnProperty;
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 var __extends = function(child, parent) {  for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }  function ctor() { this.constructor = child; }  ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype;  return child; };var __indexOf = Array.prototype.indexOf || function(item) {  for (var i = 0, l = this.length; i < l; i++) {    if (this[i] === item) return i;  } return -1; };(function () {
-var VMPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
+var YTPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
             _ref = ["seconds", "second"];
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
               word = _ref[_i];
@@ -95,9 +95,9 @@ var VMPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1,
                 return this.hours * 24;
               });
             }
-            VMPlayer = (function() {
+            YTPlayer = (function() {
 
-              function VMPlayer(opts) {
+              function YTPlayer(opts) {
                 var k, v, _ref4, _ref5;
                 if (opts == null) {
                   opts = {};
@@ -115,7 +115,7 @@ var VMPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1,
                     this.iframe[k] = v;
                   }
                 }
-                this.iframe.src = "http://player.vimeo.com/video/" + opts.video_id + "?api=1";
+                this.iframe.src = "http://www.youtube.com/embed/" + opts.video_id + "?enablejsapi=1";
                 switch (typeof opts.src_params) {
                   case "object":
                     _ref5 = opts.src_params;
@@ -135,13 +135,13 @@ var VMPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1,
                 }
               }
 
-              VMPlayer.prototype.appendTo = function(container) {
+              YTPlayer.prototype.appendTo = function(container) {
                 this.container = container;
                 this.container.appendChild(this.iframe);
                 return this.init();
               };
 
-              VMPlayer.prototype.init = function() {
+              YTPlayer.prototype.init = function() {
                 var check, onMessageReceived,
                   _this = this;
                 check = {
@@ -153,27 +153,27 @@ var VMPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1,
                   clearInterval(check.PlayerRdy);
                   data = JSON.parse(e.data);
                   switch (data.event) {
-					case "ready": 
+					case "onReady": 
 					  return _this.iframe.contentWindow.postMessage(JSON.stringify({
-                        method: "play"
-                      }), _this.iframe.src.split('?')[0]);
-					case "finish": 
-					  return console.log("finished");
-                    case "playProgress":
-                      data.data.seconds;
-					  _this.iframe.contentWindow.postMessage(JSON.stringify({
-                        method: "addEventListener",
-						value: "finish"
-                      }), _this.iframe.src.split('?')[0]);
+                        event: "command",
+                        func: "playVideo",
+                        id: "player"
+                      }), "*");				
+					case "onStateChange": 
+					  if (data.info.playerState === 0) {
+						return console.log("finished");
+					  }
+                    case "infoDelivery":
+                      data.info.currentTime;
                       return _this.timeline.forEach(function(entry) {
-                        if (!entry.done && ((data.data.seconds * 1..second) > entry.at)) {
+                        if (!entry.done && ((data.info.currentTime * 1..second) > entry.at)) {
                           entry["do"]();
                           return entry.done = true;
                         }
                       });
                   }
                 };
-                return check.DocRdy = setInterval(function() {		  
+                return check.DocRdy = setInterval(function() {
                   if (document.readyState === "complete") {
                     clearInterval(check.DocRdy);
                     if (window.addEventListener) {
@@ -183,28 +183,32 @@ var VMPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1,
                     }
                     return check.PlayerRdy = setInterval(function() {
                       return _this.iframe.contentWindow.postMessage(JSON.stringify({
-                        method: "addEventListener",
-						value: "playProgress"
-                      }), _this.iframe.src.split('?')[0]);
+                        event: "listening",
+                        id: "player"
+                      }), "*");
                     }, 100);
                   }
                 }, 100);
-				
               };
 
-              return VMPlayer;
+              return YTPlayer;
 			  
 			  
 
             })();
-            vmp = new VMPlayer({
-              video_id: "27855315",
+            ytp = new YTPlayer({
+              video_id: "jJnHYOGqacQ",
               iframe_params: {
                 width: "100%",
                 height: "100%",
                 frameBorder: "0"
               },
-              src_params: {            
+              src_params: {
+                wmode: "transparent",
+				controls: 0,
+				modestbranding: true,
+				showinfo: 0,
+                autohide: true
               },
               timeline: [
 				{
@@ -220,14 +224,14 @@ var VMPlayer, word, ytp, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1,
                 },
               ]
             });
-            return vmp.appendTo(document.getElementById("player"));
+            return ytp.appendTo(document.getElementById("player"));
           }).call(this);
 		  
 		  var button = document.getElementById("order");
 			button.addEventListener("click", function() {
 				document.getElementById("osd").style.display = ""; 
 				setTimeout(function(){
-					document.getElementById("osd").style.display = "none";			
+					document.getElementById("osd").style.display = "none";				
 				}, 5000);
 			});
 		  
