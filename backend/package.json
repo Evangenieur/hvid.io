@@ -1,0 +1,28 @@
+{
+  "name": "hvid.io",
+  "version": "0.0.0-2",
+  "description": "RealTime Video Search Twitter / Facebook / GooglePlus",
+  "main": "video_seach_server.coffee",
+  "scripts": {
+    "start": "coffee video_search_server.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Evangenieur/hvid.io.git"
+  },
+  "dependencies": {
+    "coffee-script": "1.4.0",
+    "zappajs": "0.4.12",
+    "zappajs-partials": "0.0.7",
+    "underscore": "1.4.2",
+    "optimist": "0.3.5"
+  },
+  "engines": {
+    "node": "0.8.x"
+  },
+  "subdomain": "hvid",
+  "domains": [
+    "hvid.io",
+    "www.hvid.io"
+  ]
+}
