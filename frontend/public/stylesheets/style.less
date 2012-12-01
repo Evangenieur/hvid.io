@@ -7,6 +7,8 @@
 
 @color-main: #99CC32;
 
+@cell-height: 200px;
+
 * {
     margin: 0;
     padding: 0;
@@ -40,12 +42,21 @@ h1 {
     span {
         color: @color-main;
     }
+
+    .large & {
+        font-size: 50px;
+        font-weight: 200;
+    }
 }
 
 p.tagline {
     font: italic 16px Georgia, Times, serif;
     margin-bottom: 20px;
     color: #DDD;
+
+    .large & {
+        font-size: 13px;
+    }
 }
 
 #main {
@@ -66,9 +77,7 @@ p.tagline {
         left: 5%;
         width: 85%;
         margin: 0;
-        padding: 2.5%;
-        top: 5%;
-        height: 82%;
+        padding: 1.5%;
     }
 }
 
@@ -84,7 +93,7 @@ p.tagline {
     text-align: center;
     width: 70%;    
 
-    #main.large & {
+    .large & {
         font: 100 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
         width: 400px;
     }
@@ -131,7 +140,7 @@ p.tagline {
     overflow: hidden;
 
     #video-list {
-        overflow: hidden;
+
         margin: 0 1%;
         width: 98%;
     }
@@ -139,7 +148,7 @@ p.tagline {
     .video {
         display: inline-block;
         margin: 10px 1%;
-        min-height: 200px;
+        min-height: @cell-height;
 
         .video-wrapper {
             position: relative;
@@ -215,6 +224,34 @@ p.tagline {
                 box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
             }
         }
+    }
+}
+
+@media only screen and (min-height : 600px) {
+    #main.large {
+        margin-top: -(580px/2) - 20px;
+        height: 580px;
+    }
+}
+
+@media only screen and (min-height : 800px) {
+    #main.large {
+        margin-top: -(800px/2) - 20px;
+        height: 800px;
+    }
+}
+
+@media only screen and (min-height : 1000px) {
+    #main.large {
+        margin-top: -(1020px/2) - 20px;
+        height: 1020px;
+    }
+}
+
+@media only screen and (min-height : 1200px) {
+    #main.large {
+        margin-top: -(1240px/2) - 20px;
+        height: 1240px;
     }
 }
 
