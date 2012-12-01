@@ -62,13 +62,10 @@ var hvidio;
         },
 
         search: function(keyword, callback) {
-            $.getJSON('/fixtures.js?' + new Date().getTime(), callback);
-
             var socket = io.connect("http://localhost:3002");
 
              socket.on("connect", function() {
-                console.log("CONNECTION");
-                return Search.com_init();
+                Search.com_init(socket);
 
                 Search(keyword).when(20, function() {
                     return console.log(this.videos_by_posts());
@@ -77,7 +74,6 @@ var hvidio;
                 }).on("video.update", function() {
                     return console.log("updated video ", this);
                 });
-
              });
         },
 
