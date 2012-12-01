@@ -85,7 +85,9 @@ var hvidio;
         },
 
         fadeImg: function(html) {
-            $('#results img').each(function() {
+            $results.find('time').timeago();
+
+            $results.find('img').each(function() {
                 $(this).on('load', function () { 
                     $(this).css('visibility','visible').hide().fadeIn('slow'); 
                 });
