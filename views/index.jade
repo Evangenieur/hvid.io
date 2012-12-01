@@ -40,12 +40,12 @@ block content
         |              <span class="overlay"></span>
         |          </div>
         |          <div class="video-meta">
-        |              <h5 title="<%= video.title %>"></h5>
+        |              <h5 title="<%= video.title %>"><%= video.title %></h5>
         |              <ul>
         |                  <li class="date">
         |                       <time datetime="<%= video.msgs[0].post_date %>"><%= video.msgs[0].post_date %></time>
-        |                       from 
-        |                       <a class="from" href="<%= video.url %>"><%= video.provider %></a>
+        |                       <br> 
+        |                       from <a class="from" href="<%= video.url %>"><%= video.provider %></a>
         |                   </li>
         |              </li>
         |          </div>
