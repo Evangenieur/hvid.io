@@ -7,7 +7,7 @@ for i in [0..8]
     new_video.id += i
     videos_mockup.push new_video
 
-require('zappajs') ->
+require('zappajs') 3002, ->
   @use "static"
 
   @get "/": -> 
@@ -17,6 +17,7 @@ require('zappajs') ->
     html ->
       script src: "/socket.io/socket.io.js"
       script src: "/vendors/underscore.min.js"
+      script src: "/js/live-search.js"
       body ->
         div "#output", ""
       coffeescript ->
@@ -24,13 +25,12 @@ require('zappajs') ->
         console.log socket
         socket.on "connect", ->
           console.log "CONNECTION"
-          Search.com_init()
+          Search.com_init(socket)
 
-
-        Search("coucou")
-          .when(20, -> console.log @videos_by_posts())
-          .on("video.new", -> console.log "new video ", @)
-          .on("video.update", -> console.log "updated video ", @)
+          Search("coucou")
+            .when(20, -> console.log @videos_by_posts())
+            .on("video.new", -> console.log "new video ", @)
+            .on("video.update", -> console.log "updated video ", @)
 
 
   @on "search": ->

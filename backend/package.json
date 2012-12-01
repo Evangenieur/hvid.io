@@ -1,6 +1,6 @@
 {
   "name": "hvid.io",
-  "version": "0.0.0-2",
+  "version": "0.0.0-4",
   "description": "RealTime Video Search Twitter / Facebook / GooglePlus",
   "main": "video_seach_server.coffee",
   "scripts": {
