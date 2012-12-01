@@ -113,11 +113,14 @@ p.tagline {
 }
 #results {
   margin-top: 20px;
-  overflow: hidden;
+  height: 82%;
+  position: relative;
+  z-index: 1;
 }
 #results #video-list {
   margin: 0 1%;
   width: 98%;
+  overflow: scroll;
 }
 #results .video {
   display: inline-block;
@@ -135,7 +138,8 @@ p.tagline {
   width: 100%;
   height: 100%;
   opacity: 0.8;
-  background: transparent url(/images/play-tiny.png) no-repeat center center;
+  background: transparent url(/images/play.png) no-repeat center center;
+  background-size: 40px;
 }
 #results .video.nowPlaying .overlay {
   background-image: none;
@@ -160,8 +164,8 @@ p.tagline {
   margin-top: 5px;
 }
 #results .video .video-cell .video-meta h5 {
-  font-weight: normal;
-  font-size: 12px;
+  font-weight: bold;
+  font-size: 13px;
   margin: 2px 0;
   white-space: nowrap;
   overflow: hidden;
@@ -183,5 +187,24 @@ p.tagline {
   min-height: 100px;
   max-height: 120px;
   border: 1px solid white;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.8);
+}
+.myScrollbarV {
+  position: absolute;
+  z-index: 100;
+  width: 4px;
+  bottom: 7px;
+  top: 2px;
+  right: 1px;
+}
+.myScrollbarV > div {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  /* The following is probably what you want to customize */
+
+  background: #99cc32;
+  -webkit-background-clip: padding-box;
+  -webkit-box-sizing: border-box;
+  -webkit-border-radius: 4px;
 }
