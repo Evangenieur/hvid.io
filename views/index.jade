@@ -5,12 +5,12 @@ block content
         
     div#clickjack
 
-    section#main
+    section#main.animated
         h1 
-            span #h
-            | vid
+            span #
+            | hvid
             span .io
-        p.tagline Watch Your World Live
+        p.tagline World Wide Watch: Watch our World live
 
         ul#hashtags
             li
@@ -23,11 +23,13 @@ block content
                 a(href='#') #ump
 
         form#form(onsubmit="return false")
-            input#keyword(name='keyword', placeholder='please enter a #hashtag or keyword...', autocomplete='off')
+            input#keyword(name='keyword', placeholder='any #hashtag or keyword...', autocomplete='off')
 
         div#results
 
         div#loading
+
+        div#close
 
     script#videosTemplate(type='text/template')
         |  <ul id="video-list">

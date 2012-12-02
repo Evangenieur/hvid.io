@@ -7,6 +7,7 @@
         $results = $('#results'),
         $hashtags = $('#hashtags'),
         $player = $('#player'),
+        $close = $('#close'),
         $clickjack = $('#clickjack');
 
     window.hvidio = {
@@ -40,15 +41,15 @@
             // toggle main window
             $clickjack.on('click', function(e) {
                 hvidio.show();
-                
                 e.stopPropagation();
                 e.preventDefault();
             });
 
-            $main.on('click', function(e) {
+            $close.on('click', function(e) {
                 hvidio.hide();
 
                 e.stopPropagation();
+                e.preventDefault();
             });
 
             $keyword.on('click', function(e) {
@@ -61,8 +62,7 @@
 
             $results.on('click', '.play', function(e) {
                 hvidio
-                .play($(this).attr('href'))
-                .hide();
+                .play($(this).attr('href'));
 
                 e.preventDefault();
             });
@@ -76,6 +76,30 @@
 
                 e.preventDefault();
             });
+            
+            //keyCodes      
+            if (navigator.userAgent.match(/GoogleTv/)) {     
+    			$(document).bind('keydown', "right", function(e){
+    				//hvidio.next();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+    			$(document).bind('keydown', "left", function(e){
+    				//hvidio.prev();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+    			$(document).bind('keydown', "esc", function(e){
+    				hvidio.show();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+            }
+
+            $main.addClass('bounceIn');
 
             return this;
         },
@@ -100,6 +124,8 @@
                             scrollbarClass: 'myScrollbar',
                         });
                     }
+
+                    $close.fadeIn(5000);
                 });
             }
 
@@ -161,13 +187,18 @@
         },
 
         show: function() {
-            $main.show();
+            //$main.show();
+            $main.removeClass('bounceIn fadeOutUp fadeOutDown');
+            $main.addClass('fadeInUp').show();;
 
             return this;
         },
 
         hide: function() {
-            $main.hide();
+            //$main.hide();
+            $main.removeClass('bounceIn fadeOutUp fadeOutDown');
+            $main.addClass('fadeOutDown');
+            setTimeout(function() { $main.hide() }, 500);
 
             return this;
         },

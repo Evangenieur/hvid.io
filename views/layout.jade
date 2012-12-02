@@ -1,20 +1,21 @@
 doctype 5
 html
     head
-        title #hvid.io - Watch Your World Live
+        title #hvid.io - Watch Our World Live
         link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel='shortcut icon', href='/images/favicon.ico')
         link(rel='icon', type='image/png', href='/images/favicon.png')
         link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/animated.css')
 
     body
         block content
 
+        script(src='/socket.io/socket.io.js')
         script(src='/javascripts/jquery.js')
         script(src='/javascripts/jquery.timeago.js')
         script(src='/javascripts/underscore.js')
         script(src='/javascripts/canvasloader.js')
-        script(src='/javascripts/hvidio.js')
-        script(src='/socket.io/socket.io.js')
         script(src='/javascripts/live-search.js')
         script(src='/javascripts/iscroll.js')
+        script(src='/javascripts/hvidio.js')
