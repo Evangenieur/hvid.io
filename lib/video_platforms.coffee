@@ -63,14 +63,14 @@ module.exports = me =
               process.exit()
     not_found: url.toString()
 
-  getVideoFromMsg: (msg, url, vdo, deferred = Q.defer()) ->
+  getVideoFromMsg: (msg, url, vdo ={}, deferred = Q.defer()) ->
     video = me.lookup url
     #console.log video
     if video.id
       # getVideoInfos
       _(video).extend vdo
       video.msg = msg
-      unless video.title or video.thumbnail
+      if not video.title or not video.thumbnail
         me.getVideoMeta(url)
           .then (meta) ->
             #console.log "TITLE: #{title}"

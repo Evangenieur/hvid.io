@@ -37,36 +37,12 @@ require('zappajs') ->
   ###
   @on "search": ->
 
-    console.log "search #{@data}"
-    child_launcher "./workers/twitter_search_worker.coffee", 
-      search: @data
-      (video) =>
-        @emit search_result: 
-          search_term: @data
-          videos: [
-            video
-          ]
-    child_launcher "./workers/facebook_search_worker.coffee", 
-      search: @data
-      (video) =>
-        @emit search_result: 
-          search_term: @data
-          videos: [
-            video
-          ]
-    return
-
-    count = 0
-    do chieur = => setTimeout =>
-      idx = Math.floor((Math.random()*videos_mockup.length ))
-      console.log "#{idx} / #{videos_mockup.length}"
-
-      @emit search_result: 
-        search_term: @data
-        videos: [
-          videos_mockup[idx]
-        ]
-      if ++count <= 40
-        chieur()
-    , Math.floor((Math.random()*10)+1) * 10
-
+    for worker in ["twitter", "facebook", "googleplus"]
+      child_launcher "./workers/#{worker}_search_worker.coffee", 
+        search: @data
+        (video) =>
+          @emit search_result: 
+            search_term: @data
+            videos: [
+              video
+            ]
