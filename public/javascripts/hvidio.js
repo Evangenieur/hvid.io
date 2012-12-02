@@ -72,6 +72,7 @@
                 var keyword = $keyword.val();
 
                 hvidio.search(keyword);
+                window.location.hash = "#" + keyword;
 
                 e.preventDefault();
             });
@@ -124,7 +125,11 @@
 
                 console.log("new video", this.embed);
             }).on("video.update", function() {
+                $score = $('span[data-id="'+this.id.replace('/', '-')+'-score"]')
+                console.log($score);
+                $score.text(parseInt($score.text()) + (this.score || 1));
                 console.log("updated video ", this);
+                $("")
             });
 
             return this;
@@ -178,11 +183,12 @@
         },
 
         play: function(embed) {
-            $player.attr('src', embed+"?wmode=transparent&autoplay=1");
+            embed += "?wmode=transparent&autoplay=1"
+            $player.attr('src', embed);
 
             $results.find('.video').removeClass('current');
 
-            $results.find('a[href="'+ embed +'?wmode=transparent&autoplay=1"]').closest('.video').addClass('current');
+            $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
 
             return this;
         }
@@ -208,8 +214,10 @@ $(function() {
     hvidio.init(); 
 
     // debug
-    setTimeout(function() {
-        $('#keyword').val("metallica");
-        $('#form').submit(); 
-    }, 500);
+    if (window.location.hash) {
+        setTimeout(function() {
+            $('#keyword').val(window.location.hash.substr(1));
+            $('#form').submit(); 
+        }, 500);
+    }
 })

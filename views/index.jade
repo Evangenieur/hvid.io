@@ -44,7 +44,7 @@ block content
         |          <div class="video-wrapper">
         |              <img title="<%= video.title %>" src="<%= video.thumbnail %>">
         |              <a class="play" href="<%= video.embed %>"></a>
-        |              <span class="tip"><%= video.score %></span>
+        |              <span class="tip" data-id="<%= video.id %>-score"><%= video.score %></span>
         |          </div>
         |          <div class="video-meta">
         |              <h5 title="<%= video.title %>"><%= video.title || 'Unknown title' %></h5>

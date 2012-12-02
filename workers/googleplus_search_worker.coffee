@@ -16,7 +16,7 @@ video_search = (search, opts = {}) ->
   for k, v of opts
     opts_str += "#{k}=#{v}&"
 
-  url = "https://www.googleapis.com/plus/v1/activities?key=#{google_conf.api_key}&query=#{search}&#{opts_str}"
+  url = "https://www.googleapis.com/plus/v1/activities?key=#{google_conf.api_key}&query=#{encodeURIComponent search}&#{opts_str}"
   request url,
     (err, res, body) ->
       try 

@@ -10,7 +10,7 @@ google_conf = require "../config/google_api"
 
 video_search = (search, opts = {}) ->
   _(opts).defaults
-    locale: "fr_FR" #"en_US"
+    #locale: "fr_FR" #"en_US"
     maxResults: 50
     order: "date"
     part: "snippet"
@@ -20,7 +20,7 @@ video_search = (search, opts = {}) ->
     opts_str += "#{k}=#{v}&"
 
 
-  url = "https://www.googleapis.com/youtube/v3/search?q=#{search}&key=#{google_conf.api_key}&#{opts_str}"
+  url = "https://www.googleapis.com/youtube/v3/search?q=#{encodeURIComponent search}&key=#{google_conf.api_key}&#{opts_str}"
   console.log "video_search #{search}", opts, url
 
   request url,

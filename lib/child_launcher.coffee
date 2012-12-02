@@ -6,8 +6,11 @@ fork = (file, args) ->
     inputs_arr.push "--#{k}"
     inputs_arr.push if typeof(v) is "object"
         JSON.stringify v
+      else if typeof(v) is "string"
+        "'#{v}'"
       else
         v
+  console.log inputs_arr
   spawned = spawn "coffee", inputs_arr
 
   spawned.stdin.setEncoding('utf8')
