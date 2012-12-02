@@ -8,17 +8,16 @@
     instances = {};
 
     function Search(search_term, opts) {
-      var _name;
+      console.log("const", this.constructor.name);
       if (this.constructor.name === "Search") {
         console.log("instance");
         this.search_term = search_term;
         Search.socket.emit("search", this.search_term);
         this.videos = {};
         this.events || (this.events = []);
-        instances[this.search_term] = this;
       } else {
-        console.log("instanciation");
-        return instances[_name = this.search_term] || (instances[_name] = new Search(search_term, opts));
+        console.log("instanciation " + search_term, instances);
+        return instances[search_term] || (instances[search_term] = new Search(search_term, opts));
       }
     }
 
