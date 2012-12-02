@@ -270,8 +270,13 @@
                 } else {
                     var html = hvidio.templatize('#videoTemplate', { video: this });
                     //$list.append(html);
-                    $list.append(html);
-                    $(html).fadeIn()
+
+                    var $html = $(html);
+
+                    $list.append($html);
+
+                    $html.css('visibility','visible').hide().fadeIn('slow'); 
+
                     hvidio.initScroll();
                 }
 

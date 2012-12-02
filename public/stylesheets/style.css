@@ -155,6 +155,9 @@ p.tagline {
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5) inset;
   border-radius: 20px;
 }
+.visibile {
+  visibility: visible !important;
+}
 #results {
   height: 0;
   position: relative;
@@ -166,6 +169,7 @@ p.tagline {
   width: 98%;
 }
 #results .video {
+  visibility: hidden;
   display: inline-block;
   margin: 10px 1%;
   min-height: 200px;
@@ -174,6 +178,9 @@ p.tagline {
 }
 #results .video .video-wrapper {
   position: relative;
+}
+#results .video.current {
+  visibility: visible;
 }
 #results .video.current .play {
   background: none;
