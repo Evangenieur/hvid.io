@@ -201,7 +201,7 @@
                 scroll = new iScroll('results', {
                     scrollbarClass: 'myScrollbar',
                     fadeScrollbar: true,
-                    hideScrollbar: true,
+                    hideScrollbar: false,
                     vScroll: true,
                     vScrollbar: true,
                     useTransition: true,
