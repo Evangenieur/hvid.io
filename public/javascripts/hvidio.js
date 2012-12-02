@@ -35,7 +35,7 @@
             }
 
             // socket
-            socket = io.connect();
+            socket = io.connect("http://"+window.location.host);
             socket.on("connect", function() {
                 Search.com_init(socket);
             });
@@ -173,8 +173,6 @@
                     
                     hvidio.play(data[0].embed);
 
-                    hvidio.initScroll();
-
                     $close.fadeIn(5000);
                 });
             }
@@ -219,7 +217,7 @@
 
         fetch: function(keyword, callback) {
 
-            search = Search(keyword).when(20, function() {
+            search = Search(keyword)/*.when(20, function() {
                     callback(
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
@@ -232,11 +230,31 @@
                             return video;
                         })
                     );
-            }).on("video.new", function() {
-                
-                var html = hvidio.templatize('#videoTemplate', { video: this });
-                //console.log(html);
-                $list.prepend($(html).hide().fadeIn());
+            })*/.on("video.new", function() {
+
+                this.msg = this.msgs[0];
+                this.id = hvidio.convertId(this.id);
+                this.score = _.reduce(this.msgs, function(memo, num) { 
+                    return (memo + (parseInt(num.votes) + 1)) || 1; 
+                }, 0);
+
+                this.date = this.msgs[0].post_date;
+
+                if (var pos = this.embed.indexOf("?")) {
+                    this.embed = this.embed.substr(0, pos);
+                }
+
+                if (callback) { 
+                    callback([this]); callback = null; 
+                    $list = $("#video-list")
+                } else {
+                    var html = hvidio.templatize('#videoTemplate', { video: this });
+                    console.log(html);
+                    $list.append($(html).hide().fadeIn());
+                    console.log($list.html());
+                    hvidio.initScroll();
+
+                }
 
                 console.log("new video", this.embed);
             }).on("video.update", function() {

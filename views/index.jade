@@ -32,7 +32,7 @@ block content
 
     script#videosTemplate(type='text/template')
         |  <ul id="video-list">
-        |  <% console.log(videos); _.each(videos, function(video) { console.log(videos); %>
+        |  <% _.each(videos, function(video) { %>
         |  <% include videoTemplate %>
         |  <% }) %>
         |  </ul>
