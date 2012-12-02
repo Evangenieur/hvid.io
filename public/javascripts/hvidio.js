@@ -75,6 +75,26 @@
 
                 e.preventDefault();
             });
+            
+            //keyCodes           
+			$(document).bind('keydown', "right", function(e){
+				//hvidio.next();
+				e.stopPropagation();
+				e.preventDefault();
+				return false;
+			});
+			$(document).bind('keydown', "left", function(e){
+				//hvidio.prev();
+				e.stopPropagation();
+				e.preventDefault();
+				return false;
+			});
+			$(document).bind('keydown', "esc", function(e){
+				hvidio.show();
+				e.stopPropagation();
+				e.preventDefault();
+				return false;
+			});
 
             $main.addClass('bounceIn');
 
