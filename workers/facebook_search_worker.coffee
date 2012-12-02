@@ -46,9 +46,11 @@ video_search = (search, opts = {}) ->
                 ret[1]
             ).compact().value()[0]
 
-          video_platforms.getVideoFromMsg msg, url, 
-            title: post.title
-            embed: post.source
-            thumbnail: thumb
+          vdo = {}
+          vdo.title = post.name if post.name?
+          vdo.embed = post.source if post.source?
+          vdo.thumbnail = thumb if thumb?
+
+          video_platforms.getVideoFromMsg msg, url, vdo
 
 video_search argv.search, argv

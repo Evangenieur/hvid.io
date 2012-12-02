@@ -46,6 +46,7 @@ http.get_redirect = (url, cb) ->
 
 
 module.exports = me = 
+  def: video_platforms
   lookup: (url) ->
     url = new URI(url)
     for name, platform of video_platforms
@@ -60,17 +61,16 @@ module.exports = me =
                   id: "#{name}/#{result.video_id}"
             catch e
               console.log e
-              process.exit()
     not_found: url.toString()
 
-  getVideoFromMsg: (msg, url, vdo, deferred = Q.defer()) ->
+  getVideoFromMsg: (msg, url, vdo ={}, deferred = Q.defer()) ->
     video = me.lookup url
     #console.log video
     if video.id
       # getVideoInfos
       _(video).extend vdo
       video.msg = msg
-      unless video.title or video.thumbnail
+      if not video.title or not video.thumbnail
         me.getVideoMeta(url)
           .then (meta) ->
             #console.log "TITLE: #{title}"
