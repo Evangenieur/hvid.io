@@ -68,7 +68,19 @@
             });
 
             $results.on('click', '.play', function(e) {
-                hvidio.play($(this).attr('href'));
+                hvidio.play($(this).attr('href')).hide();
+
+                e.preventDefault();
+            });
+
+            $results.on('click', '.tip', function(e) {
+                $(this).closest('.video').find('.video-people').fadeIn();
+
+                e.preventDefault();
+            });
+
+            $results.on('click', '.video-people', function(e) {
+                $(this).fadeOut();
 
                 e.preventDefault();
             });
@@ -196,7 +208,6 @@
                     $('#up').show();
                 }
             }
-            console.log(scroll);
             if (scroll) {
                 scroll.refresh();
             } else {
@@ -206,6 +217,7 @@
                     hideScrollbar: false,
                     vScroll: true,
                     vScrollbar: true,
+                    snap: 'li',
                     useTransition: true,
                     onRefresh: function() {
                         toggleButtons(this);
@@ -224,16 +236,18 @@
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
                             video.id = hvidio.convertId(video.id);
-                            video.score = _.reduce(video.msgs, function(memo, num) { 
-                                return (memo + (parseInt(num.votes) + 1)) || 1; 
-                            }, 0);
+                            // video.score = _.reduce(video.msgs, function(memo, num) { 
+                            //     return (memo + (num.votes + 1)) || 1; 
+                            // }, 0);
+                            video.score = video.msgs.length;
 
                             video.date = video.msgs[0].post_date;
                             return video;
                         })
                     );
-            })*/.on("video.new", function() {
 
+            })*/.on("video.new", function() {
+                var pos;
                 this.msg = this.msgs[0];
                 this.id = hvidio.convertId(this.id);
                 this.score = _.reduce(this.msgs, function(memo, num) { 
@@ -241,7 +255,7 @@
                 }, 0);
 
                 this.date = this.msgs[0].post_date;
-                var pos;
+                
                 if ((pos = this.embed.indexOf("?")) != -1) {
                     this.embed = this.embed.substr(0, pos);
                 }
@@ -255,20 +269,24 @@
                     $list.append(html);
                     $(html).fadeIn()
                     hvidio.initScroll();
-
                 }
 
-                console.log("new video", this.embed);
             }).on("video.update", function() {
+
                 var id = hvidio.convertId(this.id),
                     $tip = $('#' + id + ' .tip'),
+                    $people = $('#' + id + ' .video-people ul'),
                     score = parseInt($tip.text()) || 1,
-                    newScore = score + (this.msgs[this.msgs.length - 1].votes || 1);
+                    newScore = score + 1; //(this.msgs[this.msgs.length - 1].votes || 1);
 
                 $tip.text(newScore + '+');
                 $tip.addClass('incremented animated bounce');
 
-                console.log("updated video ", this);
+                var msg = this.msgs[this.msgs.length - 1];
+
+                var html = hvidio.templatize('#messageTemplate', { msg: msg });
+                //console.log(html);
+                $people.prepend($(html).hide().fadeIn());
             });
 
             return this;
