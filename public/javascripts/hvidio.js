@@ -174,7 +174,6 @@
 
         search: function(keyword) {
             if (keyword) {
-                console.log("SEARCH "+keyword);
                 hvidio.loading(true);
 
                 hvidio.fetch(keyword, function(data) {
@@ -263,8 +262,10 @@
                     this.embed = this.embed.substr(0, pos);
                 }
 
-                if (callback) { 
-                    callback([this]); callback = null; 
+                if (typeof search.initiated == "undefined") { 
+                    search.initiated = true;
+                    scroll = false;
+                    callback([this]);
                     $list = $("#video-list")
                 } else {
                     var html = hvidio.templatize('#videoTemplate', { video: this });
