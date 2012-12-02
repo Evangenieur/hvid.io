@@ -119,8 +119,8 @@
                     );
 
             }).on("video.new", function() {
-                var html = hvidio.templatize('#videoTemplate', { video: this });
-                $list.prepend($(html).hide().fadeIn());
+                //var html = hvidio.templatize('#videoTemplate', { video: this });
+                //$list.prepend($(html).hide().fadeIn());
 
                 console.log("new video", this.embed);
             }).on("video.update", function() {
@@ -178,11 +178,11 @@
         },
 
         play: function(embed) {
-            $player.attr('src', embed);
+            $player.attr('src', embed+"?wmode=transparent&autoplay=1");
 
             $results.find('.video').removeClass('current');
 
-            $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
+            $results.find('a[href="'+ embed +'?wmode=transparent&autoplay=1"]').closest('.video').addClass('current');
 
             return this;
         }

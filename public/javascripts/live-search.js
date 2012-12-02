@@ -8,15 +8,27 @@
     instances = {};
 
     function Search(search_term, opts) {
-      console.log("const", this.constructor.name);
+      var my_timer, search_me,
+        _this = this;
       if (this.constructor.name === "Search") {
-        console.log("instance");
         this.search_term = search_term;
-        Search.socket.emit("search", this.search_term);
         this.videos = {};
         this.events || (this.events = []);
+        my_timer = null;
+        (search_me = function() {
+          var _ref;
+          if (((_ref = Search.socket) != null ? _ref.emit : void 0) == null) {
+            if (!my_timer) {
+              return my_timer = setInterval(search_me, 100);
+            }
+          } else {
+            if (my_timer) {
+              clearInterval(my_timer);
+            }
+            return Search.socket.emit("search", _this.search_term);
+          }
+        })();
       } else {
-        console.log("instanciation " + search_term, instances);
         return instances[search_term] || (instances[search_term] = new Search(search_term, opts));
       }
     }

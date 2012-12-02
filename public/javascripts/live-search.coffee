@@ -1,16 +1,21 @@
 window.Search = class Search
   instances = {}
   constructor: (search_term, opts) ->
-    console.log "const", @constructor.name
     if @constructor.name is "Search"
-      console.log "instance"
       @search_term = search_term
-      Search.socket.emit "search", @search_term
       @videos = {}
       @events or= []
+
+      my_timer = null
+      do search_me = =>
+        unless Search.socket?.emit? 
+          my_timer = setInterval(search_me, 100) unless my_timer
+        else
+          clearInterval(my_timer) if my_timer
+          Search.socket.emit "search", @search_term
+
       #instances[search_term] = @
     else
-      console.log "instanciation #{search_term}", instances
       return instances[search_term] or= new Search(search_term, opts)
 
   video_reduce: (video) ->
