@@ -177,6 +177,7 @@
                 hvidio.loading(true);
 
                 hvidio.fetch(keyword, function(data) {
+                    console.log("PASSE PAR LA CALLBACK");
                     $main.addClass('large');
 
                     hvidio.templatize('#videosTemplate', { videos: data }, '#results');
@@ -219,6 +220,7 @@
                     vScrollbar: true,
                     snap: 'li',
                     useTransition: true,
+                    bounce: false,
                     onRefresh: function() {
                         toggleButtons(this);
                     },
@@ -260,8 +262,10 @@
                     this.embed = this.embed.substr(0, pos);
                 }
 
-                if (callback) { 
-                    callback([this]); callback = null; 
+                if (typeof search.initiated == "undefined") { 
+                    search.initiated = true;
+                    scroll = false;
+                    callback([this]);
                     $list = $("#video-list")
                 } else {
                     var html = hvidio.templatize('#videoTemplate', { video: this });
@@ -293,7 +297,7 @@
         },
 
         convertId: function(id) {
-            return id.replace('/', '-', id);
+            return id.replace('/', '-');
         },
 
         templatize: function(template, data, output) {
