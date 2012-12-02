@@ -40,7 +40,6 @@
             // toggle main window
             $clickjack.on('click', function(e) {
                 hvidio.show();
-                
                 e.stopPropagation();
                 e.preventDefault();
             });
@@ -49,6 +48,7 @@
                 hvidio.hide();
 
                 e.stopPropagation();
+                e.preventDefault();
             });
 
             $keyword.on('click', function(e) {
@@ -61,8 +61,7 @@
 
             $results.on('click', '.play', function(e) {
                 hvidio
-                .play($(this).attr('href'))
-                .hide();
+                .play($(this).attr('href'));
 
                 e.preventDefault();
             });
@@ -75,6 +74,8 @@
 
                 e.preventDefault();
             });
+
+            $main.addClass('bounceIn');
 
             return this;
         },
@@ -156,13 +157,18 @@
         },
 
         show: function() {
-            $main.show();
+            //$main.show();
+            $main.removeClass('bounceIn fadeOutUp fadeOutDown');
+            $main.addClass('fadeInUp').show();;
 
             return this;
         },
 
         hide: function() {
-            $main.hide();
+            //$main.hide();
+            $main.removeClass('bounceIn fadeOutUp fadeOutDown');
+            $main.addClass('fadeOutDown');
+            setTimeout(function() { $main.hide() }, 500);
 
             return this;
         },
