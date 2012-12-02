@@ -146,6 +146,9 @@ p.tagline {
     height: 82%;
     position: relative;
     z-index:1;
+    box-shadow: 0 20px 10px rgba(0,0,0,0.5) inset, 0 -40px 10px rgba(0,0,0,0.5) inset;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 
     #video-list {
         margin: 0 1%;
@@ -197,6 +200,24 @@ p.tagline {
                 }
             }
 
+            .tip {
+                background: @color-main;
+                color: white;
+                display: block;
+                border: 2px solid @color-main;
+                font-size: 10px;
+                font-weight: bold;
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                padding: 1px;
+                min-width: 16px;
+                border-radius: 10px;
+                text-shadow: 0 2px 1px black;
+                box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+                .gradient(@color-main, darken(@color-main, 20), @color-main);
+            }
+
             .video-meta {
                 font: bold 11px/1.8 Arial;
                 color: #FFF;
@@ -232,7 +253,7 @@ p.tagline {
                 min-height: 100px;
 
                 max-height: 120px;
-                border: 1px solid white;
+                border: 1px solid gray;
                 box-shadow: 0px 5px 30px rgba(0,0,0,0.8);
             }
         }

@@ -116,6 +116,9 @@ p.tagline {
   height: 82%;
   position: relative;
   z-index: 1;
+  box-shadow: 0 20px 10px rgba(0, 0, 0, 0.5) inset, 0 -40px 10px rgba(0, 0, 0, 0.5) inset;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 #results #video-list {
   margin: 0 1%;
@@ -157,6 +160,27 @@ p.tagline {
 #results .video .video-cell .video-wrapper:hover .remove-button {
   display: block;
 }
+#results .video .video-cell .tip {
+  background: #99cc32;
+  color: white;
+  display: block;
+  border: 2px solid #99cc32;
+  font-size: 10px;
+  font-weight: bold;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 1px;
+  min-width: 16px;
+  border-radius: 10px;
+  text-shadow: 0 2px 1px black;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  background: #99cc32;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #5c7a1e), color-stop(1, #99cc32));
+  background: -ms-linear-gradient(bottom, #5c7a1e, #99cc32);
+  background: -moz-linear-gradient(center bottom, #5c7a1e 0%, #99cc32 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#99cc32', endColorstr='#5c7a1e', GradientType=0);
+}
 #results .video .video-cell .video-meta {
   font: bold 11px/1.8 Arial;
   color: #FFF;
@@ -186,7 +210,7 @@ p.tagline {
   min-width: 150px;
   min-height: 100px;
   max-height: 120px;
-  border: 1px solid white;
+  border: 1px solid gray;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.8);
 }
 .myScrollbarV {

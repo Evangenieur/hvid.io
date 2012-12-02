@@ -35,24 +35,26 @@
                 e.preventDefault();
             });
 
-            //scroll = $results.jScrollPane();
-
             // toggle main window
-            // $('body').on('click', function(e) {
-            //     $main.fadeIn('fast');
+            $('body').on('click', function(e) {
+                $main.fadeIn('fast');
                 
-            //     e.stopPropagation();
-            // });
+                e.stopPropagation();
+            });
 
-            // $main.on('click', function(e) {
-            //     $main.fadeOut('fast');
+            $main.on('click', function(e) {
+                $main.fadeOut('fast');
 
-            //     e.stopPropagation();
-            // });
+                e.stopPropagation();
+            });
 
-            // $keyword.on('click', function(e) {
-            //     e.stopPropagation();
-            // });
+            $keyword.on('click', function(e) {
+                e.stopPropagation();
+            });
+
+            $results.on('click', function(e) {
+                e.stopPropagation();
+            });
 
             // search
             $form.on('submit', function(e) {
@@ -91,20 +93,22 @@
 
         fetch: function(keyword, callback) {
             Search(keyword).when(20, function() {
-                /*callback(this.videos_by_posts())*/
+
                     callback(
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
                             video.id = video.id.replace('/', '-', video.id);
+                            video.score = video.msgs.length;
     
                             return video;
                         })
                     );
+
             }).on("video.new", function() {
                 var html = hvidio.templatize('#videoTemplate', { video: this });
                 $list.prepend($(html).hide().fadeIn());
 
-                console.log("new video", this);
+                console.log("new video", this.embed);
             }).on("video.update", function() {
                 console.log("updated video ", this);
             });
