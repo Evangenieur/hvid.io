@@ -30,6 +30,8 @@
                     $('#keyword').val(window.location.hash.substr(1));
                     $('#form').submit(); 
                 }, 200);
+            } else {
+                $keyword.focus();
             }
 
             // socket
@@ -218,12 +220,10 @@
         fetch: function(keyword, callback) {
 
             search = Search(keyword).when(20, function() {
-
                     callback(
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
                             video.id = hvidio.convertId(video.id);
-                            //video.score = video.msgs.length;
                             video.score = _.reduce(video.msgs, function(memo, num) { 
                                 return (memo + (num.votes + 1)) || 1; 
                             }, 0);
@@ -233,11 +233,10 @@
                         })
                     );
             }).on("video.new", function() {
-                /*
+                
                 var html = hvidio.templatize('#videoTemplate', { video: this });
                 //console.log(html);
                 $list.prepend($(html).hide().fadeIn());
-                */
 
                 console.log("new video", this.embed);
             }).on("video.update", function() {

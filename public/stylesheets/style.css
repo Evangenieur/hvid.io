@@ -227,7 +227,7 @@ p.tagline {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000', GradientType=0);
 }
 #results .video .video-cell .tip.incremented {
-  box-shadow: 0 0 5px #99cc32;
+  box-shadow: 0 5px 5px black;
   border: 1px solid #99cc32;
   text-shadow: 0 1px 0 #99cc32;
   color: black;
