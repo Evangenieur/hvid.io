@@ -1,10 +1,10 @@
 {
   "name": "hvid.io",
   "version": "0.0.0-2",
-  "description": "hvid.io - Watch The World Live - RealTime Video Search Twitter / Facebook / GooglePlus",
+  "description": "hvid.io - Watch our World Live - RealTime Video Search Twitter / Facebook / GooglePlus",
   "main": "video_seach_server.coffee",
   "scripts": {
-    "start": "coffee video_search_server.coffee"
+    "start": "coffee server.coffee"
   },
   "repository": {
     "type": "git",
