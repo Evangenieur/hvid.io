@@ -283,6 +283,13 @@ p.tagline {
                 text-shadow: 0 2px 1px black;
                 box-shadow: 0 5px 5px black;
                 .gradient(@color-main, black, lighten(black, 40));
+
+                &.incremented {
+
+                    box-shadow: 0 0 5px @color-main;
+                    border: 1px solid @color-main;
+                    .gradient(@color-main, darken(@color-main, 20), @color-main);
+                }
             }
 
             .video-meta {

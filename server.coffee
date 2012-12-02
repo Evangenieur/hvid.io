@@ -6,6 +6,8 @@ require('zappajs') ->
   @use "static", "favicon", require('less-middleware')({ src: __dirname + '/public' })
   @set 'view engine': 'jade'
 
+  @io.set 'log level', 1
+
   @get "/": -> 
     @render "index"
 

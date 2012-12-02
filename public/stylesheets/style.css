@@ -227,6 +227,15 @@ p.tagline {
   background: -moz-linear-gradient(center bottom, #000000 0%, #666666 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000', GradientType=0);
 }
+#results .video .video-cell .tip.incremented {
+  box-shadow: 0 0 5px #99cc32;
+  border: 1px solid #99cc32;
+  background: #99cc32;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #5c7a1e), color-stop(1, #99cc32));
+  background: -ms-linear-gradient(bottom, #5c7a1e, #99cc32);
+  background: -moz-linear-gradient(center bottom, #5c7a1e 0%, #99cc32 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#99cc32', endColorstr='#5c7a1e', GradientType=0);
+}
 #results .video .video-cell .video-meta {
   font: bold 11px/1.8 Arial;
   color: #FFF;
