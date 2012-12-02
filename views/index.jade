@@ -7,9 +7,11 @@ block content
 
     section#main.animated
         header#header
-            h1 hvid
+            h1 
+                span #
+                | hvid
                 span .io
-            p.tagline World Wide Watch: Watch our World live
+            p.tagline World Wide Watch - Watch our World live
 
             ul#hashtags
                 li
@@ -22,7 +24,7 @@ block content
                     a(href='#') #ump
 
             form#form(onsubmit="return false")
-                input#keyword(name='keyword', placeholder='any #hashtag or keyword...', autocomplete='off')
+                input#keyword(name='keyword', placeholder='any hashtag or keyword...', autocomplete='off')
 
         div#results
 
@@ -43,8 +45,7 @@ block content
 
     script#messageTemplate(type='text/template')
         |  <li class="<%= msg.provider %>" title="<%= msg.name %>">
-        |       <img class="avatar" src="https://twimg0-a.akamaihd.net/profile_images/2697555554/10f6ce69a050e2f1e996ef2447db5334_normal.png">
-        |        <a class="logo" href="<%= msg.url %>"></a>
+        |       <img class="avatar" src="<%= msg.avatar_url %>"><a class="logo" href="#"></a>
         |  </li>
 
     script#videoTemplate(type='text/template')
@@ -59,7 +60,7 @@ block content
         |              <h5 title="<%= video.title %>"><%= video.title || 'Unknown title' %></h5>
         |              <ul>
         |                  <li>
-        |                       <time datetime="<%= video.msgs[0].post_date %>"><%= video.msgs[0].post_date %></time>
+        |                       <time datetime="<%= video.msgs[0].post_date %>"><%= video.date %></time>
         |                       <br> 
         |                       from <a class="from" href="<%= video.url %>"><%= video.provider %></a>
         |                   </li>
@@ -69,8 +70,7 @@ block content
         |              <ul>
         |                  <% _.each(video.msgs, function(msg) { %>
         |                   <li class="<%= msg.provider %>" title="<%= msg.name %>">
-        |                        <img class="avatar" src="https://twimg0-a.akamaihd.net/profile_images/2697555554/10f6ce69a050e2f1e996ef2447db5334_normal.png">
-        |                         <a class="logo" href="<%= msg.url %>"></a>
+        |                        <img class="avatar" src="<%= msg.avatar_url %>"><a class="logo" href="#"></a>
         |                   </li>
         |                  <% }) %>
         |              </li>
