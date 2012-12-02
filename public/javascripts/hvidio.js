@@ -162,9 +162,11 @@
 
         search: function(keyword) {
             if (keyword) {
+                console.log("SEARCH "+keyword);
                 hvidio.loading(true);
 
                 hvidio.fetch(keyword, function(data) {
+                    console.log("PASSE PAR LA CALLBACK");
                     $main.addClass('large');
 
                     hvidio.templatize('#videosTemplate', { videos: data }, '#results');
@@ -207,6 +209,7 @@
                     vScroll: true,
                     vScrollbar: true,
                     useTransition: true,
+                    bounce: false,
                     onRefresh: function() {
                         toggleButtons(this);
                     },
@@ -274,7 +277,7 @@
         },
 
         convertId: function(id) {
-            return id.replace('/', '-', id);
+            return id.replace('/', '-');
         },
 
         templatize: function(template, data, output) {
