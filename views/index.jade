@@ -33,7 +33,7 @@ block content
         div#close
 
     script#videosTemplate(type='text/template')
-        |  <ul id="video-list">
+        |  <ul id="video-list-<%= search %>">
         |  <% _.each(videos, function(video) { %>
         |  <% include videoTemplate %>
         |  <% }) %>

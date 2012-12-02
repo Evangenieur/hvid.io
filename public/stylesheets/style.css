@@ -266,9 +266,13 @@ p.tagline {
   font-size: 10px;
 }
 #results .video .video-cell img.preview {
+  width: 217px;
+  height: 127px;
+  /*
   min-width: 215px;
   min-height: 122px;
   max-height: 120px;
+  */
   border: 1px solid gray;
   box-shadow: 0px 5px 30px black;
 }

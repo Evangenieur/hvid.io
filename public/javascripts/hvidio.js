@@ -13,6 +13,17 @@
         $header = $('#header'),
         $clickjack = $('#clickjack');
 
+    var urlify = function (str) {
+      return str.replace(/\s/g, '_')
+        .replace(/:/g, '-')
+        .replace(/\\/g, '-')
+        .replace(/\//g, '-')
+        .replace(/[^a-zA-Z0-9\-_]+/g, '')
+        .replace(/-{2,}/g, '-')
+        .toLowerCase();
+    }
+
+
     window.hvidio = {
 
         init: function() {
@@ -37,6 +48,7 @@
             // socket
             socket = io.connect("http://"+window.location.host);
             socket.on("connect", function() {
+                console.log("CONNECTED");
                 Search.com_init(socket);
             });
 
@@ -180,7 +192,7 @@
                     console.log("PASSE PAR LA CALLBACK");
                     $main.addClass('large');
 
-                    hvidio.templatize('#videosTemplate', { videos: data }, '#results');
+                    hvidio.templatize('#videosTemplate', { search: urlify(keyword), videos: data }, '#results');
 
                     hvidio.initScroll();
                     
@@ -266,11 +278,11 @@
                     search.initiated = true;
                     scroll = false;
                     callback([this]);
-                    $list = $("#video-list")
                 } else {
                     var html = hvidio.templatize('#videoTemplate', { video: this });
                     //$list.append(html);
-                    $list.append(html);
+                    var $mylist = $("#video-list-" + urlify(keyword));
+                    $mylist.append(html);
                     $(html).fadeIn()
                     hvidio.initScroll();
                 }
@@ -363,7 +375,7 @@
             } else {
                 embed += "&"
             }
-            embed += "wmode=transparent&autoplay=1"
+            embed += "wmode=transparent&autoplay=1&autohide=1"
 
             $player.attr('src', embed);
 
