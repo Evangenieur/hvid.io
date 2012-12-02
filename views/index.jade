@@ -1,12 +1,16 @@
 extends layout
 
 block content
+    iframe#player
+        
+    div#clickjack
+
     section#main
         h1 
             span #
             | vid
             span .io
-        p.tagline watch the work live
+        p.tagline watch the world live
 
         ul#hashtags
             li
@@ -19,7 +23,7 @@ block content
                 a(href='#') #ump
 
         form#form(onsubmit="return false")
-            input#keyword(name='keyword', placeholder='type any #hastag or keyword...', autocomplete='off')
+            input#keyword(name='keyword', placeholder='please enter a #hashtag or keyword...', autocomplete='off')
 
         div#results
 
@@ -31,13 +35,15 @@ block content
         |  <% include videoTemplate %>
         |  <% }) %>
         |  </ul>
+        |  <div id="top"></div>
+        |  <div id="bottom"></div>
 
     script#videoTemplate(type='text/template')
-        |  <li class="video">
+        |  <li class="video" id="<%= video.id %>">
         |      <div class="video-cell">
         |          <div class="video-wrapper">
         |              <img title="<%= video.title %>" src="<%= video.thumbnail %>">
-        |              <span class="overlay"></span>
+        |              <a class="play" href="<%= video.embed %>"></a>
         |              <span class="tip"><%= video.score %></span>
         |          </div>
         |          <div class="video-meta">

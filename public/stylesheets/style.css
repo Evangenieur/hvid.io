@@ -42,10 +42,26 @@ p.tagline {
 .large p.tagline {
   font-size: 13px;
 }
+#player {
+  border: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#clickjack {
+  border: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 96%;
+}
 #main {
   background: rgba(0, 0, 0, 0.7);
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(153, 204, 50, 0.8);
+  box-shadow: 0 0 20px #99cc32;
   height: 220px;
   left: 50%;
   margin-left: -365px;
@@ -65,10 +81,9 @@ p.tagline {
   padding: 1%;
 }
 #keyword {
-  background: rgba(0, 0, 0, 0.5);
+  background: black;
   border-radius: 0px;
-  border: 2px solid rgba(153, 204, 50, 0.30000000000000004);
-  box-shadow: inset 0 5px 2px black;
+  border: 1px solid #333;
   color: white;
   font: 100 200% "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: 2px;
@@ -77,32 +92,12 @@ p.tagline {
   width: 70%;
 }
 .large #keyword {
-  font: 100 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 200 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 400px;
 }
 #keyword:focus {
   outline: none;
   border: 2px solid rgba(153, 204, 50, 0.6);
-}
-#hashtags {
-  overflow: hidden;
-  width: 90%;
-  margin: 10px 5%;
-  display: none;
-}
-#hashtags li {
-  float: left;
-  width: 23%;
-  margin: 0 1%;
-}
-#hashtags a {
-  font-style: italic;
-  display: block;
-  padding: 4px 2%;
-  border-radius: 50px;
-  font-size: 12px;
-  border: 2px solid rgba(153, 204, 50, 0.30000000000000004);
-  background: rgba(0, 0, 0, 0.5);
 }
 #loading {
   position: absolute;
@@ -111,19 +106,32 @@ p.tagline {
   width: 32px;
   height: 32px;
 }
+#top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  box-shadow: 0 10px 20px black inset;
+}
+#bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  box-shadow: 0 -10px 20px #000000 inset;
+}
 #results {
   margin-top: 20px;
   height: 82%;
   position: relative;
   z-index: 1;
-  box-shadow: 0 20px 10px rgba(0, 0, 0, 0.5) inset, 0 -40px 10px rgba(0, 0, 0, 0.5) inset;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
 }
 #results #video-list {
   margin: 0 1%;
   width: 98%;
-  overflow: scroll;
+  margin-top: 10px;
 }
 #results .video {
   display: inline-block;
@@ -134,7 +142,14 @@ p.tagline {
 #results .video .video-wrapper {
   position: relative;
 }
-#results .video .overlay {
+#results .video.current .play {
+  background: none;
+}
+#results .video.current img {
+  border: 1px solid #99cc32 !important;
+  box-shadow: 0px 5px 30px #99cc32 !important;
+}
+#results .video .play {
   position: absolute;
   top: 0;
   left: 0;
@@ -144,12 +159,12 @@ p.tagline {
   background: transparent url(/images/play.png) no-repeat center center;
   background-size: 40px;
 }
-#results .video.nowPlaying .overlay {
+#results .video.nowPlaying .play {
   background-image: none;
 }
 #results .video.nowPlaying img {
   border: 1px solid #99cc32 !important;
-  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0px 0px 20px #99cc32 !important;
 }
 #results .video .video-cell {
   text-align: center;
@@ -164,33 +179,32 @@ p.tagline {
   background: #99cc32;
   color: white;
   display: block;
-  border: 2px solid #99cc32;
+  border: 2px solid #343434;
   font-size: 10px;
   font-weight: bold;
   position: absolute;
   top: -8px;
   right: -8px;
-  padding: 1px;
+  padding: 3px;
   min-width: 16px;
   border-radius: 10px;
   text-shadow: 0 2px 1px black;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 5px black;
   background: #99cc32;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #5c7a1e), color-stop(1, #99cc32));
-  background: -ms-linear-gradient(bottom, #5c7a1e, #99cc32);
-  background: -moz-linear-gradient(center bottom, #5c7a1e 0%, #99cc32 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#99cc32', endColorstr='#5c7a1e', GradientType=0);
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #000000), color-stop(1, #666666));
+  background: -ms-linear-gradient(bottom, #000000, #666666);
+  background: -moz-linear-gradient(center bottom, #000000 0%, #666666 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000', GradientType=0);
 }
 #results .video .video-cell .video-meta {
   font: bold 11px/1.8 Arial;
   color: #FFF;
   text-shadow: 0px 1px 1px black;
-  margin-top: 5px;
 }
 #results .video .video-cell .video-meta h5 {
   font-weight: bold;
   font-size: 13px;
-  margin: 2px 0;
+  margin-top: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -201,7 +215,7 @@ p.tagline {
 }
 #results .video .video-cell .video-meta ul li {
   text-align: center;
-  padding: 5px;
+  padding: 0px 5px;
 }
 #results .video .video-cell .video-meta .date {
   font-size: 10px;
@@ -211,7 +225,7 @@ p.tagline {
   min-height: 100px;
   max-height: 120px;
   border: 1px solid gray;
-  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 5px 30px black;
 }
 .myScrollbarV {
   position: absolute;
@@ -227,8 +241,11 @@ p.tagline {
   width: 100%;
   /* The following is probably what you want to customize */
 
-  background: #99cc32;
+  background: #5c7a1e;
   -webkit-background-clip: padding-box;
   -webkit-box-sizing: border-box;
   -webkit-border-radius: 4px;
+}
+#hashtags {
+  display: none;
 }

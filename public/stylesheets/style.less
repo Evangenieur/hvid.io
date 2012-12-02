@@ -59,10 +59,28 @@ p.tagline {
     }
 }
 
+#player {
+    border: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#clickjack {
+    border: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 96%;
+}
+
 #main {
     background: rgba(0, 0, 0, 0.7);
     border-radius: 20px;
-    box-shadow: 0 0 20px fadeout(@color-main, 20);
+    box-shadow: 0 0 20px @color-main;
     height: @win-height;
     left: 50%;
     margin-left: -((@win-width/2) + (@win-padding * 2));
@@ -88,10 +106,12 @@ p.tagline {
 }
 
 #keyword {
-    background: rgba(0, 0, 0, 0.5);
+    // background: rgba(0, 0, 0, 0.5);
+    // box-shadow: inset 0 5px 2px black;
+    // border: 2px solid fadeout(@color-main, 70);
+    background: black;
     border-radius: 0px;
-    border: 2px solid fadeout(@color-main, 70);
-    box-shadow: inset 0 5px 2px black;
+    border: 1px solid #333;
     color: white;
     font: 100 200% "Helvetica Neue", Helvetica, Arial, sans-serif;
     letter-spacing: 2px;
@@ -100,7 +120,7 @@ p.tagline {
     width: 70%;    
 
     .large & {
-        font: 100 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font: 200 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
         width: 400px;
     }
 
@@ -110,28 +130,6 @@ p.tagline {
     }
 }
 
-#hashtags {
-    overflow: hidden;
-    width: 90%;
-    margin: 10px 5%;
-    display: none;
-    
-    li {
-        float: left;
-        width: 23%;
-        margin: 0 1%;
-    }
-
-    a {
-        font-style: italic;
-        display: block;
-        padding: 4px 2%;
-        border-radius: 50px;
-        font-size: 12px;
-        border: 2px solid fadeout(@color-main, 70); 
-        background: rgba(0,0,0,0.5);
-    }
-}
 
 #loading {
     position: absolute;
@@ -141,20 +139,34 @@ p.tagline {
     height: 32px;
 }
 
+#top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    box-shadow: 0 10px 20px black inset;
+}
+
+#bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    box-shadow: 0 -10px 20px black inset;
+}
+
 #results {
     margin-top: 20px;
     height: 82%;
     position: relative;
     z-index:1;
-    box-shadow: 0 20px 10px rgba(0,0,0,0.5) inset, 0 -40px 10px rgba(0,0,0,0.5) inset;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
 
     #video-list {
         margin: 0 1%;
         width: 98%;
-
-         overflow: scroll;
+        margin-top: 10px;
     }
 
     .video {
@@ -167,7 +179,18 @@ p.tagline {
             position: relative;
         }
 
-       .overlay {
+        &.current {
+            .play {
+                background: none;
+            }
+
+            img {
+                border: 1px solid @color-main !important;
+                box-shadow: 0px 5px 30px @color-main !important;
+            }
+        }
+
+       .play {
             position: absolute;
             top: 0;
             left: 0;
@@ -179,13 +202,13 @@ p.tagline {
         }
 
         &.nowPlaying {
-            .overlay {
+            .play {
                 background-image: none;
             }
             
             img {
                 border: 1px solid @color-main !important;
-                box-shadow: 0px 0px 20px rgba(255,255,255,0.8) !important;
+                box-shadow: 0px 0px 20px @color-main !important;
             }
         }
 
@@ -204,30 +227,29 @@ p.tagline {
                 background: @color-main;
                 color: white;
                 display: block;
-                border: 2px solid @color-main;
+                border: 2px solid darken(gray, 30);
                 font-size: 10px;
                 font-weight: bold;
                 position: absolute;
                 top: -8px;
                 right: -8px;
-                padding: 1px;
+                padding: 3px;
                 min-width: 16px;
                 border-radius: 10px;
                 text-shadow: 0 2px 1px black;
-                box-shadow: 0 5px 5px rgba(0,0,0,0.5);
-                .gradient(@color-main, darken(@color-main, 20), @color-main);
+                box-shadow: 0 5px 5px black;
+                .gradient(@color-main, black, lighten(black, 40));
             }
 
             .video-meta {
                 font: bold 11px/1.8 Arial;
                 color: #FFF;
                 text-shadow: 0px 1px 1px black;
-                margin-top: 5px;
 
                 h5 {
                     font-weight: bold;
                     font-size: 13px;
-                    margin: 2px 0;
+                    margin-top: 3px;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -239,7 +261,7 @@ p.tagline {
 
                     li {
                         text-align: center;
-                        padding: 5px;
+                        padding: 0px 5px;
                     }
                 }
 
@@ -254,7 +276,7 @@ p.tagline {
 
                 max-height: 120px;
                 border: 1px solid gray;
-                box-shadow: 0px 5px 30px rgba(0,0,0,0.8);
+                box-shadow: 0px 5px 30px black;
             }
         }
     }
@@ -275,10 +297,34 @@ p.tagline {
     width: 100%;
 
     /* The following is probably what you want to customize */
-    background: @color-main;
+    background: darken(@color-main, 20);
     -webkit-background-clip: padding-box;
     -webkit-box-sizing: border-box;
     -webkit-border-radius: 4px;
+}
+
+#hashtags {
+    display: none;
+//    overflow: hidden;
+//     width: 90%;
+//     margin: 10px 5%;
+//     
+    
+//     li {
+//         float: left;
+//         width: 23%;
+//         margin: 0 1%;
+//     }
+
+//     a {
+//         font-style: italic;
+//         display: block;
+//         padding: 4px 2%;
+//         border-radius: 50px;
+//         font-size: 12px;
+//         border: 2px solid fadeout(@color-main, 70); 
+//         background: rgba(0,0,0,0.5);
+//     }
 }
 
 // @media only screen and (min-height : 600px) {
