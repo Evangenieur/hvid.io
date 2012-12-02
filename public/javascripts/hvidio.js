@@ -168,6 +168,8 @@
                     $main.addClass('large');
 
                     hvidio.templatize('#videosTemplate', { videos: data }, '#results');
+
+                    hvidio.initScroll();
                     
                     hvidio.loading(false);
                     
@@ -194,7 +196,7 @@
                     $('#up').show();
                 }
             }
-
+            console.log(scroll);
             if (scroll) {
                 scroll.refresh();
             } else {
@@ -239,8 +241,8 @@
                 }, 0);
 
                 this.date = this.msgs[0].post_date;
-
-                if (var pos = this.embed.indexOf("?")) {
+                var pos;
+                if ((pos = this.embed.indexOf("?")) != -1) {
                     this.embed = this.embed.substr(0, pos);
                 }
 
@@ -249,9 +251,8 @@
                     $list = $("#video-list")
                 } else {
                     var html = hvidio.templatize('#videoTemplate', { video: this });
-                    console.log(html);
-                    $list.append($(html).hide().fadeIn());
-                    console.log($list.html());
+                    $list.append(html);
+                    //$list.append($(html).hide().fadeIn());
                     hvidio.initScroll();
 
                 }
