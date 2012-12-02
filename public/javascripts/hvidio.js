@@ -7,6 +7,7 @@
         $results = $('#results'),
         $hashtags = $('#hashtags'),
         $player = $('#player'),
+        $close = $('#close'),
         $clickjack = $('#clickjack');
 
     window.hvidio = {
@@ -100,6 +101,8 @@
                             scrollbarClass: 'myScrollbar',
                         });
                     }
+
+                    $close.fadeIn(5000);
 
                     $keyword.one('click', function(e) {
                         $(this).val('');
