@@ -5,6 +5,9 @@ request = require "request"
 argv = require("optimist").argv
 _ = require "underscore"
 video_platforms = require "../lib/video_platforms"
+Q = require "q"
+
+
 
 video_search = (search, opts = {}) ->
   _(opts).defaults
@@ -31,6 +34,7 @@ video_search = (search, opts = {}) ->
         ).map (post) ->
           url = post.link
           return unless url
+          console.log post.from
           msg = 
             provider: "facebook"
             id: "facebook/#{post.id}"
@@ -39,6 +43,7 @@ video_search = (search, opts = {}) ->
             post_date: post.created_time
             text: post.message
             votes: post.likes.count if post.likes
+            avatar_url: "http://graph.facebook.com/#{post.from.id}/picture"
 
           if post.picture
             thumb = decodeURIComponent _(post.picture.split("&")).chain().map( (param) -> 

@@ -9,7 +9,7 @@ request = require "request"
 
 video_search = (search, opts = {}) ->
   _(opts).defaults
-    language: "fr" #"en"
+    #language: "fr" #"en"
     maxResults: 20
 
   opts_str = ""
@@ -17,6 +17,7 @@ video_search = (search, opts = {}) ->
     opts_str += "#{k}=#{v}&"
 
   url = "https://www.googleapis.com/plus/v1/activities?key=#{google_conf.api_key}&query=#{encodeURIComponent search}&#{opts_str}"
+  console.log url
   request url,
     (err, res, body) ->
       try 

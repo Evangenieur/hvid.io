@@ -196,7 +196,7 @@
                             video.id = hvidio.convertId(video.id);
                             //video.score = video.msgs.length;
                             video.score = _.reduce(video.msgs, function(memo, num) { 
-                                return (memo + (num.votes + 1)) || 1; 
+                                return (memo + (parseInt(num.votes) + 1)) || 1; 
                             }, 0);
 
                             video.date = video.msgs[0].post_date;

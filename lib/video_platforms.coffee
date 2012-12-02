@@ -29,6 +29,16 @@ video_platforms =
       "/{video_id}"
     ]
     embed: "http://player.vimeo.com/video/{video_id}"
+  dailymotion: 
+    domains: ["dailymotion.com"]
+    samples: [
+      "http://www.dailymotion.com/video/xvacfx_la-surface-en-skateboard-test-de-solidite_tech"
+    ]
+    urls: [
+      "/video/{video_id}"
+      "/embed/video/{video_id}"
+    ]
+    embed: "http://www.dailymotion.com/embed/video/{video_id}"
 
 http.get_redirect = (url, cb) ->
   req = http.get(url, (ret) ->
