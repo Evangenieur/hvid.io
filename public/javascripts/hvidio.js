@@ -90,7 +90,7 @@
                     
                     hvidio.loading(false);
                     
-                     hvidio.play(data[0].embed);
+                    hvidio.play(data[0].embed);
 
                     if (scroll) {
                         scroll.refresh();
@@ -113,7 +113,7 @@
                             video.msg = video.msgs[0];
                             video.id = video.id.replace('/', '-', video.id);
                             video.score = video.msgs.length;
-    
+                            video.date = video.msgs[0].post_date;
                             return video;
                         })
                     );
@@ -137,6 +137,8 @@
             if (output) {
                 $(output).html(html);
             }
+
+            $('time').timeago();
 
             hvidio.fadeImg();
 
