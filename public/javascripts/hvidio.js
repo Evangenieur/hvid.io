@@ -8,6 +8,9 @@
         $hashtags = $('#hashtags'),
         $player = $('#player'),
         $close = $('#close'),
+        $up = $('#up'),
+        $down = $('#down'),
+        $header = $('#header'),
         $clickjack = $('#clickjack');
 
     window.hvidio = {
@@ -24,15 +27,12 @@
             // socket
             socket = io.connect();
             socket.on("connect", function() {
-                console.log("CONNECTION");
                 Search.com_init(socket);
             });
 
             // hashtags
             $hashtags.on('click', 'a', function(e) {
-                var keyword = $keyword.val();
-
-                $keyword.val(keyword);
+                $keyword.val($keyword.val());
                 $form.submit();
                 
                 e.preventDefault();
@@ -41,6 +41,7 @@
             // toggle main window
             $clickjack.on('click', function(e) {
                 hvidio.show();
+
                 e.stopPropagation();
                 e.preventDefault();
             });
@@ -56,15 +57,30 @@
                 e.stopPropagation();
             });
 
-            $results.on('click', function(e) {
-                e.stopPropagation();
-            });
-
             $results.on('click', '.play', function(e) {
-                hvidio
-                .play($(this).attr('href'));
+                hvidio.play($(this).attr('href'));
 
                 e.preventDefault();
+            });
+
+            $results.on('click', '#up', function(e) {
+                var h = $results.find('li').outerHeight(true);
+
+                scroll.scrollTo(0, (scroll.y + h), 100);
+
+                e.preventDefault();
+            });
+
+            $results.on('click', '#down', function(e) {
+                var h = $results.find('li').outerHeight(true);
+
+                scroll.scrollTo(0, (scroll.y - h), 100);
+
+                e.preventDefault();
+            });
+
+            $(window).on('resize', function() {
+                hvidio.resize();
             });
 
             // search
@@ -92,6 +108,7 @@
     			});
     			$(document).bind('keydown', "esc", function(e){
     				hvidio.show();
+
     				e.stopPropagation();
     				e.preventDefault();
     				return false;
@@ -116,13 +133,7 @@
                     
                     hvidio.play(data[0].embed);
 
-                    if (scroll) {
-                        scroll.refresh();
-                    } else {
-                        scroll = new iScroll('results', {
-                            scrollbarClass: 'myScrollbar',
-                        });
-                    }
+                    hvidio.initScroll();
 
                     $close.fadeIn(5000);
                 });
@@ -131,9 +142,43 @@
             return this;
         },
 
+        initScroll: function() {
+            var toggleButtons = function(scroll) {
+                if (scroll.y == scroll.maxScrollY) {
+                    $('#down').hide();
+                } else {
+                    $('#down').show();
+                }
+
+                if (scroll.y == 0) {
+                    $('#up').hide();
+                } else {
+                    $('#up').show();
+                }
+            }
+
+            if (scroll) {
+                scroll.refresh();
+            } else {
+                scroll = new iScroll('results', {
+                    scrollbarClass: 'myScrollbar',
+                    fadeScrollbar: true,
+                    hideScrollbar: true,
+                    vScroll: true,
+                    vScrollbar: true,
+                    useTransition: true,
+                    onRefresh: function() {
+                        toggleButtons(this);
+                    },
+                    onScrollEnd: function () {
+                        toggleButtons(this);
+                    }
+                });
+            }
+        },
+
         fetch: function(keyword, callback) {
             Search(keyword).when(20, function() {
-
                     callback(
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
@@ -143,7 +188,6 @@
                             return video;
                         })
                     );
-
             }).on("video.new", function() {
                 //var html = hvidio.templatize('#videoTemplate', { video: this });
                 //$list.prepend($(html).hide().fadeIn());
@@ -166,6 +210,7 @@
 
             $('time').timeago();
 
+            hvidio.resize();
             hvidio.fadeImg();
 
             return html;
@@ -216,6 +261,13 @@
             $results.find('a[href="'+ embed +'?wmode=transparent&autoplay=1"]').closest('.video').addClass('current');
 
             return this;
+        },
+
+        resize: function() {
+            var mh = $main.height(),
+                hh = $header.outerHeight();
+
+            $results.outerHeight(mh - hh - 20);
         }
     }
 

@@ -156,13 +156,40 @@ p.tagline {
     cursor: pointer;
 }
 
+#up {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    margin-left: -16px;
+    width: 32px;
+    height: 20px;
+    background: transparent url(/images/arrow-up.png) no-repeat center center;
+    background-size: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#down {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -16px;
+    width: 32px;
+    height: 20px;
+    background: transparent url(/images/arrow-down.png) no-repeat center center;
+    background-size: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
 #top {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 20px;
-    box-shadow: 0 10px 20px black inset;
+    height: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) inset;
+    border-radius: 20px;
 }
 
 #bottom {
@@ -170,20 +197,20 @@ p.tagline {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 20px;
-    box-shadow: 0 -10px 20px black inset;
+    height: 30px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5) inset;
+    border-radius: 20px;
 }
 
 #results {
-    margin-top: 20px;
-    height: 82%;
+    height: 0;
     position: relative;
     z-index:1;
+    margin-top: 20px;
 
     #video-list {
-        margin: 0 1%;
+        margin: 10px 1%;
         width: 98%;
-        margin-top: 10px;
     }
 
     .video {
@@ -344,32 +371,4 @@ p.tagline {
 //     }
 }
 
-// @media only screen and (min-height : 600px) {
-    // #main.large {
-        // margin-top: -(600px/2) - 20px;
-        // height: 600px;
-    // }
-// }
-// 
-// @media only screen and (min-height : 800px) {
-    // #main.large {
-        // margin-top: -(800px/2) - 20px;
-        // height: 800px;
-    // }
-// }
-// 
-// @media only screen and (min-height : 1000px) {
-    // #main.large {
-        // outline: 1px solid red;
-        // margin-top: -(1000px/2) - 20px;
-        // height: 1000px;
-    // }
-// }
-// 
-// @media only screen and (min-height : 1200px) {
-    // #main.large {
-        // margin-top: -(1200px/2) - 20px;
-        // height: 1200px;
-    // }
-// }
 

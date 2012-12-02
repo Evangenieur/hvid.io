@@ -6,24 +6,23 @@ block content
     div#clickjack
 
     section#main.animated
-        h1 
-            span #
-            | hvid
-            span .io
-        p.tagline World Wide Watch: Watch our World live
+        header#header
+            h1 hvid
+                span .io
+            p.tagline World Wide Watch: Watch our World live
 
-        ul#hashtags
-            li
-                a(href='#') #angelhack
-            li
-                a(href='#') #sandy
-            li
-                a(href='#') #syria
-            li
-                a(href='#') #ump
+            ul#hashtags
+                li
+                    a(href='#') #angelhack
+                li
+                    a(href='#') #sandy
+                li
+                    a(href='#') #syria
+                li
+                    a(href='#') #ump
 
-        form#form(onsubmit="return false")
-            input#keyword(name='keyword', placeholder='any #hashtag or keyword...', autocomplete='off')
+            form#form(onsubmit="return false")
+                input#keyword(name='keyword', placeholder='any #hashtag or keyword...', autocomplete='off')
 
         div#results
 
@@ -39,6 +38,8 @@ block content
         |  </ul>
         |  <div id="top"></div>
         |  <div id="bottom"></div>
+        |  <div id="up"></div>
+        |  <div id="down"></div>
 
     script#videoTemplate(type='text/template')
         |  <li class="video" id="<%= video.id %>">
