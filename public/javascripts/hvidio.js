@@ -64,9 +64,6 @@
                 .play($(this).attr('href'))
                 .hide();
 
-                $results.find('.video').removeClass('current');
-                $(this).closest('.video').addClass('current');
-
                 e.preventDefault();
             });
 
@@ -178,6 +175,10 @@
 
         play: function(embed) {
             $player.attr('src', embed);
+
+            $results.find('.video').removeClass('current');
+
+            $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
 
             return this;
         }

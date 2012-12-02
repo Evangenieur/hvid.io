@@ -118,7 +118,7 @@ p.tagline {
     width: 70%;    
 
     .large & {
-        font: 100 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font: 200 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
         width: 400px;
     }
 
@@ -232,18 +232,18 @@ p.tagline {
                 background: @color-main;
                 color: white;
                 display: block;
-                border: 2px solid @color-main;
+                border: 2px solid gray;
                 font-size: 10px;
                 font-weight: bold;
                 position: absolute;
                 top: -8px;
                 right: -8px;
-                padding: 1px;
+                padding: 3px;
                 min-width: 16px;
                 border-radius: 10px;
                 text-shadow: 0 2px 1px black;
                 box-shadow: 0 5px 5px rgba(0,0,0,0.5);
-                .gradient(@color-main, darken(@color-main, 10), @color-main);
+                .gradient(@color-main, black, lighten(black, 40));
             }
 
             .video-meta {
