@@ -251,8 +251,9 @@
                     $list = $("#video-list")
                 } else {
                     var html = hvidio.templatize('#videoTemplate', { video: this });
+                    //$list.append(html);
                     $list.append(html);
-                    //$list.append($(html).hide().fadeIn());
+                    $(html).fadeIn()
                     hvidio.initScroll();
 
                 }
