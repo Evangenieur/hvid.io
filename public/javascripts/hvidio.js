@@ -103,6 +103,24 @@
             
             //keyCodes      
             if (navigator.userAgent.match(/GoogleTv/)) {     
+        		$(document).bind('keydown', "play", function(e){
+    				hvidio.hide();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+    			$(document).bind('keydown', "pause", function(e){
+    				hvidio.show();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+				$(document).bind('keydown', "stop", function(e){
+    				hvidio.show();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
     			$(document).bind('keydown', "right", function(e){
     				//hvidio.next();
     				e.stopPropagation();
@@ -115,9 +133,20 @@
     				e.preventDefault();
     				return false;
     			});
+    			$(document).bind('keydown', "fastforward", function(e){
+    				//hvidio.next();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+    			$(document).bind('keydown', "rewind", function(e){
+    				//hvidio.prev();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
     			$(document).bind('keydown', "esc", function(e){
     				hvidio.show();
-
     				e.stopPropagation();
     				e.preventDefault();
     				return false;
