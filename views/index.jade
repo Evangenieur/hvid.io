@@ -32,7 +32,7 @@ block content
 
     script#videosTemplate(type='text/template')
         |  <ul id="video-list">
-        |  <% console.log(videos); _.each(videos, function(video) { console.log(videos); %>
+        |  <% _.each(videos, function(video) { %>
         |  <% include videoTemplate %>
         |  <% }) %>
         |  </ul>
@@ -41,22 +41,38 @@ block content
         |  <div id="up"></div>
         |  <div id="down"></div>
 
+    script#messageTemplate(type='text/template')
+        |  <li class="<%= msg.provider %>" title="<%= msg.name %>">
+        |       <img class="avatar" src="https://twimg0-a.akamaihd.net/profile_images/2697555554/10f6ce69a050e2f1e996ef2447db5334_normal.png">
+        |        <a class="logo" href="<%= msg.url %>"></a>
+        |  </li>
+
     script#videoTemplate(type='text/template')
         |  <li class="video" id="<%= video.id %>">
         |      <div class="video-cell">
         |          <div class="video-wrapper">
-        |              <img title="<%= video.title %>" src="<%= video.thumbnail %>">
+        |              <img class="preview" title="<%= video.title %>" src="<%= video.thumbnail %>">
         |              <a class="play" href="<%= video.embed %>"></a>
         |              <span class="tip"><%= video.score %></span>
         |          </div>
         |          <div class="video-meta">
         |              <h5 title="<%= video.title %>"><%= video.title || 'Unknown title' %></h5>
         |              <ul>
-        |                  <li class="date">
+        |                  <li>
         |                       <time datetime="<%= video.msgs[0].post_date %>"><%= video.msgs[0].post_date %></time>
         |                       <br> 
         |                       from <a class="from" href="<%= video.url %>"><%= video.provider %></a>
         |                   </li>
+        |              </li>
+        |          </div>
+        |          <div class="video-people">
+        |              <ul>
+        |                  <% _.each(video.msgs, function(msg) { %>
+        |                   <li class="<%= msg.provider %>" title="<%= msg.name %>">
+        |                        <img class="avatar" src="https://twimg0-a.akamaihd.net/profile_images/2697555554/10f6ce69a050e2f1e996ef2447db5334_normal.png">
+        |                         <a class="logo" href="<%= msg.url %>"></a>
+        |                   </li>
+        |                  <% }) %>
         |              </li>
         |          </div>
         |      </div>

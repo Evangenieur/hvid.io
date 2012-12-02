@@ -68,7 +68,7 @@
             });
 
             $results.on('click', '.play', function(e) {
-                hvidio.play($(this).attr('href'));
+                hvidio.play($(this).attr('href')).hide();
 
                 e.preventDefault();
             });
@@ -206,6 +206,7 @@
                     hideScrollbar: false,
                     vScroll: true,
                     vScrollbar: true,
+                    snap: 'li',
                     useTransition: true,
                     onRefresh: function() {
                         toggleButtons(this);
@@ -222,11 +223,12 @@
             search = Search(keyword).when(20, function() {
                     callback(
                         _(this.videos_by_posts()).map(function(video) {
-                            video.msg = video.msgs[0];
+                        // video.msg = video.msgs[0];
                             video.id = hvidio.convertId(video.id);
-                            video.score = _.reduce(video.msgs, function(memo, num) { 
-                                return (memo + (num.votes + 1)) || 1; 
-                            }, 0);
+                            // video.score = _.reduce(video.msgs, function(memo, num) { 
+                            //     return (memo + (num.votes + 1)) || 1; 
+                            // }, 0);
+                            video.score = video.msgs.length;
 
                             video.date = video.msgs[0].post_date;
                             return video;
@@ -242,11 +244,16 @@
             }).on("video.update", function() {
                 var id = hvidio.convertId(this.id),
                     $tip = $('#' + id + ' .tip'),
+                    $people = $('#' + id + ' .video-people ul'),
                     score = parseInt($tip.text()) || 1,
-                    newScore = score + (this.msgs[this.msgs.length - 1].votes || 1);
+                    newScore = score + 1; //(this.msgs[this.msgs.length - 1].votes || 1);
 
                 $tip.text(newScore + '+');
                 $tip.addClass('incremented animated bounce');
+
+                var html = hvidio.templatize('#messageTemplate', { msg: this });
+                //console.log(html);
+                $people.prepend($(html).hide().fadeIn());
 
                 console.log("updated video ", this);
             });
