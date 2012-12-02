@@ -90,6 +90,8 @@
                     
                     hvidio.loading(false);
                     
+                     hvidio.play(data[0].embed);
+
                     if (scroll) {
                         scroll.refresh();
                     } else {
