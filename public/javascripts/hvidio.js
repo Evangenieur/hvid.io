@@ -133,29 +133,33 @@
         },
 
         fetch: function(keyword, callback) {
-            Search(keyword).when(20, function() {
+            search = Search(keyword).when(20, function() {
 
                     callback(
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
                             video.id = video.id.replace('/', '-', video.id);
-                            video.score = video.msgs.length;
+                            //video.score = video.msgs.length;
+                            video.score = _.reduce(video.msgs, function(memo, num){ console.log(num.votes);return memo + (num.votes + 1); }, 0);
                             video.date = video.msgs[0].post_date;
                             return video;
                         })
                     );
 
             }).on("video.new", function() {
-                //var html = hvidio.templatize('#videoTemplate', { video: this });
-                //$list.prepend($(html).hide().fadeIn());
+                /*
+                var html = hvidio.templatize('#videoTemplate', { video: this });
+                //console.log(html);
+                $list.prepend($(html).hide().fadeIn());
+                */
 
                 console.log("new video", this.embed);
             }).on("video.update", function() {
                 $score = $('span[data-id="'+this.id.replace('/', '-')+'-score"]')
                 console.log($score);
-                $score.text(parseInt($score.text()) + (this.score || 1));
+                $score.text(parseInt($score.text()) + (this.msgs[this.msgs.length - 1].vodes || 1));
                 console.log("updated video ", this);
-                $("")
+                
             });
 
             return this;
@@ -214,7 +218,12 @@
         },
 
         play: function(embed) {
-            embed += "?wmode=transparent&autoplay=1"
+            if (embed.indexOf("?") == -1) {
+                embed += "?"
+            } else {
+                embed += "&"
+            }
+            embed += "wmode=transparent&autoplay=1"
             $player.attr('src', embed);
 
             $results.find('.video').removeClass('current');
