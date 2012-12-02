@@ -284,17 +284,18 @@
         },
 
         play: function(embed) {
+            $results.find('.video').removeClass('current');
+
+            $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
+
             if (embed.indexOf("?") == -1) {
                 embed += "?"
             } else {
                 embed += "&"
             }
             embed += "wmode=transparent&autoplay=1"
+
             $player.attr('src', embed);
-
-            $results.find('.video').removeClass('current');
-
-            $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
 
             return this;
         },
