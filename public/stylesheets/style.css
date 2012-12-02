@@ -83,7 +83,6 @@ p.tagline {
   border: 1px solid #333;
   color: white;
   font: 200 200% "Helvetica Neue", Helvetica, Arial, sans-serif;
-  letter-spacing: 2px;
   padding: 10px 50px;
   text-align: center;
   width: 70%;
@@ -211,7 +210,7 @@ p.tagline {
   color: white;
   display: block;
   border: 2px solid #676767;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   position: absolute;
   top: -8px;
@@ -230,6 +229,8 @@ p.tagline {
 #results .video .video-cell .tip.incremented {
   box-shadow: 0 0 5px #99cc32;
   border: 1px solid #99cc32;
+  text-shadow: 0 1px 0 #99cc32;
+  color: black;
   background: #99cc32;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #5c7a1e), color-stop(1, #99cc32));
   background: -ms-linear-gradient(bottom, #5c7a1e, #99cc32);

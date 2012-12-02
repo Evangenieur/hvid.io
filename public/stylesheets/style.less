@@ -118,7 +118,6 @@ p.tagline {
     border: 1px solid #333;
     color: white;
     font: 200 200% "Helvetica Neue", Helvetica, Arial, sans-serif;
-    letter-spacing: 2px;
     padding: 10px 50px;
     text-align: center;
     width: 70%;    
@@ -272,7 +271,7 @@ p.tagline {
                 color: white;
                 display: block;
                 border: 2px solid darken(gray, 10);
-                font-size: 10px;
+                font-size: 11px;
                 font-weight: bold;
                 position: absolute;
                 top: -8px;
@@ -285,9 +284,10 @@ p.tagline {
                 .gradient(@color-main, black, lighten(black, 40));
 
                 &.incremented {
-
                     box-shadow: 0 0 5px @color-main;
                     border: 1px solid @color-main;
+                    text-shadow: 0 1px 0 @color-main;
+                    color: black;
                     .gradient(@color-main, darken(@color-main, 20), @color-main);
                 }
             }
