@@ -14,7 +14,7 @@ tc = new ntwitter
 video_search = (search, opts = {}) ->
   _(opts).defaults
     include_entities: on
-    rpp: 100
+    rpp: 50
     result_type: "recent"
     #lang: "fr"
 
@@ -24,6 +24,7 @@ video_search = (search, opts = {}) ->
     (err, out) ->
       return unless out?.results?
       tweets = out.results
+      #console.log out.results
       #console.log "URLs : #{out.results.length}"
       _(tweets).chain().map (tweet) ->
         _(tweet.entities.urls).map (url) ->
@@ -36,6 +37,7 @@ video_search = (search, opts = {}) ->
             username: tweet.from_user
             post_date: tweet.created_at
             text: tweet.text
+            avatar_url: tweet.profile_image_url
 
           video_platforms.getVideoFromMsg msg, url
 

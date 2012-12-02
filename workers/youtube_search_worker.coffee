@@ -5,48 +5,63 @@ request = require "request"
 argv = require("optimist").argv
 _ = require "underscore"
 video_platforms = require "../lib/video_platforms"
-google_conf = require "../config/google_api"
+youtube_conf = require "../config/youtube_api"
+Q = require "q"
 
+
+getUserInfo = (user_uri) ->
+  deferred = Q.defer()
+  request user_uri += "?alt=json", (err, res, body) ->
+    if err
+      deferred.reject err
+    out = JSON.parse(body)
+    deferred.resolve out.entry["media$thumbnail"].url
+
+  deferred.promise
 
 video_search = (search, opts = {}) ->
   _(opts).defaults
     #locale: "fr_FR" #"en_US"
-    maxResults: 50
-    order: "date"
-    part: "snippet"
+    "max-results": 50
+    orderby: "published"
 
   opts_str = ""
   for k, v of opts
     opts_str += "#{k}=#{v}&"
 
 
-  url = "https://www.googleapis.com/youtube/v3/search?q=#{encodeURIComponent search}&key=#{google_conf.api_key}&#{opts_str}"
-  console.log "video_search #{search}", opts, url
+  url = "https://gdata.youtube.com/feeds/api/videos?q=#{encodeURIComponent search}&v=2&alt=json&key=#{youtube_conf.api_key}&#{opts_str}"
 
   request url,
     (err, res, body) ->
-      console.log err, res, body
       try 
         out = JSON.parse(body)
       catch e
         return
-      posts = out.items
-      console.log body, posts, posts.length
+      posts = out.feed.entry
+      #console.log body, posts, posts.length
       _(posts).chain().each (post) ->
-        return unless post.id.videoId
-        url = URI.generate video_platforms.def.youtube.embed, video_id: post.id.videoId
+
+        #console.log post["yt$statistics"]
+        return unless post['gd$etag']
+        #url = URI.generate video_platforms.def.youtube.embed, video_id: post.id.videoId
 
         vdo = {}
-        vdo.title = post.snippet.title
-        vdo.thumbnail = post.snippet.thumbnails.medium.url
+        vdo.title = post.title["$t"]
+        vdo.thumbnail = post["media$group"]["media$thumbnail"][0].url
 
         msg = 
           provider: "youtube"
-          id: "youtube/#{post.id.videoId}"
-          post_date: post.publishedAt
-          text: ""
-          votes: 0
+          id: "youtube/#{post['gd$etag']}"
+          post_date: post.published["$t"]
+          text: post["media$group"]["media$description"]["$t"]
+          name: post.author[0].name["$t"]
+          username: post.author[0]["yt$userId"]["$t"]
+          votes: post["yt$statistics"]?["favoriteCount"] || 0
 
-        video_platforms.getVideoFromMsg msg, url, vdo
+        getUserInfo(post.author[0].uri["$t"])
+          .then (avatar_url) ->
+            msg.avatar_url = avatar_url
+            video_platforms.getVideoFromMsg msg, post.content.src, vdo
 
 video_search argv.search, argv
