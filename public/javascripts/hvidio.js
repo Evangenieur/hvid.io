@@ -30,6 +30,8 @@
                     $('#keyword').val(window.location.hash.substr(1));
                     $('#form').submit(); 
                 }, 200);
+            } else {
+                $keyword.focus();
             }
 
             // socket
@@ -103,6 +105,24 @@
             
             //keyCodes      
             if (navigator.userAgent.match(/GoogleTv/)) {     
+        		$(document).bind('keydown', "play", function(e){
+    				hvidio.hide();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+    			$(document).bind('keydown', "pause", function(e){
+    				hvidio.show();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+				$(document).bind('keydown', "stop", function(e){
+    				hvidio.show();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
     			$(document).bind('keydown', "right", function(e){
     				//hvidio.next();
     				e.stopPropagation();
@@ -115,9 +135,20 @@
     				e.preventDefault();
     				return false;
     			});
+    			$(document).bind('keydown', "fastforward", function(e){
+    				//hvidio.next();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
+    			$(document).bind('keydown', "rewind", function(e){
+    				//hvidio.prev();
+    				e.stopPropagation();
+    				e.preventDefault();
+    				return false;
+    			});
     			$(document).bind('keydown', "esc", function(e){
     				hvidio.show();
-
     				e.stopPropagation();
     				e.preventDefault();
     				return false;
@@ -172,7 +203,7 @@
                 scroll = new iScroll('results', {
                     scrollbarClass: 'myScrollbar',
                     fadeScrollbar: true,
-                    hideScrollbar: true,
+                    hideScrollbar: false,
                     vScroll: true,
                     vScrollbar: true,
                     useTransition: true,
@@ -189,12 +220,10 @@
         fetch: function(keyword, callback) {
 
             search = Search(keyword).when(20, function() {
-
                     callback(
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
                             video.id = hvidio.convertId(video.id);
-                            //video.score = video.msgs.length;
                             video.score = _.reduce(video.msgs, function(memo, num) { 
                                 return (memo + (parseInt(num.votes) + 1)) || 1; 
                             }, 0);
@@ -204,11 +233,10 @@
                         })
                     );
             }).on("video.new", function() {
-                /*
+                
                 var html = hvidio.templatize('#videoTemplate', { video: this });
                 //console.log(html);
                 $list.prepend($(html).hide().fadeIn());
-                */
 
                 console.log("new video", this.embed);
             }).on("video.update", function() {
@@ -284,17 +312,18 @@
         },
 
         play: function(embed) {
+            $results.find('.video').removeClass('current');
+
+            $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
+
             if (embed.indexOf("?") == -1) {
                 embed += "?"
             } else {
                 embed += "&"
             }
             embed += "wmode=transparent&autoplay=1"
+
             $player.attr('src', embed);
-
-            $results.find('.video').removeClass('current');
-
-            $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
 
             return this;
         },
