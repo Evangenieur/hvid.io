@@ -37,7 +37,7 @@ require('zappajs') ->
   ###
   @on "search": ->
 
-    for worker in ["twitter", "facebook", "googleplus"]
+    for worker in ["twitter", "facebook", "googleplus", "youtube"]
       child_launcher "./workers/#{worker}_search_worker.coffee", 
         search: @data
         (video) =>

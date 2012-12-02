@@ -24,7 +24,7 @@ video_search = (search, opts = {}) ->
       catch e
         return
       posts = out.items
-      console.log out, out.items.length
+      #console.log out, out.items.length
       _(posts).chain().each (post) ->
         _(post.object.attachments).each (attachment) ->
           if attachment.objectType is "video"
