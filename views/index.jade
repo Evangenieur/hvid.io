@@ -1,12 +1,16 @@
 extends layout
 
 block content
+    iframe#player
+        
+    div#clickjack
+
     section#main
         h1 
             span #
             | vid
             span .io
-        p.tagline watch the work live
+        p.tagline watch the world live
 
         ul#hashtags
             li
@@ -37,7 +41,7 @@ block content
         |      <div class="video-cell">
         |          <div class="video-wrapper">
         |              <img title="<%= video.title %>" src="<%= video.thumbnail %>">
-        |              <span class="overlay"></span>
+        |              <a class="play" href="<%= video.embed %>"></a>
         |              <span class="tip"><%= video.score %></span>
         |          </div>
         |          <div class="video-meta">

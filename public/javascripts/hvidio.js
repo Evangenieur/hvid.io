@@ -5,7 +5,9 @@
         $list = $('#video-list'),
         $keyword = $('#keyword'),
         $results = $('#results'),
-        $hashtags = $('#hashtags');
+        $hashtags = $('#hashtags'),
+        $player = $('#player'),
+        $clickjack = $('#clickjack');
 
     window.hvidio = {
 
@@ -36,14 +38,15 @@
             });
 
             // toggle main window
-            $('body').on('click', function(e) {
-                $main.fadeIn('fast');
+            $clickjack.on('click', function(e) {
+                hvidio.show();
                 
                 e.stopPropagation();
+                e.preventDefault();
             });
 
             $main.on('click', function(e) {
-                $main.fadeOut('fast');
+                hvidio.hide();
 
                 e.stopPropagation();
             });
@@ -56,6 +59,17 @@
                 e.stopPropagation();
             });
 
+            $results.on('click', '.play', function(e) {
+                hvidio
+                .play($(this).attr('href'))
+                .hide();
+
+                $results.find('.video').removeClass('current');
+                $(this).closest('.video').addClass('current');
+
+                e.preventDefault();
+            });
+
             // search
             $form.on('submit', function(e) {
                 var keyword = $keyword.val();
@@ -63,7 +77,6 @@
                 hvidio.search(keyword);
 
                 e.preventDefault();
-                return false;
             });
 
             return this;
@@ -89,6 +102,8 @@
                     }
                 });
             }
+
+            return this;
         },
 
         fetch: function(keyword, callback) {
@@ -112,6 +127,8 @@
             }).on("video.update", function() {
                 console.log("updated video ", this);
             });
+
+            return this;
         },
 
         templatize: function(template, data, output) {
@@ -133,6 +150,20 @@
             } else {
                 loader.hide();
             }
+
+            return this;
+        },
+
+        show: function() {
+            $main.show();
+
+            return this;
+        },
+
+        hide: function() {
+            $main.hide();
+
+            return this;
         },
 
         fadeImg: function(html) {
@@ -141,6 +172,12 @@
                     $(this).css('visibility','visible').hide().fadeIn('slow'); 
                 });
             });
+
+            return this;
+        },
+
+        play: function(embed) {
+            $player.attr('src', embed);
 
             return this;
         }
