@@ -98,6 +98,7 @@
                         _(this.videos_by_posts()).map(function(video) {
                             video.msg = video.msgs[0];
                             video.id = video.id.replace('/', '-', video.id);
+                            video.score = video.msgs.length;
     
                             return video;
                         })
