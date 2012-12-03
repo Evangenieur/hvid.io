@@ -280,10 +280,17 @@
                     callback([this]);
                 } else {
                     var html = hvidio.templatize('#videoTemplate', { video: this });
-                    //$list.append(html);
                     var $mylist = $("#video-list-" + urlify(keyword));
+                    //$list.append(html);
+                    /*
                     $mylist.append(html);
                     $(html).fadeIn()
+                    */
+                    var $html = $(html);
+
+                    $mylist.append($html);
+
+                    $html.css('visibility','visible').hide().fadeIn('slow'); 
                     hvidio.initScroll();
                 }
 

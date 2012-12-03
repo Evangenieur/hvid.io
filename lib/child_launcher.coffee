@@ -20,6 +20,7 @@ fork = (file, args) ->
     spawned.stdin.write JSON.stringify obj
   spawned.on_message = (cb) ->
     spawned.stdout.on "data", (msg) ->
+      console.log "parent got message", arguments
       try 
         cb JSON.parse(msg.toString())
       catch e
@@ -30,7 +31,6 @@ module.exports = (file, opts, cb) ->
   console.log "forking", file, opts
   forked = fork file, opts
   forked.on_message (obj) ->
-    console.log "parent got message", arguments
     cb obj
   forked.on "exit", ->
     console.log "Exited"

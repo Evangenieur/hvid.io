@@ -34,7 +34,7 @@ video_search = (search, opts = {}) ->
         ).map (post) ->
           url = post.link
           return unless url
-          console.log post.from
+          #console.log post.from
           msg = 
             provider: "facebook"
             id: "facebook/#{post.id}"
@@ -53,7 +53,7 @@ video_search = (search, opts = {}) ->
 
           vdo = {}
           vdo.title = post.name if post.name?
-          vdo.embed = post.source if post.source?
+          #vdo.embed = post.source if post.source?
           vdo.thumbnail = thumb if thumb?
 
           video_platforms.getVideoFromMsg msg, url, vdo

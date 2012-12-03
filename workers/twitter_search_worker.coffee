@@ -29,6 +29,7 @@ video_search = (search, opts = {}) ->
       _(tweets).chain().map (tweet) ->
         _(tweet.entities.urls).map (url) ->
           url = url.expanded_url
+          #console.log url
           msg = 
             provider: "twitter"
             id: "twitter/#{tweet.id_str}"

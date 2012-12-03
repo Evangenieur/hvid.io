@@ -204,11 +204,15 @@ p.tagline {
     border-radius: 20px;
 }
 
+.visible {
+    visibility: visible !important;
+}
+
 #results {
     height: 0;
     position: relative;
     z-index:1;
-    margin-top: 20px;
+    padding-top: 20px;
 
     #video-list {
         margin: 20px 1%;
@@ -216,6 +220,7 @@ p.tagline {
     }
 
     .video {
+        visibility: hidden;
         display: inline-block;
         margin: 10px 1%;
         min-height: @cell-height;
@@ -227,6 +232,8 @@ p.tagline {
         }
 
         &.current {
+            visibility: visible;
+            
             .play {
                 background: none;
             }

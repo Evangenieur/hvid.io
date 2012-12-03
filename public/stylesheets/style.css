@@ -155,17 +155,21 @@ p.tagline {
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5) inset;
   border-radius: 20px;
 }
+.visibile {
+  visibility: visible !important;
+}
 #results {
   height: 0;
   position: relative;
   z-index: 1;
-  margin-top: 20px;
+  padding-top: 20px;
 }
 #results #video-list {
   margin: 20px 1%;
   width: 98%;
 }
 #results .video {
+  visibility: hidden;
   display: inline-block;
   margin: 10px 1%;
   min-height: 200px;
@@ -174,6 +178,9 @@ p.tagline {
 }
 #results .video .video-wrapper {
   position: relative;
+}
+#results .video.current {
+  visibility: visible;
 }
 #results .video.current .play {
   background: none;
@@ -266,13 +273,13 @@ p.tagline {
   font-size: 10px;
 }
 #results .video .video-cell img.preview {
+  /*
   width: 217px;
   height: 127px;
-  /*
+  */
   min-width: 215px;
   min-height: 122px;
   max-height: 120px;
-  */
   border: 1px solid gray;
   box-shadow: 0px 5px 30px black;
 }
