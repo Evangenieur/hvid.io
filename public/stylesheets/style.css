@@ -13,6 +13,7 @@ body {
   color: white;
   font: 100% "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
+  overflow: hidden;
 }
 a:link,
 a:visited,
@@ -138,14 +139,13 @@ p.tagline {
   margin-top: 20px;
   overflow: scroll;
 }
-#results #video-list {
-  margin: 20px 1%;
-  width: 98%;
+#results .video-list {
+  overflow: hidden;
+  margin: 0 auto;
 }
 #results .video {
-  visibility: hidden;
-  display: inline-block;
-  margin: 10px 1%;
+  float: left;
+  margin: 10px 10px;
   min-height: 200px;
   width: 230px;
   position: relative;

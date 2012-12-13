@@ -2,14 +2,10 @@
     var loader, socket,
         $main = $('#main'),
         $form = $('#form'),
-        $list = $('#video-list'),
         $keyword = $('#keyword'),
         $results = $('#results'),
-        $hashtags = $('#hashtags'),
         $player = $('#player'),
         $close = $('#close'),
-        $up = $('#up'),
-        $down = $('#down'),
         $header = $('#header'),
         $clickjack = $('#clickjack');
 
@@ -39,14 +35,6 @@
             socket.on("connect", function() {
                 console.log("CONNECTED");
                 Search.com_init(socket);
-            });
-
-            // hashtags
-            $hashtags.on('click', 'a', function(e) {
-                $keyword.val($keyword.val());
-                $form.submit();
-                
-                e.preventDefault();
             });
 
             // toggle main window
@@ -325,10 +313,18 @@
         },
 
         resize: function() {
+            // Adjusts result div height
             var mh = $main.height(),
                 hh = $header.outerHeight();
 
             $results.outerHeight(mh - hh - 20);
+
+            // Adjusts/centers result list
+            var mw = $main.width(),
+                ew = $results.find('li').outerWidth(true),
+                rw = (Math.floor(mw / ew)) * ew;
+
+            $results.find('.video-list').width(rw);
         }
     }
 

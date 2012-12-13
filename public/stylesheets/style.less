@@ -22,6 +22,7 @@ body {
     color: white;
     font: 100% "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-align: center;
+    overflow: hidden;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -162,15 +163,16 @@ p.tagline {
     margin-top: 20px;
     overflow: scroll;
 
-    #video-list {
-        margin: 20px 1%;
-        width: 98%;
+    .video-list {
+        overflow: hidden;
+        margin: 0 auto;
     }
 
     .video {
-        visibility: hidden;
-        display: inline-block;
-        margin: 10px 1%;
+        // visibility: hidden;
+        // display: inline-block;
+        float: left;
+        margin: 10px 10px;
         min-height: @cell-height;
         width: 230px;
         position: relative;
