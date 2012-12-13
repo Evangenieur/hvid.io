@@ -55,7 +55,7 @@ p.tagline {
 }
 #main {
   -webkit-backface-visibility: hidden;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 20px;
   box-shadow: 0 0 20px #99cc32;
   height: 220px;
@@ -70,12 +70,14 @@ p.tagline {
   z-index: 100;
 }
 #main.large {
-  left: 4%;
-  top: 4%;
-  width: 90%;
-  height: 90%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  width: 99%;
+  height: 99%;
   margin: 0 0 0 0;
-  padding: 1%;
+  box-shadow: 0;
+  padding: 0.5%;
 }
 #keyword {
   background: rgba(0, 0, 0, 0.4) url(/images/search.png) no-repeat 2% center;
@@ -155,7 +157,7 @@ p.tagline {
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5) inset;
   border-radius: 20px;
 }
-.visibile {
+.visible {
   visibility: visible !important;
 }
 #results {
@@ -273,10 +275,6 @@ p.tagline {
   font-size: 10px;
 }
 #results .video .video-cell img.preview {
-  /*
-  width: 217px;
-  height: 127px;
-  */
   min-width: 215px;
   min-height: 122px;
   max-height: 120px;
