@@ -1,6 +1,3 @@
-@import "elements.less";
-@import "mixins.less";
-
 @win-width: 650px;
 @win-height: 220px;
 @win-padding: 20px;
@@ -288,14 +285,26 @@ p.tagline {
                 border-radius: 10px;
                 text-shadow: 0 2px 1px black;
                 box-shadow: 0 5px 5px black;
-                .gradient(@color-main, black, lighten(black, 40));
+                background-image: -webkit-gradient(
+                    linear,
+                    left bottom,
+                    left top,
+                    color-stop(0, black),
+                    color-stop(1, lighten(black, 40))
+                );
 
                 &.incremented {
                     box-shadow: 0 5px 5px black;
                     border: 1px solid @color-main;
                     text-shadow: 0 1px 0 @color-main;
                     color: black;
-                    .gradient(@color-main, darken(@color-main, 20), @color-main);
+                    background-image: -webkit-gradient(
+                        linear,
+                        left bottom,
+                        left top,
+                        color-stop(0, darken(@color-main, 20)),
+                        color-stop(1, @color-main)
+                    );
                 }
             }
 
