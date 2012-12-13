@@ -80,7 +80,7 @@ p.tagline {
     -webkit-backface-visibility: hidden;
     background: rgba(0, 0, 0, 0.8);
     border-radius: 20px;
-    box-shadow: 0 0 20px @color-main;
+    box-shadow: 0 0 10px @color-main;
     height: @win-height;
     left: 50%;
     margin-left: -((@win-width/2) + (@win-padding * 2));
@@ -101,6 +101,7 @@ p.tagline {
         margin: 0 0 0 0;
         box-shadow: 0;
         padding: 0.5%;
+        border-radius: 0;
     }
 }
 
@@ -138,7 +139,7 @@ p.tagline {
 }
 
 #close {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
     width: 32px;
@@ -150,52 +151,6 @@ p.tagline {
     cursor: pointer;
 }
 
-#up {
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    margin-left: -16px;
-    width: 32px;
-    height: 20px;
-    background: transparent url(/images/arrow-up.png) no-repeat center center;
-    background-size: 20px;
-    cursor: pointer;
-    opacity: 0.5;
-}
-
-#down {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    margin-left: -16px;
-    width: 32px;
-    height: 20px;
-    background: transparent url(/images/arrow-down.png) no-repeat center center;
-    background-size: 20px;
-    cursor: pointer;
-    opacity: 0.5;
-}
-
-#top {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5) inset;
-    border-radius: 20px;
-}
-
-#bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30px;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5) inset;
-    border-radius: 20px;
-}
-
 .visible {
     visibility: visible !important;
 }
@@ -204,7 +159,8 @@ p.tagline {
     height: 0;
     position: relative;
     z-index:1;
-    padding-top: 20px;
+    margin-top: 20px;
+    overflow: scroll;
 
     #video-list {
         margin: 20px 1%;
@@ -403,50 +359,3 @@ p.tagline {
         }
     }
 }
-
-.myScrollbarV {
-    position: absolute;
-    z-index: 100;
-    width: 4px;
-    bottom: 7px;
-    top: 2px;
-    right: 1px
-}
-
-.myScrollbarV > div {
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-
-    /* The following is probably what you want to customize */
-    background: darken(@color-main, 20);
-    -webkit-background-clip: padding-box;
-    -webkit-box-sizing: border-box;
-    -webkit-border-radius: 4px;
-}
-
-#hashtags {
-    display: none;
-//    overflow: hidden;
-//     width: 90%;
-//     margin: 10px 5%;
-//     
-    
-//     li {
-//         float: left;
-//         width: 23%;
-//         margin: 0 1%;
-//     }
-
-//     a {
-//         font-style: italic;
-//         display: block;
-//         padding: 4px 2%;
-//         border-radius: 50px;
-//         font-size: 12px;
-//         border: 2px solid fadeout(@color-main, 70); 
-//         background: rgba(0,0,0,0.5);
-//     }
-}
-
-

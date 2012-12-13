@@ -1,5 +1,5 @@
 (function() {
-    var loader, socket, scroll
+    var loader, socket,
         $main = $('#main'),
         $form = $('#form'),
         $list = $('#video-list'),
@@ -12,17 +12,6 @@
         $down = $('#down'),
         $header = $('#header'),
         $clickjack = $('#clickjack');
-
-    var urlify = function (str) {
-      return str.replace(/\s/g, '_')
-        .replace(/:/g, '-')
-        .replace(/\\/g, '-')
-        .replace(/\//g, '-')
-        .replace(/[^a-zA-Z0-9\-_]+/g, '')
-        .replace(/-{2,}/g, '-')
-        .toLowerCase();
-    }
-
 
     window.hvidio = {
 
@@ -100,7 +89,7 @@
             $results.on('click', '#up', function(e) {
                 var h = $results.find('li').outerHeight(true);
 
-                scroll.scrollTo(0, (scroll.y + h), 100);
+                // scroll.scrollTo(0, (scroll.y + h), 100);
 
                 e.preventDefault();
             });
@@ -108,7 +97,7 @@
             $results.on('click', '#down', function(e) {
                 var h = $results.find('li').outerHeight(true);
 
-                scroll.scrollTo(0, (scroll.y - h), 100);
+                // scroll.scrollTo(0, (scroll.y - h), 100);
 
                 e.preventDefault();
             });
@@ -189,12 +178,9 @@
                 hvidio.loading(true);
 
                 hvidio.fetch(keyword, function(data) {
-                    console.log("PASSE PAR LA CALLBACK");
                     $main.addClass('large');
 
                     hvidio.templatize('#videosTemplate', { search: urlify(keyword), videos: data }, '#results');
-
-                    hvidio.initScroll();
                     
                     hvidio.loading(false);
                     
@@ -207,60 +193,10 @@
             return this;
         },
 
-        initScroll: function() {
-            var toggleButtons = function(scroll) {
-                if (scroll.y == scroll.maxScrollY) {
-                    $('#down').hide();
-                } else {
-                    $('#down').show();
-                }
-
-                if (scroll.y == 0) {
-                    $('#up').hide();
-                } else {
-                    $('#up').show();
-                }
-            }
-            if (scroll) {
-                scroll.refresh();
-            } else {
-                scroll = new iScroll('results', {
-                    scrollbarClass: 'myScrollbar',
-                    fadeScrollbar: true,
-                    hideScrollbar: false,
-                    vScroll: true,
-                    vScrollbar: true,
-                    snap: 'li',
-                    useTransition: true,
-                    bounce: false,
-                    onRefresh: function() {
-                        toggleButtons(this);
-                    },
-                    onScrollEnd: function () {
-                        toggleButtons(this);
-                    }
-                });
-            }
-        },
-
         fetch: function(keyword, callback) {
 
-            search = Search(keyword)/*.when(20, function() {
-                    callback(
-                        _(this.videos_by_posts()).map(function(video) {
-                            video.msg = video.msgs[0];
-                            video.id = hvidio.convertId(video.id);
-                            // video.score = _.reduce(video.msgs, function(memo, num) { 
-                            //     return (memo + (num.votes + 1)) || 1; 
-                            // }, 0);
-                            video.score = video.msgs.length;
-
-                            video.date = video.msgs[0].post_date;
-                            return video;
-                        })
-                    );
-
-            })*/.on("video.new", function() {
+            search = Search(keyword)
+            .on("video.new", function() {
                 var pos;
                 this.msg = this.msgs[0];
                 this.id = hvidio.convertId(this.id);
@@ -291,7 +227,6 @@
                     $mylist.append($html);
 
                     $html.css('visibility','visible').hide().fadeIn('slow'); 
-                    hvidio.initScroll();
                 }
 
             }).on("video.update", function() {
@@ -398,6 +333,17 @@
     }
 
     // Extra scripts
+
+    var urlify = function (str) {
+      return str.replace(/\s/g, '_')
+        .replace(/:/g, '-')
+        .replace(/\\/g, '-')
+        .replace(/\//g, '-')
+        .replace(/[^a-zA-Z0-9\-_]+/g, '')
+        .replace(/-{2,}/g, '-')
+        .toLowerCase();
+    }
+
     var _underscore_template = _.template;
     _.template = function(str, data) {
         return _underscore_template(

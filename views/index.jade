@@ -13,16 +13,6 @@ block content
                 span .io
             p.tagline World Wide Watch - Watch our World live
 
-            ul#hashtags
-                li
-                    a(href='#') #angelhack
-                li
-                    a(href='#') #sandy
-                li
-                    a(href='#') #syria
-                li
-                    a(href='#') #ump
-
             form#form(onsubmit="return false")
                 input#keyword(name='keyword', placeholder='any hashtag or keyword...', autocomplete='off')
 
@@ -38,10 +28,6 @@ block content
         |  <% include videoTemplate %>
         |  <% }) %>
         |  </ul>
-        |  <div id="top"></div>
-        |  <div id="bottom"></div>
-        |  <div id="up"></div>
-        |  <div id="down"></div>
 
     script#messageTemplate(type='text/template')
         |  <li class="<%= msg.provider %>" title="<%= msg.name %>">
