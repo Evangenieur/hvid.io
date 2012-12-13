@@ -26,14 +26,21 @@ a:hover {
 }
 h1 {
   font: italic 100 80px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-shadow: 0 5px 5px black;
 }
 h1 span {
   color: #99cc32;
+}
+.large h1 {
+  font-size: 70px;
 }
 p.tagline {
   font: italic 16px Georgia, Times, serif;
   margin-bottom: 20px;
   color: #DDD;
+}
+.large p.tagline {
+  font-size: 13px;
 }
 #player {
   border: none;
@@ -90,6 +97,11 @@ p.tagline {
   padding: 10px 50px;
   text-align: center;
   width: 70%;
+}
+.large #keyword {
+  font: 200 120% "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 400px;
+  background-size: 20px;
 }
 #keyword:focus {
   outline: none;
