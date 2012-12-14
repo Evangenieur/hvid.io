@@ -159,30 +159,26 @@ p.tagline {
 #results {
     height: 0;
     position: relative;
-    z-index:1;
     margin-top: 20px;
-    overflow: scroll;
+    // overflow: scroll;
 
     .video-list {
         overflow: hidden;
         margin: 0 auto;
+        position: relative;
     }
 
     .video {
-        // visibility: hidden;
+        visibility: hidden;
         // display: inline-block;
         float: left;
         margin: 10px 10px;
         min-height: @cell-height;
         width: 230px;
-        position: relative;
-
-        .video-wrapper {
-            position: relative;
-        }
+        
 
         &.current {
-            visibility: visible;
+            //visibility: visible;
             
             .play {
                 background: none;
@@ -205,26 +201,24 @@ p.tagline {
             background-size: 40px;
         }
 
-        &.nowPlaying {
-            .play {
-                background-image: none;
-            }
+        // &.nowPlaying {
+        //     .play {
+        //         background-image: none;
+        //     }
             
-            img.preview {
-                border: 1px solid @color-main !important;
-                box-shadow: 0px 0px 20px @color-main !important;
-            }
-        }
+        //     img.preview {
+        //         border: 1px solid @color-main !important;
+        //         box-shadow: 0px 0px 20px @color-main !important;
+        //     }
+        // }
 
         .video-cell {
             text-align: center;
 
             .video-wrapper {
-                display: inline-block;
-   
-                &:hover .remove-button {
-                    display: block;
-                }
+                // display: inline-block;
+                // display: block;
+                position: relative;
             }
 
             .tip {
@@ -286,7 +280,7 @@ p.tagline {
 
                     li {
                         text-align: center;
-                        padding: 0px 5px;
+
                     }
                 }
 
@@ -296,10 +290,9 @@ p.tagline {
             }
 
             img.preview {
-                min-width: 215px;
+                min-width: 228px;
                 min-height: 122px;
-
-                max-height: 120px;
+                max-height: 122px;
                 border: 1px solid gray;
                 box-shadow: 0px 5px 30px black;
             }

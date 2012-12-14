@@ -5,14 +5,17 @@ html
         link(rel='shortcut icon', href='/images/favicon.ico')
         link(rel='icon', type='image/png', href='/images/favicon.png')
         link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet', href='/stylesheets/animated.css')
+        link(rel='stylesheet', href='/stylesheets/animated.min.css')
+        link(rel='stylesheet', href='/stylesheets/jquery.jscrollpane.min.css')
     body
         block content
 
         script(src='/socket.io/socket.io.js')
-        script(src='/javascripts/jquery.js')
-        script(src='/javascripts/jquery.timeago.js')
-        script(src='/javascripts/underscore.js')
-        script(src='/javascripts/canvasloader.js')
+        script(src='/javascripts/jquery.min.js')
+        script(src='/javascripts/jquery.timeago.min.js')
+        script(src='/javascripts/jquery.mousewheel.min.js')
+        script(src='/javascripts/jquery.jscrollpane.min.js')
+        script(src='/javascripts/underscore.min.js')
+        script(src='/javascripts/canvasloader.min.js')
         script(src='/javascripts/live-search.js')
         script(src='/javascripts/hvidio.js')

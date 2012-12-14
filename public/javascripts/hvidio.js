@@ -1,5 +1,5 @@
 (function() {
-    var loader, socket,
+    var loader, socket, scroller,
         $main = $('#main'),
         $form = $('#form'),
         $keyword = $('#keyword'),
@@ -161,6 +161,14 @@
             return this;
         },
 
+        initScroller: function() {
+            if (!scroller) {
+                scroller = $results.jScrollPane().data('jsp');
+            } else {
+                scroller.reinitialise();
+            }
+        },
+
         search: function(keyword) {
             if (keyword) {
                 hvidio.loading(true);
@@ -173,6 +181,8 @@
                     hvidio.loading(false);
                     
                     hvidio.play(data[0].embed);
+
+                    hvidio.initScroller();
 
                     $close.fadeIn(5000);
                 });
@@ -213,6 +223,8 @@
                     var $html = $(html);
 
                     $mylist.append($html);
+
+                    hvidio.initScroller();
 
                     $html.css('visibility','visible').hide().fadeIn('slow'); 
                 }

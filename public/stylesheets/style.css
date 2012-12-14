@@ -135,23 +135,19 @@ p.tagline {
 #results {
   height: 0;
   position: relative;
-  z-index: 1;
   margin-top: 20px;
-  overflow: scroll;
 }
 #results .video-list {
   overflow: hidden;
   margin: 0 auto;
+  position: relative;
 }
 #results .video {
+  visibility: hidden;
   float: left;
   margin: 10px 10px;
   min-height: 200px;
   width: 230px;
-  position: relative;
-}
-#results .video .video-wrapper {
-  position: relative;
 }
 #results .video.current {
   visibility: visible;
@@ -173,21 +169,11 @@ p.tagline {
   background: transparent url(/images/play.png) no-repeat center center;
   background-size: 40px;
 }
-#results .video.nowPlaying .play {
-  background-image: none;
-}
-#results .video.nowPlaying img.preview {
-  border: 1px solid #99cc32 !important;
-  box-shadow: 0px 0px 20px #99cc32 !important;
-}
 #results .video .video-cell {
   text-align: center;
 }
 #results .video .video-cell .video-wrapper {
-  display: inline-block;
-}
-#results .video .video-cell .video-wrapper:hover .remove-button {
-  display: block;
+  position: relative;
 }
 #results .video .video-cell .tip {
   cursor: pointer;
@@ -233,15 +219,14 @@ p.tagline {
 }
 #results .video .video-cell .video-meta ul li {
   text-align: center;
-  padding: 0px 5px;
 }
 #results .video .video-cell .video-meta .date {
   font-size: 10px;
 }
 #results .video .video-cell img.preview {
-  min-width: 215px;
+  min-width: 228px;
   min-height: 122px;
-  max-height: 120px;
+  max-height: 122px;
   border: 1px solid gray;
   box-shadow: 0px 5px 30px black;
 }
