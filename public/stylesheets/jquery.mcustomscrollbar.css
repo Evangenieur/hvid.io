@@ -2,7 +2,7 @@
 /* vertical scrollbar */
 .mCSB_container{
     width:auto;
-    margin-right:30px;
+    margin-right:0px;
     overflow:hidden;
 }
 .mCSB_container.mCS_no_scrollbar{
@@ -10,10 +10,10 @@
 }
 .mCS_disabled .mCSB_container.mCS_no_scrollbar,
 .mCS_destroyed .mCSB_container.mCS_no_scrollbar{
-    margin-right:30px;
+    margin-right:0px;
 }
 .mCustomScrollBox .mCSB_scrollTools{
-    width:16px;
+    width:5px;
     height:100%;
     top:0;
     right:0;

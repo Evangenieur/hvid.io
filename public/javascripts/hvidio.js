@@ -74,22 +74,6 @@
                 e.preventDefault();
             });
 
-            $results.on('click', '#up', function(e) {
-                var h = $results.find('li').outerHeight(true);
-
-                // scroll.scrollTo(0, (scroll.y + h), 100);
-
-                e.preventDefault();
-            });
-
-            $results.on('click', '#down', function(e) {
-                var h = $results.find('li').outerHeight(true);
-
-                // scroll.scrollTo(0, (scroll.y - h), 100);
-
-                e.preventDefault();
-            });
-
             $(window).on('resize', function() {
                 hvidio.resize();
             });
@@ -163,9 +147,10 @@
 
         initScroller: function() {
             if (!scroller) {
-                scroller = $results.jScrollPane().data('jsp');
+                $results.mCustomScrollbar();
+                scroller = true;
             } else {
-                scroller.reinitialise();
+               $results.mCustomScrollbar("update");
             }
         },
 
@@ -243,7 +228,7 @@
                 var msg = this.msgs[this.msgs.length - 1];
 
                 var html = hvidio.templatize('#messageTemplate', { msg: msg });
-                //console.log(html);
+
                 $people.prepend($(html).hide().fadeIn());
             });
 
@@ -281,7 +266,6 @@
         },
 
         show: function() {
-            //$main.show();
             $main.removeClass('bounceIn fadeOutUp fadeOutDown');
             $main.addClass('fadeInUp').show();;
 
@@ -289,7 +273,6 @@
         },
 
         hide: function() {
-            //$main.hide();
             $main.removeClass('bounceIn fadeOutUp fadeOutDown');
             $main.addClass('fadeOutDown');
             setTimeout(function() { $main.hide() }, 500);
@@ -313,11 +296,11 @@
             $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
 
             if (embed.indexOf("?") == -1) {
-                embed += "?"
+                embed += "?";
             } else {
-                embed += "&"
+                embed += "&";
             }
-            embed += "wmode=transparent&autoplay=1&autohide=1"
+            embed += "wmode=transparent&autoplay=1&autohide=1";
 
             $player.attr('src', embed);
 

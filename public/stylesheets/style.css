@@ -173,7 +173,9 @@ p.tagline {
   text-align: center;
 }
 #results .video .video-cell .video-wrapper {
+  display: block;
   position: relative;
+  min-height: 125px;
 }
 #results .video .video-cell .tip {
   cursor: pointer;

@@ -170,15 +170,13 @@ p.tagline {
 
     .video {
         visibility: hidden;
-        // display: inline-block;
         float: left;
         margin: 10px 10px;
         min-height: @cell-height;
         width: 230px;
         
-
         &.current {
-            //visibility: visible;
+            visibility: visible;
             
             .play {
                 background: none;
@@ -201,24 +199,13 @@ p.tagline {
             background-size: 40px;
         }
 
-        // &.nowPlaying {
-        //     .play {
-        //         background-image: none;
-        //     }
-            
-        //     img.preview {
-        //         border: 1px solid @color-main !important;
-        //         box-shadow: 0px 0px 20px @color-main !important;
-        //     }
-        // }
-
         .video-cell {
             text-align: center;
 
             .video-wrapper {
-                // display: inline-block;
-                // display: block;
+                display: block;
                 position: relative;
+                min-height: 125px;
             }
 
             .tip {
