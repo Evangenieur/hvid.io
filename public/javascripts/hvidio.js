@@ -152,6 +152,8 @@
             } else {
                $results.mCustomScrollbar("update");
             }
+
+            return this;
         },
 
         search: function(keyword) {
