@@ -11,6 +11,14 @@ require('zappajs') ->
   @get "/": -> 
     @render "index"
 
+  @get "/info": ->
+     os = require "os"
+     @send
+      loadavg  : os.loadavg()
+      uptime   : os.uptime()
+      freemem  : os.freemem()
+      totalmem : os.totalmem()
+    
   @on "search": ->
 
     for worker in ["twitter", "facebook", "googleplus", "youtube"]
