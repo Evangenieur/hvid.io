@@ -33,7 +33,6 @@
             // socket
             socket = io.connect("http://"+window.location.host);
             socket.on("connect", function() {
-                console.log("CONNECTED");
                 Search.com_init(socket);
             });
 
@@ -91,57 +90,39 @@
                 e.preventDefault();
             });
             
-            //keyCodes      
-            if (navigator.userAgent.match(/GoogleTv/)) {     
-        		$(document).bind('keydown', "play", function(e){
-    				hvidio.hide();
-    				e.stopPropagation();
-    				e.preventDefault();
-    				return false;
-    			});
-    			$(document).bind('keydown', "pause", function(e){
-    				hvidio.show();
-    				e.stopPropagation();
-    				e.preventDefault();
-    				return false;
-    			});
-				$(document).bind('keydown', "stop", function(e){
-    				hvidio.show();
-    				e.stopPropagation();
-    				e.preventDefault();
-    				return false;
-    			});
-    			$(document).bind('keydown', "right", function(e){
-    				//hvidio.next();
-    				e.stopPropagation();
-    				e.preventDefault();
-    				return false;
-    			});
-    			$(document).bind('keydown', "left", function(e){
-    				//hvidio.prev();
-    				e.stopPropagation();
-    				e.preventDefault();
-    				return false;
-    			});
-    			$(document).bind('keydown', "fastforward", function(e){
-    				//hvidio.next();
-    				e.stopPropagation();
-    				e.preventDefault();
-    				return false;
-    			});
-    			$(document).bind('keydown', "rewind", function(e){
-    				//hvidio.prev();
-    				e.stopPropagation();
-    				e.preventDefault();
-    				return false;
-    			});
-    			$(document).bind('keydown', "esc", function(e){
-    				hvidio.show();
-    				e.stopPropagation();
-    				e.preventDefault();
-    				return false;
-    			});
-            }
+            //keyCodes
+            $(document).bind('keydown', function(e) {
+                var tag = e.target.tagName.toLowerCase();
+                if (tag != 'input' && tag != 'textarea') {
+                    switch (e.keyCode) {
+                        case 27: // esc
+                            hvidio.toggle();
+                            e.preventDefault();
+                        break;
+                        case 37: // left arrow
+                            hvidio.prev();              
+                            e.preventDefault();
+                        break;
+                        case 38: // up arrow
+                            hvidio.prev();
+                            e.preventDefault();
+                        break;
+                        case 39: // right arrow
+                            hvidio.next();
+                            e.preventDefault();
+                        break;
+                        case 40: // down arrow
+                            hvidio.next();
+                            e.preventDefault();
+                        break;
+                        case 9: // tab
+                            hvidio.show();
+                            $keyword.focus().select();
+                            e.preventDefault();
+                        break;
+                    }
+                }
+            });
 
             $main.addClass('bounceIn');
 
@@ -270,6 +251,16 @@
             return this;
         },
 
+        toggle: function() {
+            if ($main.is(':visible')) {
+                hvidio.hide();
+            } else {
+                hvidio.show();
+            }
+
+            return this;
+        },
+
         show: function() {
             $main.removeClass('bounceIn fadeOutUp fadeOutDown');
             $main.addClass('fadeInUp').show();;
@@ -310,6 +301,14 @@
             $player.attr('src', embed);
 
             return this;
+        },
+
+        next: function() {
+            console.log('next');
+        },
+
+        prev: function() {
+            console.log('prev');
         },
 
         resize: function() {
