@@ -1,5 +1,5 @@
 (function() {
-    var loader, socket, scroller,
+    var loader, socket, scroller, timer,
         $main = $('#main'),
         $form = $('#form'),
         $keyword = $('#keyword'),
@@ -140,6 +140,16 @@
             return this;
         },
 
+        initTimer: function() {
+            // Hide main window when idle
+            $(window).on('mousemove keydown', function() {
+                clearTimeout(timer);
+                timer =  setTimeout(function() { hvidio.hide() }, 10000);
+            });
+
+            return this;
+        },
+
         search: function(keyword) {
             if (keyword) {
                 hvidio.loading(true);
@@ -149,11 +159,11 @@
 
                     hvidio.templatize('#videosTemplate', { search: urlify(keyword), videos: data }, '#results');
                     
-                    hvidio.loading(false);
-                    
-                    hvidio.play(data[0].embed);
-
-                    hvidio.initScroller();
+                    hvidio
+                        .loading(false)
+                        .play(data[0].embed)
+                        .initScroller()
+                        .initTimer();
 
                     $close.fadeIn(5000);
                 });
@@ -271,6 +281,7 @@
         hide: function() {
             $main.removeClass('bounceIn fadeOutUp fadeOutDown');
             $main.addClass('fadeOutDown');
+            
             setTimeout(function() { $main.hide() }, 500);
 
             return this;
