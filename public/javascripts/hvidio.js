@@ -45,7 +45,8 @@
                 e.preventDefault();
             });
 
-            $close.on('click', function(e) {
+            //$close.on('click', function(e) {
+            $main.on('click', function(e) {    
                 hvidio.hide();
 
                 e.stopPropagation();
@@ -57,8 +58,10 @@
             });
 
             $results.on('click', '.play', function(e) {
-                hvidio.play($(this).attr('href')).hide();
+                //hvidio.play($(this).attr('href')).hide();
+                hvidio.play($(this).attr('href'));
 
+                e.stopPropagation();
                 e.preventDefault();
             });
 
