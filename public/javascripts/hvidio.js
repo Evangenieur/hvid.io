@@ -303,12 +303,37 @@
             return this;
         },
 
+        jump: function(index) {
+           var embed = $('.video').eq(index).find('.play').attr('href');
+
+           hvidio.play(embed);
+        },
+
         next: function() {
-            console.log('next');
+            var index = $('.current').index('.video');
+
+            index++;
+
+            if (index > $('.video').size() - 1) {
+                index = 0;
+                $results.mCustomScrollbar("scrollTo", 0);
+            }
+
+            hvidio.jump(index);
         },
 
         prev: function() {
-            console.log('prev');
+            var index = $('.current').index('.video');
+
+            index--;
+
+            if (index < 0) {
+                index = $('.video').size() - 1;
+
+                $results.mCustomScrollbar("scrollTo", 20000);
+            }
+
+            hvidio.jump(index);
         },
 
         resize: function() {
