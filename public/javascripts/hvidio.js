@@ -128,6 +128,16 @@
             return this;
         },
 
+        initTimer: function() {
+            // Hide main window when idle
+            $(window).on('mousemove keydown', function() {
+                clearTimeout(timer);
+                timer =  setTimeout(function() { hvidio.hide() }, 10000);
+            });
+
+            return this;
+        },
+
         search: function(keyword) {
             if (keyword) {
                 this.keyword = keyword;
@@ -139,12 +149,11 @@
                     $main.addClass('large');
 
                     hvidio.templatize('#videosTemplate', { search: urlify(keyword), videos: data }, '#results');
-                    
-                    //hvidio.loading(false);
-                    
-                    hvidio.play(data[0].embed);
 
-                    hvidio.initScroller(true);
+                    hvidio
+                        .play(data[0].embed)
+                        .initScroller()
+                        .initTimer();
 
                     $close.fadeIn(5000);
                 });
@@ -269,6 +278,7 @@
         hide: function() {
             $main.removeClass('bounceIn fadeOutUp fadeOutDown');
             $main.addClass('fadeOutDown');
+            
             setTimeout(function() { $main.hide() }, 500);
 
             return this;

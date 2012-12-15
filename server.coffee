@@ -1,6 +1,9 @@
 _ = require "underscore"
 child_launcher = require "./lib/child_launcher"
+<<<<<<< HEAD
 Q = require "q"
+=======
+>>>>>>> design
 
 require('zappajs') ->
   @use "static", "favicon", require('less-middleware')({ src: __dirname + '/public' })
@@ -10,6 +13,7 @@ require('zappajs') ->
 
   @get "/": -> 
     @render "index"
+<<<<<<< HEAD
   ###
   @get "/info": ->
      os = require "os"
@@ -23,6 +27,14 @@ require('zappajs') ->
     promises = []
     _(["twitter", "facebook", "googleplus", "youtube"]).each (worker) =>
       deferred = Q.defer()
+=======
+
+  @get "/no": -> 
+    @render "no"
+
+  @on "search": ->
+    for worker in ["twitter", "facebook", "googleplus", "youtube"]
+>>>>>>> design
       child_launcher "./workers/#{worker}_search_worker.coffee", 
         search: @data
         message: (video) =>
