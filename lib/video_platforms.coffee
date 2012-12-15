@@ -5,7 +5,6 @@ _ = require "underscore"
 cheerio = require "cheerio"
 request = require "request"
 
-
 video_platforms = 
   youtube:
     domains: ["youtube.com", "youtu.be"]
@@ -53,8 +52,6 @@ http.get_redirect = (url, cb) ->
       #console.log "get_redirect #{url} timeout"
       cb null
 
-
-
 module.exports = me = 
   def: video_platforms
   lookup: (url) ->
@@ -69,11 +66,12 @@ module.exports = me =
                   provider: name
                   embed: URI.generate platform.embed, result
                   id: "#{name}/#{result.video_id}"
+                  url: 'http://' + platform.domains[0] + URI.generate platform.urls[0], result
             catch e
               console.log e
     not_found: url.toString()
 
-  getVideoFromMsg: (msg, url, vdo ={}, deferred = Q.defer()) ->
+  getVideoFromMsg: (msg, url, vdo = {}, deferred = Q.defer()) ->
     video = me.lookup url
     #console.log video
     if video.id
@@ -123,6 +121,5 @@ module.exports = me =
         vdo_meta.title = doc("title").text()
 
       deferred.resolve vdo_meta
-
 
     deferred.promise

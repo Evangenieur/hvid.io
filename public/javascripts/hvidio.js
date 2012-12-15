@@ -47,9 +47,11 @@
             //$close.on('click', function(e) {
             $main.on('click', function(e) {    
                 hvidio.hide();
-
                 e.stopPropagation();
-                e.preventDefault();
+            });
+
+            $main.on('click', 'a', function(e) {
+                e.stopPropagation();
             });
 
             $keyword.on('click', function(e) {

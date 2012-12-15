@@ -34,7 +34,7 @@ block content
         |  <li class="video" id="<%= video.dom_id %>">
         |      <div class="video-cell">
         |          <div class="video-wrapper">
-        |              <img class="preview" title="<%= video.title %>" src="<%= video.thumbnail %>">
+        |              <img class="preview" alt="<%= video.title %>" src="<%= video.thumbnail %>">
         |              <a class="play" href="<%= video.embed %>"></a>
         |              <span class="tip"><%= video.score %></span>
         |          </div>
@@ -44,7 +44,7 @@ block content
         |                  <li>
         |                       <time datetime="<%= video.date %>"><%= video.date %></time>
         |                       <br> 
-        |                       from <a class="from" href="<%= video.url %>"><%= video.provider %></a>
+        |                       from <a class="from" href="<%= video.url %>" target="_blank"><%= video.provider %></a>
         |                   </li>
         |              </li>
         |          </div>
