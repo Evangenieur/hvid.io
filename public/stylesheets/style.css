@@ -32,7 +32,7 @@ h1 span {
   color: #99cc32;
 }
 .large h1 {
-  font-size: 70px;
+  font-size: 65px;
 }
 p.tagline {
   font: italic 16px Georgia, Times, serif;
@@ -211,7 +211,7 @@ p.tagline {
   font: bold 11px/1.8 Arial;
   color: #FFF;
   text-shadow: 0px 1px 1px black;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 #results .video .video-cell .video-meta h5 {
   font-weight: bold;
@@ -234,59 +234,9 @@ p.tagline {
 #results .video .video-cell img.preview {
   visibility: hidden;
   width: 210px;
-  height: 140px;
+  height: 135px;
   border: 1px solid gray;
   box-shadow: 0px 5px 30px black;
-}
-<<<<<<< HEAD
-=======
-#results .video .video-people {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  max-width: 68px;
-  box-shadow: 0 10px 10px black;
-  border: 1px solid gray;
-  padding: 1px;
-  padding-bottom: 0;
-  background: black;
-  display: none;
-}
-#results .video .video-people ul {
-  list-style: none;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-}
-#results .video .video-people ul li {
-  float: left;
-  margin: 1px;
-  position: relative;
-  overflow: hidden;
-}
-#results .video .video-people ul li img {
-  width: 32px;
-  height: 32px;
-  margin-bottom: -1px;
-}
-#results .video .video-people ul li .logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-#results .video .video-people ul .twitter .logo {
-  background: transparent url(/images/twitter.png) no-repeat right bottom;
-  background-size: 16px;
-}
-#results .video .video-people ul .facebook .logo {
-  background: transparent url(/images/facebook.png) no-repeat right bottom;
-  background-size: 16px;
-}
-#results .video .video-people ul .gplus .logo {
-  background: transparent url(/images/gplus.png) no-repeat right bottom;
-  background-size: 16px;
 }
 #no {
   background: #111;
@@ -306,4 +256,3 @@ p.tagline {
 #no #header {
   margin-bottom: 40px;
 }
->>>>>>> design

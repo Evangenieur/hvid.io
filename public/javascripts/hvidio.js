@@ -1,5 +1,5 @@
 (function() {
-    var loader, socket, scroller, counter = 0,
+    var loader, socket, scroller, counter = 0, timerIdle,
         $main = $('#main'),
         $form = $('#form'),
         $keyword = $('#keyword'),
@@ -131,8 +131,8 @@
         initTimer: function() {
             // Hide main window when idle
             $(window).on('mousemove keydown', function() {
-                clearTimeout(timer);
-                timer =  setTimeout(function() { hvidio.hide() }, 10000);
+                clearTimeout(timerIdle);
+                timerIdle =  setTimeout(function() { hvidio.hide() }, 20000);
             });
 
             return this;
@@ -155,7 +155,7 @@
                         .initScroller()
                         .initTimer();
 
-                    $close.fadeIn(5000);
+                    $close.hide();
                 });
             }
 
@@ -170,6 +170,7 @@
             hvidio.initScroller(true);
                     $close.fadeIn(5000);
         },
+        
         fetch: function(keyword, callback) {
             var self = this;
 
