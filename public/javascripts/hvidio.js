@@ -60,7 +60,7 @@
                 //hvidio.play($(this).attr('href')).hide();
                 hvidio.play($(this).attr('href'));
 
-                e.stopPropagation();
+                //e.stopPropagation();
                 e.preventDefault();
             });
 
@@ -68,12 +68,14 @@
                 $(this).closest('.video').find('.video-people').fadeIn();
 
                 e.preventDefault();
+                return false;
             });
 
             $results.on('click', '.video-people', function(e) {
                 $(this).fadeOut();
 
                 e.preventDefault();
+                return false;
             });
 
             $(window).on('resize', function() {
@@ -129,8 +131,8 @@
             return this;
         },
 
-        initScroller: function() {
-            if (!scroller) {
+        initScroller: function(force) {
+            if (!scroller || force) {
                 $results.mCustomScrollbar();
                 scroller = true;
             } else {
@@ -142,6 +144,9 @@
 
         search: function(keyword) {
             if (keyword) {
+                this.keyword = keyword;
+                console.log(this);
+
                 hvidio.loading(true);
 
                 hvidio.fetch(keyword, function(data) {
@@ -149,11 +154,11 @@
 
                     hvidio.templatize('#videosTemplate', { search: urlify(keyword), videos: data }, '#results');
                     
-                    hvidio.loading(false);
+                    //hvidio.loading(false);
                     
                     hvidio.play(data[0].embed);
 
-                    hvidio.initScroller();
+                    hvidio.initScroller(true);
 
                     $close.fadeIn(5000);
                 });
@@ -162,7 +167,16 @@
             return this;
         },
 
+        order: function(videos) {
+            console.log("order", videos, this.keyword, $('#results'));
+            hvidio.templatize('#videosTemplate', { search: urlify(this.keyword), videos: videos }, '#results');
+                    hvidio.loading(false);
+            hvidio.play(videos[0].embed);
+            hvidio.initScroller(true);
+                    $close.fadeIn(5000);
+        },
         fetch: function(keyword, callback) {
+            var self = this;
 
             search = Search(keyword)
             .on("video.new", function() {
@@ -216,6 +230,13 @@
                 var html = hvidio.templatize('#messageTemplate', { msg: msg });
 
                 $people.prepend($(html).hide().fadeIn());
+            }).on("finished", function() {
+                console.log("FINISHED");
+                hvidio.loading(false);
+                self.order(
+                    search.videos_by_date()
+                    //search.videos_by_posts()
+                );
             });
 
             return this;
@@ -242,6 +263,7 @@
         },
 
         loading: function(bool) {
+            //console.log("loader", loader);
             if (bool) {
                 loader.show();
             } else {

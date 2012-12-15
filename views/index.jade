@@ -40,7 +40,7 @@ block content
         |          <div class="video-wrapper">
         |              <img class="preview" title="<%= video.title %>" src="<%= video.thumbnail %>">
         |              <a class="play" href="<%= video.embed %>"></a>
-        |              <span class="tip"><%= video.score %></span>
+        |              <span class="tip <% if (video.msgs.length > 1 ) { %>incremented animated bounce<% } %>"><%= video.msgs.length %></span>
         |          </div>
         |          <div class="video-meta">
         |              <h5 title="<%= video.title %>"><%= video.title || 'Unknown title' %></h5>

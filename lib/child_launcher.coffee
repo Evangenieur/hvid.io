@@ -10,17 +10,17 @@ fork = (file, args) ->
         "'#{v}'"
       else
         v
-  console.log inputs_arr
+  #console.log inputs_arr
   spawned = spawn "coffee", inputs_arr
 
   spawned.stdin.setEncoding('utf8')
   spawned.stdout.setEncoding('utf8')
   spawned.send = (obj) ->
-    console.log spawned.stdin.write
+    #console.log spawned.stdin.write
     spawned.stdin.write JSON.stringify obj
   spawned.on_message = (cb) ->
     spawned.stdout.on "data", (msg) ->
-      console.log "parent got message", arguments
+      #console.log "parent got message", arguments
       try 
         cb JSON.parse(msg.toString())
       catch e
@@ -30,7 +30,5 @@ fork = (file, args) ->
 module.exports = (file, opts, cb) ->
   console.log "forking", file, opts
   forked = fork file, opts
-  forked.on_message (obj) ->
-    cb obj
-  forked.on "exit", ->
-    console.log "Exited"
+  forked.on_message opts.message
+  forked.on "exit", opts.exit

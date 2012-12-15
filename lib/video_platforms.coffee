@@ -109,7 +109,8 @@ module.exports = me =
       if err
         deferred.reject err
 
-      metas = cheerio.load(body)('meta')
+      doc = cheerio.load(body)
+      metas = doc('meta')
 
       vdo_meta = {}
       _(metas).each (m) -> 
@@ -117,6 +118,10 @@ module.exports = me =
            vdo_meta.title = m.attribs.content
         if m.attribs.property? and m.attribs.property.match /og:image/
           vdo_meta.thumbnail = m.attribs.content
+      
+      unless vdo_meta.title
+        vdo_meta.title = doc("title").text()
+
       deferred.resolve vdo_meta
 
 

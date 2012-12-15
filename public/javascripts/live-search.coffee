@@ -7,12 +7,14 @@ window.Search = class Search
       @events or= []
 
       my_timer = null
-      do search_me = =>
+      search_me = =>
         unless Search.socket?.emit? 
           my_timer = setInterval(search_me, 100) unless my_timer
         else
           clearInterval(my_timer) if my_timer
-          Search.socket.emit "search", @search_term
+          finished = _(@events).filter((e) -> e.finished?).pop().finished
+          Search.socket.emit "search", @search_term, finished
+      _.defer search_me
 
       #instances[search_term] = @
     else
@@ -28,6 +30,9 @@ window.Search = class Search
 
   videos_by_posts: ->
     _(@videos).sortBy (v) -> - v.msgs.length
+
+  videos_by_date: ->
+    _(@videos).sortBy (v) -> - (new Date(v.date)).valueOf()
 
   videos_ids: -> _(@videos).keys()
 
