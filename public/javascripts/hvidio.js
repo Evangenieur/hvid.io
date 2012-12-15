@@ -222,10 +222,6 @@
             return this;
         },
 
-        convertId: function(id) {
-            return id.replace('/', '-');
-        },
-
         templatize: function(template, data, output) {
             var tmpl  = $(template).html(),
                 html = _.template(tmpl, data );

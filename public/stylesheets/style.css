@@ -149,7 +149,7 @@ p.tagline {
   position: relative;
 }
 #results .video {
-  visibility: hidden;
+  /*visibility: hidden;*/
   float: left;
   margin: 10px 10px;
   min-height: 200px;
