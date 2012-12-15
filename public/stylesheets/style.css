@@ -140,6 +140,8 @@ p.tagline {
   height: 0;
   position: relative;
   margin-top: 20px;
+}
+.large #results {
   border-top: 2px solid black;
 }
 #results .video-list {
