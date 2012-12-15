@@ -1,5 +1,5 @@
 (function() {
-    var loader, socket, scroller,
+    var loader, socket, scroller, counter = 0,
         $main = $('#main'),
         $form = $('#form'),
         $keyword = $('#keyword'),
@@ -178,6 +178,8 @@
                 if ((pos = this.embed.indexOf("?")) != -1) {
                     this.embed = this.embed.substr(0, pos);
                 }
+
+                $('#counter').text(counter++);
 
                 if (typeof search.initiated == "undefined") { 
                     search.initiated = true;

@@ -117,6 +117,14 @@ p.tagline {
   width: 32px;
   height: 32px;
 }
+#counter {
+  color: #5c7a1e;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 30px;
+  position: absolute;
+  left: 40px;
+}
 #close {
   position: fixed;
   top: 20px;
