@@ -29,11 +29,6 @@ block content
         |  <% }) %>
         |  </ul>
 
-    script#messageTemplate(type='text/template')
-        |  <li class="<%= msg.provider %>" title="<%= msg.name %>">
-        |       <img class="avatar" src="<%= msg.avatar_url %>"><a class="logo" href="#"></a>
-        |  </li>
-
     script#videoTemplate(type='text/template')
         |  <li class="video" id="<%= video.id %>">
         |      <div class="video-cell">
@@ -50,15 +45,6 @@ block content
         |                       <br> 
         |                       from <a class="from" href="<%= video.url %>"><%= video.msgs[0].provider %></a>
         |                   </li>
-        |              </li>
-        |          </div>
-        |          <div class="video-people">
-        |              <ul>
-        |                  <% _.each(video.msgs, function(msg) { %>
-        |                   <li class="<%= msg.provider %>" title="<%= msg.name %>">
-        |                        <img class="avatar" src="<%= msg.avatar_url %>"><a class="logo" href="#"></a>
-        |                   </li>
-        |                  <% }) %>
         |              </li>
         |          </div>
         |      </div>

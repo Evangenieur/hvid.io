@@ -64,20 +64,6 @@
                 e.preventDefault();
             });
 
-            $results.on('click', '.tip', function(e) {
-                $(this).closest('.video').find('.video-people').fadeIn();
-
-                e.preventDefault();
-                return false;
-            });
-
-            $results.on('click', '.video-people', function(e) {
-                $(this).fadeOut();
-
-                e.preventDefault();
-                return false;
-            });
-
             $(window).on('resize', function() {
                 hvidio.resize();
             });
@@ -218,18 +204,12 @@
 
                 var id = hvidio.convertId(this.id),
                     $tip = $('#' + id + ' .tip'),
-                    $people = $('#' + id + ' .video-people ul'),
                     score = parseInt($tip.text()) || 1,
                     newScore = score + 1; //(this.msgs[this.msgs.length - 1].votes || 1);
 
                 $tip.text(newScore + '+');
                 $tip.addClass('incremented animated bounce');
 
-                var msg = this.msgs[this.msgs.length - 1];
-
-                var html = hvidio.templatize('#messageTemplate', { msg: msg });
-
-                $people.prepend($(html).hide().fadeIn());
             }).on("finished", function() {
                 console.log("FINISHED");
                 hvidio.loading(false);
