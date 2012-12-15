@@ -41,6 +41,7 @@
       var msg, _base, _name;
       msg = video.msg;
       delete video.msg;
+      video.dom_id = video.id.replace("/", "-");
       video.msgs = [];
       ((_base = this.videos)[_name = video.id] || (_base[_name] = video)).msgs.push(msg);
       console.log("videos ", Object.keys(this.videos).length);

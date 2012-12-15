@@ -14,7 +14,7 @@ tc = new ntwitter
 video_search = (search, opts = {}) ->
   _(opts).defaults
     include_entities: on
-    rpp: 20
+    rpp: 50
     result_type: "recent"
     #lang: "fr"
 

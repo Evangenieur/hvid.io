@@ -14,6 +14,7 @@ window.Search = class Search
           clearInterval(my_timer) if my_timer
           finished = _(@events).filter((e) -> e.finished?).pop().finished
           Search.socket.emit "search", @search_term, finished
+      
       _.defer search_me
 
       #instances[search_term] = @
@@ -23,6 +24,7 @@ window.Search = class Search
   video_reduce: (video) ->
     msg = video.msg
     delete video.msg
+    video.dom_id = video.id.replace "/", "-"
     video.msgs = []
     (@videos[video.id] or= video).msgs.push msg
     console.log "videos ", Object.keys(@videos).length

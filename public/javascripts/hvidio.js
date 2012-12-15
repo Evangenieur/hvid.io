@@ -168,7 +168,6 @@
             .on("video.new", function() {
                 var pos;
                 this.msg = this.msgs[0];
-                this.id = hvidio.convertId(this.id);
                 this.score = _.reduce(this.msgs, function(memo, num) { 
                     return (memo + (parseInt(num.votes) + 1)) || 1; 
                 }, 0);
@@ -201,9 +200,8 @@
                 }
 
             }).on("video.update", function() {
-
-                var id = hvidio.convertId(this.id),
-                    $tip = $('#' + id + ' .tip'),
+                console.log("update", this.dom_id);
+                var $tip = $('#' + this.dom_id + ' .tip'),
                     score = parseInt($tip.text()) || 1,
                     newScore = score + 1; //(this.msgs[this.msgs.length - 1].votes || 1);
 
