@@ -165,10 +165,13 @@
         order: function(videos) {
             console.log("order", videos, this.keyword, $('#results'));
             hvidio.templatize('#videosTemplate', { search: urlify(this.keyword), videos: videos }, '#results');
-                    hvidio.loading(false);
-            hvidio.play(videos[0].embed);
-            hvidio.initScroller(true);
-                    $close.fadeIn(5000);
+            
+            hvidio
+                .loading(false)
+                .play(videos[0].embed)
+                .initScroller(true);
+            
+            $close.fadeIn(5000);
         },
         
         fetch: function(keyword, callback) {
@@ -177,12 +180,6 @@
             search = Search(keyword)
             .on("video.new", function() {
                 var pos;
-                this.msg = this.msgs[0];
-                this.score = _.reduce(this.msgs, function(memo, num) { 
-                    return (memo + (parseInt(num.votes) + 1)) || 1; 
-                }, 0);
-
-                this.date = this.msgs[0].post_date;
                 
                 if ((pos = this.embed.indexOf("?")) != -1) {
                     this.embed = this.embed.substr(0, pos);
@@ -192,17 +189,11 @@
 
                 if (typeof search.initiated == "undefined") { 
                     search.initiated = true;
-                    scroll = false;
                     callback([this]);
                 } else {
-                    var html = hvidio.templatize('#videoTemplate', { video: this });
-                    var $mylist = $("#video-list-" + urlify(keyword));
-                    //$list.append(html);
-                    /*
-                    $mylist.append(html);
-                    $(html).fadeIn()
-                    */
-                    var $html = $(html);
+                    var html = hvidio.templatize('#videoTemplate', { video: this }),
+                        $mylist = $("#video-list-" + urlify(keyword)),
+                        $html = $(html);
 
                     $mylist.append($html);
 
@@ -213,11 +204,9 @@
 
             }).on("video.update", function() {
                 console.log("update", this.dom_id);
-                var $tip = $('#' + this.dom_id + ' .tip'),
-                    score = parseInt($tip.text()) || 1,
-                    newScore = score + 1; //(this.msgs[this.msgs.length - 1].votes || 1);
+                var $tip = $('#' + this.dom_id + ' .tip');
 
-                $tip.text(newScore + '+');
+                $tip.text(this.score + '+');
                 $tip.addClass('incremented animated bounce');
 
             }).on("finished", function() {

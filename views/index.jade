@@ -36,15 +36,15 @@ block content
         |          <div class="video-wrapper">
         |              <img class="preview" title="<%= video.title %>" src="<%= video.thumbnail %>">
         |              <a class="play" href="<%= video.embed %>"></a>
-        |              <span class="tip <% if (video.msgs.length > 1 ) { %>incremented animated bounce<% } %>"><%= video.msgs.length %></span>
+        |              <span class="tip"><%= video.score %></span>
         |          </div>
         |          <div class="video-meta">
         |              <h5 title="<%= video.title %>"><%= video.title || 'Unknown title' %></h5>
         |              <ul>
         |                  <li>
-        |                       <time datetime="<%= video.msgs[0].post_date %>"><%= video.date %></time>
+        |                       <time datetime="<%= video.date %>"><%= video.date %></time>
         |                       <br> 
-        |                       from <a class="from" href="<%= video.url %>"><%= video.msgs[0].provider %></a>
+        |                       from <a class="from" href="<%= video.url %>"><%= video.provider %></a>
         |                   </li>
         |              </li>
         |          </div>

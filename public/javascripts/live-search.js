@@ -38,12 +38,15 @@
     }
 
     Search.prototype.video_reduce = function(video) {
-      var msg, _base, _name;
+      var msg, _base, _base1, _name, _name1;
       msg = video.msg;
       delete video.msg;
       video.dom_id = video.id.replace("/", "-");
       video.msgs = [];
       ((_base = this.videos)[_name = video.id] || (_base[_name] = video)).msgs.push(msg);
+      this.videos[video.id] = ((_base1 = this.videos)[_name1 = video.id] || (_base1[_name1] = video));
+      this.videos[video.id].date = msg.post_date;
+      this.videos[video.id].score = (this.videos[video.id].score || 1) + msg.score;
       console.log("videos ", Object.keys(this.videos).length);
       return this.when(_(this.videos).keys().length, video.id);
     };
