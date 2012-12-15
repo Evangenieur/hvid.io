@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 html,
 body {
@@ -147,9 +146,9 @@ p.tagline {
   overflow: hidden;
   margin: 0 auto;
   position: relative;
+  list-style: none;
 }
 #results .video {
-  /*visibility: hidden;*/
   float: left;
   margin: 10px 10px;
   min-height: 200px;
@@ -212,7 +211,7 @@ p.tagline {
   font: bold 11px/1.8 Arial;
   color: #FFF;
   text-shadow: 0px 1px 1px black;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 #results .video .video-cell .video-meta h5 {
   font-weight: bold;
@@ -233,6 +232,7 @@ p.tagline {
   font-size: 10px;
 }
 #results .video .video-cell img.preview {
+  visibility: hidden;
   width: 210px;
   height: 140px;
   border: 1px solid gray;
