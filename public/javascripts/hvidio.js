@@ -157,7 +157,7 @@
                         .initScroller()
                         .initTimer();
 
-                    $close.hide();
+                    $close.show();
                 });
             }
 
@@ -172,8 +172,6 @@
                 .loading(false)
                 .play(videos[0].embed)
                 .initScroller(true);
-            
-            $close.fadeIn(5000);
         },
         
         fetch: function(keyword, callback) {
