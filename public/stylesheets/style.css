@@ -129,9 +129,6 @@ p.tagline {
   display: none;
   cursor: pointer;
 }
-.visible {
-  visibility: visible !important;
-}
 #results {
   height: 0;
   position: relative;
@@ -144,6 +141,7 @@ p.tagline {
   position: relative;
 }
 #results .video {
+  visibility: hidden;
   float: left;
   margin: 10px 10px;
   min-height: 200px;
@@ -176,7 +174,7 @@ p.tagline {
 #results .video .video-cell .video-wrapper {
   display: block;
   position: relative;
-  height: 150px;
+  height: 140px;
 }
 #results .video .video-cell .tip {
   background: #99cc32;
@@ -206,6 +204,7 @@ p.tagline {
   font: bold 11px/1.8 Arial;
   color: #FFF;
   text-shadow: 0px 1px 1px black;
+  margin-top: 10px;
 }
 #results .video .video-cell .video-meta h5 {
   font-weight: bold;
@@ -227,7 +226,7 @@ p.tagline {
 }
 #results .video .video-cell img.preview {
   width: 210px;
-  height: 150px;
+  height: 140px;
   border: 1px solid gray;
   box-shadow: 0px 5px 30px black;
 }
