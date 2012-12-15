@@ -1,5 +1,4 @@
-AngelHack Fall 2012
 hvid.io
 =======
 
-Hvid.io
+4th place at AngelHack Paris Fall 2012
