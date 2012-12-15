@@ -1,4 +1,8 @@
-window.Search = class Search
+window.VideoOrder = class OrderStream
+  constructor: (@videos) ->
+  set_order: 
+
+window.Search = class SearchStream
   instances = {}
   constructor: (search_term, opts) ->
     if @constructor.name is "Search"
