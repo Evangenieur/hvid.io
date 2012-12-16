@@ -13,7 +13,7 @@ window.OrderByScore = class OrderByScore
     @scores_hit[score] or= 0
     @scores_hit[score]++
 
-    console.log "get_pos", score, pos#, @scores
+    #console.log "get_pos", score, pos#, @scores
     pos
 
   remove_score: (score) ->
@@ -48,7 +48,7 @@ window.SearchStream = class SearchStream
   emit: (msg, data...) -> @ee.emit msg, data...
 
   @com_init: (socket) ->
-    console.log "handling init"
+    #console.log "handling init"
     socket.on "search_result", (res) =>
       @get(res.search_term)?.ee.emit "data", res.data
 
