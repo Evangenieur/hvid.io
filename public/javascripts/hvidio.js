@@ -7,6 +7,7 @@
         $player = $('#player'),
         $close = $('#close'),
         $header = $('#header'),
+        $hashtags = $('#hashtags'),
         $clickjack = $('#clickjack');
 
     window.hvidio = {
@@ -74,6 +75,8 @@
             $form.on('submit', function(e) {
                 var keyword = $keyword.val();
 
+                $hashtags.remove();
+
                 hvidio.search(keyword);
                 window.location.hash = "#" + keyword;
 
@@ -112,6 +115,20 @@
                         break;
                     }
                 }
+            });
+
+            // Hastags
+            hvidio.hashtags();
+            $hashtags.on('click', 'a', function(e) {
+                var keyword = $(this).attr('href');
+                $keyword.val(keyword);
+
+                $form.submit();
+
+                $hashtags.hide();
+
+                e.stopPropagation();
+                e.preventDefault();
             });
 
             $main.addClass('bounceIn');
@@ -248,6 +265,14 @@
             return this;
         },
 
+        hashtags: function() {
+            var fp = $form.offset();
+            $hashtags
+                .css('top',  (fp.top) + 'px')
+                .css('left', (fp.left + ($keyword.outerWidth())) + 'px')
+                .fadeIn('slow');
+        },
+
         toggle: function() {
             if ($main.is(':visible')) {
                 hvidio.hide();
@@ -347,6 +372,8 @@
                 rw = (Math.floor(mw / ew)) * ew;
 
             $results.find('.video-list').width(rw);
+
+            hvidio.hashtags();
         }
     }
 

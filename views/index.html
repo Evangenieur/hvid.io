@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>#hvid.io - Watch Our World Live</title>
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/animated.min.css">
+    <link rel="stylesheet" href="/stylesheets/jquery.mcustomscrollbar.min.css">
+  </head>
+  <body>
+    <iframe id="player"></iframe>
+    <div id="clickjack"></div>
+    <section id="main" class="animated">
+      <header id="header">
+        <h1> <span>#h</span>vid<span>.io</span></h1>
+        <p class="tagline">World Wide Watch - Watch our World live</p>
+        <form id="form" onsubmit="return false">
+          <input id="keyword" name="keyword" placeholder="any hashtag or keyword..." autocomplete="off">
+        </form>
+      </header>
+      <div id="results"></div>
+      <div id="loading">
+        <div id="counter"></div>
+      </div>
+      <div id="close"></div>
+    </section>
+    <div id="hashtags">
+      <div class="arrow"></div>
+      <div class="inner">
+        <p>
+           
+          No idea? <br>Why not try one of there?
+        </p>
+        <ul> 
+          <li><a href="#">#metallica</a></li>
+          <li><a href="#">#newtown</a></li>
+          <li><a href="#">#sandy</a></li>
+        </ul>
+      </div>
+    </div>
+    <script id="videosTemplate" type="text/template">
+       <ul id="video-list-<%= search %>" class="video-list">
+       <% _.each(videos, function(video) { %>
+       <% include videoTemplate %>
+       <% }) %>
+       </ul>
+    </script>
+    <script id="videoTemplate" type="text/template">
+       <li class="video" id="<%= video.dom_id %>">
+           <div class="video-cell">
+               <div class="video-wrapper">
+                   <img class="preview" alt="<%= video.title %>" src="<%= video.thumbnail %>">
+                   <a class="play" href="<%= video.embed %>"></a>
+                   <span class="tip"><%= video.score %></span>
+               </div>
+               <div class="video-meta">
+                   <h5 title="<%= video.title %>"><%= video.title || 'Unknown title' %></h5>
+                   <ul>
+                       <li>
+                            <time datetime="<%= video.date %>"><%= video.date %></time>
+                            <br> 
+                            from <a class="from" href="<%= video.url %>" target="_blank"><%= video.provider %></a>
+                        </li>
+                   </li>
+               </div>
+           </div>
+       </li>
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/jquery.timeago.min.js"></script>
+    <script src="/javascripts/jquery.mousewheel.min.js"></script>
+    <script src="/javascripts/jquery.ui.min.js"></script>
+    <script src="/javascripts/jquery.mcustomscrollbar.min.js"></script>
+    <script src="/javascripts/underscore.min.js"></script>
+    <script src="/javascripts/canvasloader.min.js"></script>
+    <script src="/javascripts/live-search.js"></script>
+    <script src="/javascripts/hvidio.js"></script>
+  </body>
+</html>

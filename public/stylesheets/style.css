@@ -136,6 +136,40 @@ p.tagline {
   display: none;
   cursor: pointer;
 }
+#hashtags {
+  display: none;
+  position: absolute;
+  z-index: 200;
+  margin-top: -30px;
+  margin-left: 20px;
+}
+#hashtags div.inner {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 20px;
+  text-align: left;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  margin-left: 8px;
+  border: 2px solid #cccccc;
+  text-align: center;
+  width: 150px;
+}
+#hashtags div.inner ul {
+  list-style: none;
+}
+#hashtags div.arrow {
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #cccccc;
+}
 #results {
   height: 0;
   position: relative;

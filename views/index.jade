@@ -23,6 +23,21 @@ block content
 
         div#close
 
+    div#hashtags
+        div.arrow
+        div.inner
+            p 
+                | No idea? 
+                br
+                | Why not try one of there?
+            ul 
+                li
+                    a(href="ladygaga") #ladygaga
+                li
+                    a(href="newtown") #newtown
+                li
+                    a(href="hurrican") #hurricane
+
     script#videosTemplate(type='text/template')
         |  <ul id="video-list-<%= search %>" class="video-list">
         |  <% _.each(videos, function(video) { %>
