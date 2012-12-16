@@ -1,6 +1,7 @@
 (function() {
     var loader, socket, scroller, counter = 0, timerIdle,
         $main = $('#main'),
+        $loading = $('#loading'),
         $form = $('#form'),
         $keyword = $('#keyword'),
         $results = $('#results'),
@@ -255,11 +256,12 @@
         },
 
         loading: function(bool) {
-            //console.log("loader", loader);
             if (bool) {
                 loader.show();
+                $loading.show();
             } else {
                 loader.hide();
+                $loading.hide();
             }
 
             return this;
