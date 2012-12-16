@@ -302,7 +302,7 @@
         fadeImg: function(html) {
             $('#results img').each(function() {
                 $(this).on('load', function () { 
-                    $(this).css('visibility','visible').hide().fadeIn('slow'); 
+                    $(this).css('visibility','visible').hide().fadeIn(); 
                 });
             });
 
