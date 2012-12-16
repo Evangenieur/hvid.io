@@ -56,7 +56,7 @@ video_search = (search, opts = {}) ->
             id: "facebook/#{post.id}"
             post_date: post.created_time
             text: post.message
-            score: post.likes.count if post.likes || 1
+            score: post.likes?.count or 1
 
           vdo = {}
           vdo.title = post.name if post.name?

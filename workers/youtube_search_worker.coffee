@@ -71,5 +71,6 @@ video_search = (search, opts = {}) ->
           post_date: post.published["$t"]
           text: post["media$group"]["media$description"]["$t"]
           score: post["yt$statistics"]?["favoriteCount"] || 1
+        video_platforms.getVideoFromMsg msg, post.content.src, vdo
 
 video_search argv.search, argv
