@@ -7,8 +7,6 @@ _ = require "underscore"
 video_platforms = require "../lib/video_platforms"
 Q = require "q"
 
-
-
 video_search = (search, opts = {}) ->
   _(opts).defaults
     locale: "fr_FR" #"en_US"
@@ -35,21 +33,30 @@ video_search = (search, opts = {}) ->
           url = post.link
           return unless url
           #console.log post.from
+
+          # msg = 
+          #   provider: "facebook"
+          #   id: "facebook/#{post.id}"
+          #   name: post.from.name
+          #   username: post.from.id
+          #   post_date: post.created_time
+          #   text: post.message
+          #   votes: post.likes.count if post.likes
+          #   avatar_url: "http://graph.facebook.com/#{post.from.id}/picture"
+
+          # if post.picture
+          #   thumb = decodeURIComponent _(post.picture.split("&")).chain().map( (param) -> 
+          #     if ret = param.match /url=(.+)$/
+          #       ret[1]
+          #   ).compact().value()[0]
+
+          # Jay: lighter response and unified score
           msg = 
             provider: "facebook"
             id: "facebook/#{post.id}"
-            name: post.from.name
-            username: post.from.id
             post_date: post.created_time
             text: post.message
-            votes: post.likes.count if post.likes
-            avatar_url: "http://graph.facebook.com/#{post.from.id}/picture"
-
-          if post.picture
-            thumb = decodeURIComponent _(post.picture.split("&")).chain().map( (param) -> 
-              if ret = param.match /url=(.+)$/
-                ret[1]
-            ).compact().value()[0]
+            score: post.likes.count if post.likes || 1
 
           vdo = {}
           vdo.title = post.name if post.name?

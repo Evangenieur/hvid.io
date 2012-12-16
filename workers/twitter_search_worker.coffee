@@ -30,15 +30,23 @@ video_search = (search, opts = {}) ->
         _(tweet.entities.urls).map (url) ->
           url = url.expanded_url
           #console.log url
+          # msg = 
+          #   provider: "twitter"
+          #   id: "twitter/#{tweet.id_str}"
+          #   id_str: tweet.id_str
+          #   name: tweet.from_user_name
+          #   username: tweet.from_user
+          #   post_date: tweet.created_at
+          #   text: tweet.text
+          #   avatar_url: tweet.profile_image_url
+
+          # Jay: lighter response and unified score
           msg = 
             provider: "twitter"
             id: "twitter/#{tweet.id_str}"
-            id_str: tweet.id_str
-            name: tweet.from_user_name
-            username: tweet.from_user
             post_date: tweet.created_at
             text: tweet.text
-            avatar_url: tweet.profile_image_url
+            score: tweet.metadata.recent_retweets || 1
 
           video_platforms.getVideoFromMsg msg, url
 

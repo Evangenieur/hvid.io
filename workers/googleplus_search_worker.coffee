@@ -31,18 +31,27 @@ video_search = (search, opts = {}) ->
           if attachment.objectType is "video"
             url = attachment.url
 
+            # msg = 
+            #   provider: "googleplus"
+            #   id: "googleplus/#{post.etag}"
+            #   name: post.actor.displayName
+            #   username: post.actor.id
+            #   avatar_url: post.actor.image.url
+            #   post_date: post.published
+            #   text: post.title
+            #   votes: 0
+
+            # Jay: lighter response and unified score
             msg = 
               provider: "googleplus"
               id: "googleplus/#{post.etag}"
               name: post.actor.displayName
-              username: post.actor.id
-              avatar_url: post.actor.image.url
               post_date: post.published
               text: post.title
-              votes: 0
+              score: 1
 
             for prop in ["replies", "plusoners", "resharers"]
-              msg.votes += post.object[prop].totalItems
+              msg.score += post.object[prop].totalItems
 
             vdo = {}
             vdo.title = attachment.displayName

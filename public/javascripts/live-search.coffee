@@ -26,7 +26,14 @@ window.Search = class Search
     delete video.msg
     video.dom_id = video.id.replace "/", "-"
     video.msgs = []
+    
     (@videos[video.id] or= video).msgs.push msg
+    
+    # Jay: was here
+    @videos[video.id] = (@videos[video.id] or= video)
+    @videos[video.id].date = msg.post_date;
+    @videos[video.id].score = (@videos[video.id].score || 1) + msg.score;
+
     console.log "videos ", Object.keys(@videos).length
     @when _(@videos).keys().length, video.id
 

@@ -9,7 +9,6 @@
 * {
     margin: 0;
     padding: 0;
-    list-style: none;
 }
 
 html, body {
@@ -43,7 +42,7 @@ h1 {
     }
 
     .large & {
-        font-size: 70px;
+        font-size: 65px;
     }
 }
 
@@ -161,24 +160,61 @@ p.tagline {
     cursor: pointer;
 }
 
-// .visible {
-//     visibility: visible !important;
-// }
+#hashtags {
+    display: none;
+    position: absolute;
+    z-index: 200;
+    margin-top: -30px;
+    margin-left: 20px;
+
+    div.inner {
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 10px 20px;
+        text-align: left;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+        margin-left: 8px;
+        border: 2px solid darken(white, 20); 
+        text-align: center;
+        width: 150px;
+
+        ul {
+            list-style: none;
+        }
+    }
+
+    div.arrow {
+        position: absolute;
+        top: 50%;
+        margin-top: -8px;
+        width: 0; 
+        height: 0; 
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent; 
+        border-right: 8px solid darken(white, 20); 
+    }
+}
 
 #results {
     height: 0;
     position: relative;
     margin-top: 20px;
-    border-top: 2px solid black;
+
+    .large & {
+        border-top: 2px solid black;
+    }
 
     .video-list {
         overflow: hidden;
         margin: 0 auto;
         position: relative;
+        list-style: none;
     }
 
     .video {
-        //visibility: hidden;
         float: left;
         margin: 10px 10px;
         min-height: @cell-height;
@@ -192,7 +228,7 @@ p.tagline {
                 background: none;
             }
 
-            img.preview {
+            .video-wrapper {
                 border: 1px solid @color-main !important;
                 box-shadow: 0px 5px 30px @color-main !important;
             }
@@ -216,6 +252,11 @@ p.tagline {
                 display: block;
                 position: relative;
                 height: 140px;
+                border: 1px solid gray;
+                box-shadow: 0px 5px 30px black;
+                width: 210px;
+                height: 135px;
+                background: black;
             }
 
             .tip {
@@ -287,11 +328,31 @@ p.tagline {
             }
 
             img.preview {
+                visibility: hidden;
                 width: 210px;
-                height: 140px;
-                border: 1px solid gray;
-                box-shadow: 0px 5px 30px black;
+                height: 135px;
             }
         }
+    }
+}
+
+#no {
+    background: #111;
+    background-image: none;
+    width: 80%;
+    height: 80%;
+    padding: 10%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: normal;
+    font: italic 16px/2 Georgia, Times, serif;
+
+    h2 {
+        font-weight: normal;
+    }
+
+    #header {
+        margin-bottom: 40px;
     }
 }

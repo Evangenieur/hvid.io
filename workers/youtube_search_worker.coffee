@@ -50,18 +50,26 @@ video_search = (search, opts = {}) ->
         vdo.title = post.title["$t"]
         vdo.thumbnail = post["media$group"]["media$thumbnail"][0].url
 
+        # msg = 
+        #   provider: "youtube"
+        #   id: "youtube/#{post['gd$etag']}"
+        #   post_date: post.published["$t"]
+        #   text: post["media$group"]["media$description"]["$t"]
+        #   name: post.author[0].name["$t"]
+        #   username: post.author[0]["yt$userId"]["$t"]
+        #   votes: post["yt$statistics"]?["favoriteCount"] || 0
+
+        # getUserInfo(post.author[0].uri["$t"])
+        #   .then (avatar_url) ->
+        #     msg.avatar_url = avatar_url
+        #     video_platforms.getVideoFromMsg msg, post.content.src, vdo
+
+        # Jay: lighter response and unified score
         msg = 
           provider: "youtube"
           id: "youtube/#{post['gd$etag']}"
           post_date: post.published["$t"]
           text: post["media$group"]["media$description"]["$t"]
-          name: post.author[0].name["$t"]
-          username: post.author[0]["yt$userId"]["$t"]
-          votes: post["yt$statistics"]?["favoriteCount"] || 0
-
-        getUserInfo(post.author[0].uri["$t"])
-          .then (avatar_url) ->
-            msg.avatar_url = avatar_url
-            video_platforms.getVideoFromMsg msg, post.content.src, vdo
+          score: post["yt$statistics"]?["favoriteCount"] || 1
 
 video_search argv.search, argv

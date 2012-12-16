@@ -10,6 +10,10 @@ require('zappajs') ->
 
   @get "/": -> 
     @render "index"
+
+  @get "/no": -> 
+    @render "no"
+    
   ###
   @get "/info": ->
      os = require "os"
@@ -23,6 +27,7 @@ require('zappajs') ->
     promises = []
     _(["twitter", "facebook", "googleplus", "youtube"]).each (worker) =>
       deferred = Q.defer()
+
       child_launcher "./workers/#{worker}_search_worker.coffee", 
         search: @data
         message: (video) =>
