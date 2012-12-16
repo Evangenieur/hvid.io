@@ -1,5 +1,5 @@
 (function() {
-    var loader, socket, scroller, counter = 0, timerIdle,
+    var loader, socket, scroller, counter = 0, timerIdle, timerPlay,
         $main = $('#main'),
         $loading = $('#loading'),
         $form = $('#form'),
@@ -94,19 +94,19 @@
                             e.preventDefault();
                         break;
                         case 37: // left arrow
-                            hvidio.prev();              
+                            hvidio.prev(1000);              
                             e.preventDefault();
                         break;
                         case 38: // up arrow
-                            hvidio.prev();
+                            hvidio.prev(1000);
                             e.preventDefault();
                         break;
                         case 39: // right arrow
-                            hvidio.next();
+                            hvidio.next(1000);
                             e.preventDefault();
                         break;
                         case 40: // down arrow
-                            hvidio.next();
+                            hvidio.next(1000);
                             e.preventDefault();
                         break;
                         case 9: // tab
@@ -203,7 +203,7 @@
                     this.embed = this.embed.substr(0, pos);
                 }
 
-                $('#counter').text(counter++);
+                $('#counter').text(++counter);
 
                 if (typeof search.initiated == "undefined") { 
                     search.initiated = true;
@@ -311,7 +311,7 @@
             return this;
         },
 
-        play: function(embed) {
+        play: function(embed, delay) {
             $results.find('.video').removeClass('current');
 
             $results.find('a[href="'+ embed +'"]').closest('.video').addClass('current');
@@ -323,31 +323,34 @@
             }
             embed += "wmode=transparent&autoplay=1&autohide=1";
 
-            $player.attr('src', embed);
+            clearTimeout(timerPlay);
+            timerPlay = setTimeout(function() {
+                $player.attr('src', embed);
+            }, delay);
 
             return this;
         },
 
-        jump: function(index) {
+        jump: function(index, delay) {
            var embed = $('.video').eq(index).find('.play').attr('href');
 
-           hvidio.play(embed);
+           hvidio.play(embed, delay);
         },
 
-        next: function() {
+        next: function(delay) {
             var index = $('.current').index('.video');
 
-            index++;
+            ++index;
 
             if (index > $('.video').size() - 1) {
                 index = 0;
                 $results.mCustomScrollbar("scrollTo", 0);
             }
 
-            hvidio.jump(index);
+            hvidio.jump(index, delay);
         },
 
-        prev: function() {
+        prev: function(delay) {
             var index = $('.current').index('.video');
 
             index--;
@@ -358,7 +361,7 @@
                 $results.mCustomScrollbar("scrollTo", 20000);
             }
 
-            hvidio.jump(index);
+            hvidio.jump(index, delay);
         },
 
         resize: function() {
