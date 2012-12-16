@@ -1,82 +1,58 @@
-window.VideoOrder = class OrderStream
-  constructor: (@videos) ->
-  set_order: 
+window.OrderByScore = class OrderByScore
+  constructor: () ->
+    @scores = []
+    @scores_hit = {}
 
-window.Search = class SearchStream
+  get_pos: (score) ->
+    pos = _(@scores).sortedIndex score
+    unless @scores[pos]
+      @scores[pos] = score
+    else if (@scores[pos] != score) and (@scores[pos+1] != score)
+      @scores.splice(pos, 0, score) 
+
+    @scores_hit[score] or= 0
+    @scores_hit[score]++
+
+    console.log "get_pos", score, pos#, @scores
+    pos
+
+  remove_score: (score) ->
+    @scores_hit[score]--
+    if @scores_hit[score] == 0
+      @scores = _(@scores).without score
+    
+window.SearchStream = class SearchStream
+
   instances = {}
+
   constructor: (search_term, opts) ->
-    if @constructor.name is "Search"
+    if @constructor.name is "SearchStream"
       @search_term = search_term
-      @videos = {}
-      @events or= []
+      @ee = new EventEmitter2()
 
       my_timer = null
       search_me = =>
-        unless Search.socket?.emit? 
+        unless SearchStream.socket?.emit? 
           my_timer = setInterval(search_me, 100) unless my_timer
         else
           clearInterval(my_timer) if my_timer
-          finished = _(@events).filter((e) -> e.finished?).pop().finished
-          Search.socket.emit "search", @search_term, finished
+          SearchStream.socket.emit "search", @search_term, =>
+            @ee.emit "finished"
       
       _.defer search_me
 
-      #instances[search_term] = @
     else
-      return instances[search_term] or= new Search(search_term, opts)
+      return instances[search_term] or= new SearchStream(search_term, opts)
 
-  video_reduce: (video) ->
-    msg = video.msg
-    delete video.msg
-    video.dom_id = video.id.replace "/", "-"
-    video.msgs = []
-    (@videos[video.id] or= video).msgs.push msg
-    console.log "videos ", Object.keys(@videos).length
-    @when _(@videos).keys().length, video.id
-
-  videos_by_posts: ->
-    _(@videos).sortBy (v) -> - v.msgs.length
-
-  videos_by_date: ->
-    _(@videos).sortBy (v) -> - (new Date(v.date)).valueOf()
-
-  videos_ids: -> _(@videos).keys()
-
-  when: (num, cb) ->
-    if _.isFunction cb
-      @events.push
-        num: num
-        callback: cb
-    else if @events.length > 0
-      for i in [0..@events.length - 1]
-        if @events[i]?.num? and @events[i].num == num
-          cb = @events[i].callback
-          @events.splice i, 1
-          @when_done = true
-          cb.call @
-        else if @when_done and @events[i]?["video.new"]?
-          if (not @last_videos_length) or (@last_videos_length < num)
-            @events[i]["video.new"].call @videos[cb]
-        else if @when_done and @events[i]?["video.update"]?
-          if (not @last_videos_length) or (@last_videos_length == num)
-            @events[i]["video.update"].call @videos[cb]
-    @last_videos_length = num
-    @
-
-  on: (msg, cb) ->
-    if _.isFunction cb
-      event = {}
-      event[msg] = cb
-      @when_done = true unless @events.length
-      @events.push event
-    @
+  on: (msg, cb) -> @ee.on msg, cb
+  emit: (msg, data...) -> @ee.emit msg, data...
 
   @com_init: (socket) ->
     console.log "handling init"
     socket.on "search_result", (res) =>
-      @get(res.search_term)?.video_reduce video for video in res.videos
+      @get(res.search_term)?.ee.emit "data", res.data
 
-    Search.socket = socket
+    SearchStream.socket = socket
 
   @get: (search_term) -> instances[search_term]
 

@@ -42,7 +42,7 @@ block content
         |              <h5 title="<%= video.title %>"><%= video.title || 'Unknown title' %></h5>
         |              <ul>
         |                  <li>
-        |                       <time datetime="<%= video.msgs[0].post_date %>"><%= video.date %></time>
+        |                       <time datetime="<%= video.date %>" class="timeago"><%= video.date %></time>
         |                       <br> 
         |                       from <a class="from" href="<%= video.url %>"><%= video.msgs[0].provider %></a>
         |                   </li>
