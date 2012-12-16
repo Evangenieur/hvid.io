@@ -168,6 +168,7 @@
                 hvidio.fetch(keyword, function(data) {
                     $main.addClass('large');
 
+                    console.log(data[0].msgs.length, data[0].provider, data[0].msgs[0].provider, data[0].msgs[0].text );
                     hvidio.templatize('#videosTemplate', { search: urlify(keyword), videos: data }, '#results');
 
                     hvidio
@@ -182,6 +183,7 @@
             return this;
         },
 
+<<<<<<< HEAD
         order: function(videos) {
             console.log("order", videos, this.keyword, $('#results'));
             hvidio.templatize('#videosTemplate', { search: urlify(this.keyword), videos: videos }, '#results');
@@ -190,39 +192,99 @@
                 .loading(false)
                 .play(videos[0].embed)
                 .initScroller(true);
+=======
+        insert_video: function(container, pos, video) {
+            var $html = $(hvidio.templatize('#videoTemplate', { video: video }));
+
+            elem = $(container + " > li:eq("+pos+")")
+            if ( elem.length ) {
+              elem.before($html);
+            } else {
+              $(container + " > li:eq("+(pos - 1)+")").after($html);
+            }
+            $html.css('visibility','visible').hide().fadeIn('fast'); 
+        },
+        get_video_score: function(video) {
+            //return - video.msgs.length;
+            return - (new Date(video.date)).valueOf();
+>>>>>>> live-reordering
         },
         
         fetch: function(keyword, callback) {
             var self = this;
 
+            obs = new OrderByScore();
+            var videos = {};
+
             search = Search(keyword)
-            .on("video.new", function() {
+            .reduce(function(video) {
+            })
+            .on("video.new", function(video) {
                 var pos;
+<<<<<<< HEAD
+=======
+                video.msg = video.msgs[0];
+                /*
+                video.score = _.reduce(video.msgs, function(memo, num) { 
+                    return (memo + (parseInt(num.votes) + 1)) || 1; 
+                }, 0);
+*/
+                video.score = self.get_video_score(video);
+                var pos = obs.get_pos(video.score);
+
+                video.date = video.msgs[0].post_date;
+>>>>>>> live-reordering
                 
-                if ((pos = this.embed.indexOf("?")) != -1) {
-                    this.embed = this.embed.substr(0, pos);
+                if ((pos = video.embed.indexOf("?")) != -1) {
+                    video.embed = video.embed.substr(0, pos);
                 }
 
                 $('#counter').text(++counter);
 
                 if (typeof search.initiated == "undefined") { 
                     search.initiated = true;
+<<<<<<< HEAD
                     callback([this]);
                 } else {
                     var html = hvidio.templatize('#videoTemplate', { video: this }),
                         $mylist = $("#video-list-" + urlify(keyword)),
                         $html = $(html);
+=======
+                    scroll = false;
 
-                    $mylist.append($html);
+                    callback([video]);
+                } else {
+>>>>>>> live-reordering
+
+                    self.insert_video("#video-list-" + urlify(keyword), pos, video);
 
                     hvidio.initScroller();
 
-                    $html.css('visibility','visible').hide().fadeIn('slow'); 
                 }
 
+<<<<<<< HEAD
             }).on("video.update", function() {
                 console.log("update", this.dom_id);
                 var $tip = $('#' + this.dom_id + ' .tip');
+=======
+            }).on("video.update", function(video) {
+                var tmp_score = self.get_video_score(video);
+                if (tmp_score != video.score) {
+                    obs.remove_score(video.score);
+                    video.score = tmp_score
+                    var pos = obs.get_pos(video.score);
+                    if ($("#video-list-" + urlify(keyword) + " > li:eq("+pos+")").attr("id") != video.dom_id) {
+                        console.log("score != ?", tmp_score, video.score)
+                        $('#' + video.dom_id).fadeOut().remove()
+                        self.insert_video("#video-list-" + urlify(keyword), pos, video);
+                    }
+                }
+
+                console.log("update", video.dom_id, video.provider, video.msgs[0].provider, video.msgs.length, video.msgs[0].text);
+                var $tip = $('#' + video.dom_id + ' .tip'),
+                    score = parseInt($tip.text()) || 1,
+                    newScore = score + 1; //(video.msgs[video.msgs.length - 1].votes || 1);
+>>>>>>> live-reordering
 
                 $tip.text(this.score + '+');
                 $tip.addClass('incremented animated bounce');
@@ -230,10 +292,12 @@
             }).on("finished", function() {
                 console.log("FINISHED");
                 hvidio.loading(false);
+                /*
                 self.order(
                     search.videos_by_date()
                     //search.videos_by_posts()
                 );
+                */
             });
 
             return this;

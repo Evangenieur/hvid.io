@@ -33,9 +33,7 @@ require('zappajs') ->
         message: (video) =>
           @emit search_result: 
             search_term: @data
-            videos: [
-              video
-            ]
+            data: video
         exit: ->
           console.log "exit #{worker}"
           deferred.resolve()

@@ -273,7 +273,7 @@ p.tagline {
   font-size: 10px;
 }
 #results .video .video-cell img.preview {
-  visibility: hidden;
+  /*visibility: hidden;*/
   width: 210px;
   height: 135px;
 }
