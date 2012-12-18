@@ -4,6 +4,7 @@ Q = require "q"
 _ = require "underscore"
 cheerio = require "cheerio"
 request = require "request"
+ytf = require "youtube-feeds"
 
 video_platforms = 
   youtube:
@@ -30,6 +31,7 @@ video_platforms =
     ]
     embed: "http://player.vimeo.com/video/{video_id}"
     default: "http://vimeo.com/{video_id}"
+    api: "http://vimeo.com/api/v2/video/{video_id}.json"
   dailymotion: 
     domains: ["dailymotion.com"]
     samples: [
@@ -80,14 +82,21 @@ module.exports = me =
       # getVideoInfos
       _(video).extend vdo
       video.msg = msg
-      if not video.title or not video.thumbnail
-        me.getVideoMeta(url)
-          .then (meta) ->
-            #console.log "TITLE: #{title}"
-            _(video).extend meta
-            process.send video
-      else
-        process.send video
+      switch video.provider
+        when "youtube"
+          me.getYoutubeMeta(video.video_id)
+            .then (meta) ->
+              #console.log "TITLE: #{title}"
+              _(video).extend meta
+              process.send video
+        when "vimeo"
+          me.getVimeoMeta(video.video_id)
+            .then (meta) ->
+              #console.log "TITLE: #{title}"
+              _(video).extend meta
+              process.send video
+        else
+          process.send video
       deferred.resolve("ok")
     else 
       try
@@ -102,9 +111,51 @@ module.exports = me =
     
     deferred.promise
 
-  getVideoMeta: (url) ->
+  getVimeoMeta: (video_id) ->
+    deferred = Q.defer()
+    console.log "URI : ", URI.generate(video_platforms.vimeo.api, video_id: video_id)
+    request URI.generate(video_platforms.vimeo.api, video_id: video_id), 
+      ( err, res, body ) ->
+        data = JSON.parse(body)[0]
+        if data.embed_privacy isnt "anywhere"
+          deferred.recject "vimeo id #{video_id} cannot be embed #{data.embed_privacy}"
+        deferred.resolve 
+          title: data.title
+          description: data.description
+          duration: data.duration
+          thumbnail: data.thumbnail_small
+          likeCount: data.stats_number_of_likes
+          viewCount: data.stats_number_of_plays
+          commentCount: data.stats_number_of_comments
+
+
+    deferred.promise
+
+  getYoutubeMeta: (video_id) ->
+    # Needs : 
+    # Title / Thumb / Desc / Categ? / uploaded|updated? / duration / accessControl.(embed|autoPlay)
     deferred = Q.defer()
 
+    ytf.video(video_id).details (data) ->
+      unless data
+        return deferred.reject "no meta for youtube id #{video_id}"
+      if data.accessControl.embed isnt "allowed"
+        return deferred.reject "youtube id #{video_id} cannot be embed #{data.accessControl.embed}"
+
+      deferred.resolve
+        title: data.title
+        uploaded: data.uploaded
+        category: data.category
+        description: data.description
+        duration: data.duration
+        thumbnail: data.thumbnail.sqDefault
+        rating: data.rating
+        likeCount: data.likeCount
+        ratingCount: data.ratingCount
+        viewCount: data.viewcount
+        favoriteCount: data.favoriteCount
+        commentCount: data.commentCount
+    ###
     request url, ( err, res, body ) ->
       if err
         deferred.reject err
@@ -123,5 +174,7 @@ module.exports = me =
         vdo_meta.title = doc("title").text()
 
       deferred.resolve vdo_meta
-
+    ###
     deferred.promise
+
+#me.getVimeoMeta("18925628").then console.log

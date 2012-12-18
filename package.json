@@ -21,7 +21,8 @@
     "cheerio": "0.10.3",
     "less-middleware": "*",
     "jade": "*",
-    "request": "2.12.0"
+    "request": "2.12.0",
+    "youtube-feeds": "*"
   },
   "engines": {
     "node": "0.8.x"
