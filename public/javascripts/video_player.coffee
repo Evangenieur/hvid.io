@@ -43,7 +43,7 @@ class IFramePlayer
     onMessageReceived = (e) => 
       clearInterval check.PlayerRdy
       data = JSON.parse(e.data)
-      console.log data
+      #console.log data
       @ee.emit data.event, data
       ###
       switch data.event
@@ -65,7 +65,7 @@ class IFramePlayer
 
           if @opts.check_ready
             check.PlayerRdy = setInterval =>
-              console.log @opts.check_ready
+              #console.log @opts.check_ready
               @opts.check_ready()
             , 100
       , 100
@@ -93,7 +93,7 @@ class YoutubePlayer extends IFramePlayer
     @on "onReady", =>
       @emit "ready"
     @on "onStateChange", (data) =>
-      console.log "onStateChange"
+      #console.log "onStateChange"
       if data.info.playerState == 0
         @emit "finish"
 
@@ -143,7 +143,7 @@ class VideoPlayer
       when "vimeo"
         new VimeoPlayer(video_obj)
 
-    console.log @player, @container
+    #console.log @player, @container
     @player.appendTo @container
     
     @
