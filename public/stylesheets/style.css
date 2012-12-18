@@ -42,7 +42,7 @@ p.tagline {
 .large p.tagline {
   font-size: 13px;
 }
-#player {
+#player iframe {
   border: none;
   position: fixed;
   top: 0;

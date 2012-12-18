@@ -6,6 +6,7 @@ require('zappajs') ->
   @use "static", "favicon", require('less-middleware')({ src: __dirname + '/public' })
   @set 'view engine': 'jade'
 
+  @io.set 'transports', ['websocket', 'flashsocket', 'xhr-polling']
   @io.set 'log level', 2
 
   @get "/": -> 
@@ -13,16 +14,7 @@ require('zappajs') ->
 
   @get "/no": -> 
     @render "no"
-    
-  ###
-  @get "/info": ->
-     os = require "os"
-     @send
-      loadavg  : os.loadavg()
-      uptime   : os.uptime()
-      freemem  : os.freemem()
-      totalmem : os.totalmem()
-  ###
+
   @on "search": ->
     promises = []
     _(["twitter", "facebook", "googleplus", "youtube"]).each (worker) =>

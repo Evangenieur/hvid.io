@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    iframe#player
+    div#player
         
     div#clickjack
 
@@ -36,7 +36,7 @@ block content
                 li
                     a(href="newtown") #newtown
                 li
-                    a(href="hurrican") #hurricane
+                    a(href="hurricane") #hurricane
 
     script#videosTemplate(type='text/template')
         |  <ul id="video-list-<%= search %>" class="video-list">
@@ -59,7 +59,7 @@ block content
         |                  <li>
         |                       <time datetime="<%= video.date %>"><%= video.date %></time>
         |                       <br> 
-        |                       from <a class="from" href="<%= video.url %>" target="_blank"><%= video.provider %></a>
+        |                       on <%= video.on.join(",") %> from <a class="from" href="<%= video.url %>" target="_blank"><%= video.provider %></a>
         |                   </li>
         |              </li>
         |          </div>

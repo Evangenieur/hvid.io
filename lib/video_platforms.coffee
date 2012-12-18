@@ -18,6 +18,7 @@ video_platforms =
       "/{video_id}"
     ]
     embed: "http://www.youtube.com/embed/{video_id}"
+    default: "http://www.youtube.com/watch?v={video_id}"
   vimeo:
     domains: ["vimeo.com"]
     samples: [
@@ -28,6 +29,7 @@ video_platforms =
       "/{video_id}"
     ]
     embed: "http://player.vimeo.com/video/{video_id}"
+    default: "http://vimeo.com/{video_id}"
   dailymotion: 
     domains: ["dailymotion.com"]
     samples: [
@@ -66,7 +68,7 @@ module.exports = me =
                   provider: name
                   embed: URI.generate platform.embed, result
                   id: "#{name}/#{result.video_id}"
-                  url: 'http://' + platform.domains[0] + URI.generate platform.urls[0], result
+                  url: URI.generate platform.default, result
             catch e
               console.log e
     not_found: url.toString()

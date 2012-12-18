@@ -115,6 +115,9 @@ window.hvidio =
       e.stopPropagation()
       e.preventDefault()
 
+    # Player
+    @player = new VideoPlayer($player[0])
+
     $main.addClass "bounceIn"
     this
 
@@ -155,55 +158,11 @@ window.hvidio =
 
     this
 
-  insert_video: (container, pos, video) ->
-    $html = $(hvidio.templatize("#videoTemplate",
-      video: video
-    ))
-    #console.log $("#{container} > li").length
-    elem = $("#{container} > li:eq(#{pos})")
-    if elem.length
-      elem.before $html
-      #console.log  $("#{container} > li").length, $("time", elem).attr("datetime"), " < ", video.date, elem, elem[0], $html[0]
-    else
-      $("#{container} > li:eq(#{pos - 1})").after $html
-    $html.css("visibility", "visible").hide().fadeIn "fast"
-
-  video_reduce: (video) ->
-    video.dom_id = video.id.replace "/", "-"
-    msg = video.msg
-    video.msg = null
-    delete video.msg
-    video.msgs = []
-    event = if @videos[@keyword][video.dom_id]?
-        "video.update" 
-      else 
-        @videos[@keyword][video.dom_id] = video
-        "video.new"
-    video = @videos[@keyword][video.dom_id]
-    video.msgs.push msg
-
-    # Get More recent date
-    post_date = (new Date(msg.post_date)).valueOf()
-    last_date = (new Date(video.date)).valueOf()
-    if not video.date or (post_date > last_date)
-      #console.log "MORE RECENT DATE" if video.date
-      video.date = (new Date(msg.post_date)).toISOString()
-
-    #console.log "videos ", event, video.id
-    video.score = (parseInt(video.score) or 1) + parseInt(msg.score)
-
-    [ event, video ]
-
-
-  get_video_score: (video) ->
-    
-    #- video.msgs.length
-    -(new Date(video.date)).valueOf()
-
   fetch: (@keyword, callback) ->
     obs = new OrderByScore()
     @videos[@keyword] = {}
     @counter = 0
+    $("#counter").text @counter
     
     #
     #                video.order_score = _.reduce(video.msgs, function(memo, num) { 
@@ -270,6 +229,56 @@ window.hvidio =
     #                
     this
 
+
+  insert_video: (container, pos, video) ->
+    $html = $(hvidio.templatize("#videoTemplate",
+      video: video
+    ))
+    #console.log $("#{container} > li").length
+    elem = $("#{container} > li:eq(#{pos})")
+    if elem.length
+      elem.before $html
+      #console.log  $("#{container} > li").length, $("time", elem).attr("datetime"), " < ", video.date, elem, elem[0], $html[0]
+    else
+      $("#{container} > li:eq(#{pos - 1})").after $html
+    #$html.css("visibility", "visible").hide().fadeIn "fast"
+
+  video_reduce: (video) ->
+    video.dom_id = video.id.replace "/", "-"
+    msg = video.msg
+    video.msg = null
+    delete video.msg
+    video.msgs = []
+    event = if @videos[@keyword][video.dom_id]?
+        "video.update" 
+      else 
+        @videos[@keyword][video.dom_id] = video
+        "video.new"
+    video = @videos[@keyword][video.dom_id]
+    video.msgs.push msg
+
+    video.on or= []
+    if video.on.indexOf(msg.provider) == -1
+      video.on.push msg.provider
+
+    # Get More recent date
+    post_date = (new Date(msg.post_date)).valueOf()
+    last_date = (new Date(video.date)).valueOf()
+    if not video.date or (post_date > last_date)
+      #console.log "MORE RECENT DATE" if video.date
+      video.date = (new Date(msg.post_date)).toISOString()
+
+    #console.log "videos ", event, video.id
+    video.score = (parseInt(video.score) or 1) + parseInt(msg.score)
+
+    [ event, video ]
+
+
+  get_video_score: (video) ->
+    
+    #- video.msgs.length
+    -(new Date(video.date)).valueOf()
+
   templatize: (template, data, output) ->
     tmpl = $(template).html()
     html = _.template(tmpl, data)
@@ -329,14 +338,24 @@ window.hvidio =
   play: (embed, delay) ->
     $results.find(".video").removeClass "current"
     $results.find("a[href=\"" + embed + "\"]").closest(".video").addClass "current"
-    if embed.indexOf("?") is -1
-      embed += "?"
-    else
-      embed += "&"
-    embed += "wmode=transparent&autoplay=1&autohide=1"
+    
+    dom_id = $results.find("a[href=\"" + embed + "\"]").closest(".video").attr "id"
+    
+    video = _(@videos[@keyword]).find (vdo) -> 
+      console.log vdo.dom_id
+      vdo.dom_id is dom_id
+    
+    console.log @, dom_id, video
+
     clearTimeout timerPlay if timerPlay
-    timerPlay = setTimeout ->
-      $player.attr "src", embed
+
+    timerPlay = setTimeout =>
+      @player
+        .load(video)
+        .on "ready", ->
+          @play()
+          @on "finish", ->
+            hvidio.next()
     , delay
 
     this
