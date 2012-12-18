@@ -135,6 +135,7 @@ class VideoPlayer
 
   load: (video_obj) ->
     $("iframe", @container).remove()
+    @player?.ee.removeAllListeners()
     player_opts = 
 
     @player = switch video_obj.provider
@@ -155,3 +156,20 @@ class VideoPlayer
     @player.on args...
 
 window.VideoPlayer = VideoPlayer
+###
+vimeo =  JSON.parse '{"video_id":"18925628","provider":"vimeo","embed":"http://player.vimeo.com/video/18925628","id":"vimeo/18925628","url":"http://vimeo.com/18925628","title":"Paradise Circus - Massive Attack","thumbnail":"http://b.vimeocdn.com/ts/119/471/119471822_640.jpg","dom_id":"vimeo-18925628"}'
+youtube =  JSON.parse '{"video_id":"0TYQWJOOd5g","provider":"youtube","embed":"http://www.youtube.com/embed/0TYQWJOOd5g","id":"youtube/0TYQWJOOd5g","url":"http://www.youtube.com/watch?v=0TYQWJOOd5g","title":"Iron Sky Trailer (1080p)","thumbnail":"http://i.ytimg.com/vi/0TYQWJOOd5g/default.jpg","dom_id":"youtube-0TYQWJOOd5g"}'
+console.log  vimeo
+console.log  youtube
+p = new VideoPlayer(document.getElementById("player"))
+p.load(youtube)
+p.on "ready", ->
+  p.play()
+  p.on "finish", -> console.log "finished"
+
+p2 = new VideoPlayer(document.getElementById("player2"))
+p2.load(vimeo)
+p2.on "ready", ->
+  p2.play()
+  p2.on "finish", -> console.log "finished"
+###

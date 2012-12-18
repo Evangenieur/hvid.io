@@ -139,7 +139,6 @@ window.hvidio =
   search: (keyword) ->
     if keyword
       @keyword = keyword
-      console.log this
       hvidio.loading true
       hvidio.fetch keyword, (data) ->
 
@@ -342,11 +341,8 @@ window.hvidio =
     dom_id = $results.find("a[href=\"" + embed + "\"]").closest(".video").attr "id"
     
     video = _(@videos[@keyword]).find (vdo) -> 
-      console.log vdo.dom_id
       vdo.dom_id is dom_id
     
-    console.log @, dom_id, video
-
     clearTimeout timerPlay if timerPlay
 
     timerPlay = setTimeout =>
