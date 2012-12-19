@@ -342,6 +342,7 @@ window.hvidio =
     
     video = _(@videos[@keyword]).find (vdo) -> 
       vdo.dom_id is dom_id
+    console.log "Play", video
     
     clearTimeout timerPlay if timerPlay
 

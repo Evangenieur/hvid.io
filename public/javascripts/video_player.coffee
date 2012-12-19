@@ -8,13 +8,14 @@ class IFramePlayer
       if @iframe[k]?
         @iframe[k] = v
 
+    @iframe.src += "?" if @iframe.src.indexOf("?") == -1
     switch typeof @opts.src_params 
       when "object"
         for k, v of @opts.src_params
           if v is true then v = 1
-          @iframe.src += "&#{k}=#{v}"
+          @iframe.src += "#{k}=#{v}&"
       when "string"
-        @iframe.src += "&#{@opts.src_params}"
+        @iframe.src += "#{@opts.src_params}&"
     
 
     ###
@@ -78,7 +79,10 @@ class IFramePlayer
 class YoutubePlayer extends IFramePlayer
   constructor: (opts = {}) ->
     opts.iframe_params or= {}
-    opts.iframe_params.src = "http://www.youtube.com/embed/#{opts.video_id}?enablejsapi=1"
+    opts.iframe_params.src = "http://www.youtube.com/embed/#{opts.video_id}"
+    opts.src_params or= {}
+    opts.src_params.enablejsapi = 1
+    opts.src_params.wmode = "transparent"
     opts.events_handler = 
       onReady: ->
       onStateChange: ->
