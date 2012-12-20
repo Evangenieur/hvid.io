@@ -304,7 +304,7 @@ window.hvidio =
     $hashtags
       .css('top',  (fp.top) + 'px')
       .css('left', (fp.left + ($keyword.outerWidth())) + 'px')
-      .fadeIn('slow');
+      .addClass('animated fadeInUp').show();
 
   toggle: ->
     if $main.is(":visible")
