@@ -329,8 +329,7 @@ window.hvidio =
   fadeImg: (html) ->
     $("#results img").each ->
       $(this).on "load", ->
-        $(this).css("visibility", "visible").hide().fadeIn()
-
+        $(this).addClass 'animated fadeIn'
 
     this
 
