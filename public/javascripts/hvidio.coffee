@@ -13,6 +13,7 @@ $close = $("#close")
 $header = $("#header")
 $hashtags = $('#hashtags')
 $clickjack = $("#clickjack")
+num_vdo_by_row = null
 window.hvidio =
   init: ->
     
@@ -25,15 +26,24 @@ window.hvidio =
     loader.setDensity 32
     loader.setRange 0.6
     loader.setSpeed 1
-    
-    # load the hashtag
-    if window.location.hash
-      setTimeout (->
-        $("#keyword").val window.location.hash.substr(1)
-        $("#form").submit()
-      ), 200
-    else
-      $keyword.focus()
+
+    last_search = null    
+
+    # Hash Check
+    setInterval ->
+      search_term = if window.location.hash
+          unescape window.location.hash.substr(1).replace("+", " ")
+        else
+          null
+      if last_search isnt search_term
+        if search_term isnt $("#keyword").val()
+          $("#keyword").val search_term
+          $("#form").submit()
+        hvidio.search search_term
+        last_search = search_term
+    , 100
+
+    $keyword.focus()
 
     jQuery.timeago.settings.allowFuture = true
     
@@ -75,8 +85,7 @@ window.hvidio =
     $form.on "submit", (e) ->
       keyword = $keyword.val()
       $hashtags.remove()
-      hvidio.search keyword
-      window.location.hash = "#" + keyword
+      window.location.hash = "#" + escape(keyword.replace(" ", "+")).replace("%23", "#")
       e.preventDefault()
 
     #keyCodes
@@ -336,9 +345,17 @@ window.hvidio =
 
   play: (embed, delay) ->
     $results.find(".video").removeClass "current"
-    $results.find("a[href=\"" + embed + "\"]").closest(".video").addClass "current"
+    $currentVdo = $results.find("a[href=\"" + embed + "\"]").closest(".video")
+    $currentVdo.blur() if  $(":focus")[0]?.nodeName is "INPUT"
+    $currentVdo.addClass "current"
+    $currentVdo.blur() 
+
+    try 
+      $results.mCustomScrollbar "scrollTo", pos.top
+    catch e
+      console.log e
     
-    dom_id = $results.find("a[href=\"" + embed + "\"]").closest(".video").attr "id"
+    dom_id = $currentVdo.attr "id"
     
     video = _(@videos[@keyword]).find (vdo) -> 
       vdo.dom_id is dom_id
@@ -389,6 +406,10 @@ window.hvidio =
     ew = $results.find("li").outerWidth(true)
     rw = (Math.floor(mw / ew)) * ew
     $results.find(".video-list").width rw
+
+
+    $(".video:eq(0)").each (v) ->
+
     
     hvidio.hashtags()
 
