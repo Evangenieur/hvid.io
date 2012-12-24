@@ -313,7 +313,7 @@ window.hvidio =
     $hashtags
       .css('top',  (fp.top) + 'px')
       .css('left', (fp.left + ($keyword.outerWidth())) + 'px')
-      .fadeIn('slow');
+      .addClass('animated fadeInUp').show();
 
   toggle: ->
     if $main.is(":visible")
@@ -338,8 +338,7 @@ window.hvidio =
   fadeImg: (html) ->
     $("#results img").each ->
       $(this).on "load", ->
-        $(this).css("visibility", "visible").hide().fadeIn()
-
+        $(this).addClass 'animated fadeIn'
 
     this
 
